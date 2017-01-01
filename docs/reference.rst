@@ -33,8 +33,10 @@ Quantum Marginal Problem
 This module contains functionality for computing moment polytopes associated with the pure-state marginal problem, i.e., the :math:`\times_i GL(d_i)`-representation :math:`\bigotimes_i \mathbb C^{d_i}`.
 
 .. currentmodule:: moment_polytopes.qmp
+.. autodata:: DEFAULT_SUBSYSTEM_LABELS
 .. autofunction:: hrepr
 .. autofunction:: vrepr
+.. autofunction:: pretty
 .. autofunction:: H_AB_dominant
 .. autofunction:: H_ABC_dominant
 .. autofunction:: H_dominant_admissible

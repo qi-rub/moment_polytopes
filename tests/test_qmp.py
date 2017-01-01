@@ -350,3 +350,33 @@ def test_compare_against_sage(dims, algorithm):
         ieqs = qmp.H_ressayre(dims, algorithm=algorithm, include_perms=False)
         ieqs_ref = qmp.H_ressayre(dims, include_perms=False)
         assert ieqs == ieqs_ref
+
+
+def test_pretty_three_qubits(algorithm):
+    p = qmp.pretty((2, 2, 2), algorithm=algorithm)
+    assert repr(p).strip() == str(p).strip() == """
+C(2,2,2)
+========
+
+Facets
+------
+
+  #  H_A      H_B      H_C        z  Remarks
+---  -------  -------  -------  ---  ---------
+  1  (-1, 1)  (-1, 1)  (1, -1)    1  *
+  2  (0, 0)   (0, 0)   (1, -1)    0  o
+
+Facet format is (H_A,lambda_A) + ... + z >= 0. The last column states
+whether the facet includes the origin (o) or the highest weight (*).
+
+Vertices
+--------
+
+  #  V_A         V_B         V_C
+---  ----------  ----------  ----------
+  1  (1/2, 1/2)  (1/2, 1/2)  (1/2, 1/2)
+  2  (1/2, 1/2)  (1/2, 1/2)  (1, 0)
+  3  (1, 0)      (1, 0)      (1, 0)
+
+All data is up to permutations of subsystems.
+""".strip()

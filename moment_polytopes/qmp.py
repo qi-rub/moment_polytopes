@@ -1,23 +1,28 @@
 from __future__ import absolute_import, print_function
-import logging
+import logging, string
 from sage.all import QQ, lcm, gcd, vector, prod, cartesian_product
 from . import extremal_edges, StabilizerGroup, external_tensor_product, c_candidates, length_tuples, antishuffles, perm_action, ressayre_tester, HRepr
 from .disk_cache import disk_cache
 
 __all__ = [
-    'hrepr',
-    'vrepr',
+    'DEFAULT_SUBSYSTEM_LABELS',
     'H_AB_dominant',
     'H_ABC_dominant',
     'H_dominant_admissible',
     'H_candidates',
     'H_ressayre',
+    'hrepr',
+    'vrepr',
     'facet_normal_form',
     'ieqs_wo_perms',
     'vertices_wo_perms',
+    'pretty',
 ]
 
 logger = logging.getLogger(__name__)
+
+#: Default subsystem labels used by :func:`pretty`.
+DEFAULT_SUBSYSTEM_LABELS = string.ascii_uppercase
 
 
 def H_AB_dominant(a, b, include_perms=True):
@@ -311,3 +316,112 @@ def vertices_wo_perms(dims, vertices):
         V_nf = sum(vs_nf, ())
         result.add(V_nf)
     return result
+
+
+class PrettyPrinter(object):
+    """Pretty-print moment polytope for pure-state quantum marginal problem.
+
+    :param dims: dimensions :math:`d_1,\dots,d_n` of the tensor factors.
+    :param show_hrepr: show H-representation.
+    :param show_vrepr: show V-representation.
+    :param include_perms: if ``True``, include permutations of the :math:`n` subsystems.
+    :param subsystem_labels: custom subsystem labels.
+
+    All other arguments are forwarded to :func:`moment_polytopes.ressayre_tester`.
+    """
+
+    def __init__(self,
+                 dims,
+                 show_hrepr=True,
+                 show_vrepr=True,
+                 include_perms=False,
+                 subsystem_labels=None,
+                 **kwargs):
+        self.dims = dims
+        self.subsystem_labels = subsystem_labels if subsystem_labels else DEFAULT_SUBSYSTEM_LABELS
+
+        # compute H-representation
+        if show_hrepr:
+            ieqs = hrepr(dims, **kwargs).ieqs
+            ieqs = ieqs if include_perms else ieqs_wo_perms(dims, ieqs)
+            self.ieqs = sorted((tuple(H), c) for (H, c) in ieqs)
+        else:
+            self.ieqs = None
+
+        # compute V-representation
+        if show_vrepr:
+            vertices = vrepr(dims, **kwargs).vertices
+            vertices = vertices if include_perms else vertices_wo_perms(
+                dims, vertices)
+            self.vertices = sorted(tuple(V) for V in vertices)
+        else:
+            self.vertices = None
+
+    def __repr__(self):
+        """Pretty-print quantum marginal problem polytope."""
+        from tabulate import tabulate as _tabulate
+
+        # title
+        title = 'C(%s)' % ','.join(str(d) for d in self.dims)
+        lines = [title, '=' * len(title)]
+
+        # facets
+        if self.ieqs is not None:
+            headers = ['#'] + [
+                'H_%s' % s for (_, s) in zip(self.dims, self.subsystem_labels)
+            ] + ['z', 'Remarks']
+            lines += [
+                '', 'Facets', '------', '', _tabulate(
+                    self._facets_table(), headers=headers)
+            ]
+            lines += [
+                '',
+                'Facet format is (H_A,lambda_A) + ... + z >= 0. The last column states',
+                'whether the facet includes the origin (o) or the highest weight (*).'
+            ]
+
+        # facets
+        if self.vertices is not None:
+            headers = ['#'] + [
+                'V_%s' % s for (_, s) in zip(self.dims, self.subsystem_labels)
+            ]
+            lines += [
+                '', 'Vertices', '--------', '', _tabulate(
+                    self._vertices_table(), headers=headers)
+            ]
+
+        lines += ['', 'All data is up to permutations of subsystems.']
+        return '\n'.join(lines)
+
+    def _facets_table(self):
+        facets = []
+        for idx, (H, c) in enumerate(self.ieqs):
+            hs = [
+                H[sum(self.dims[:i]):sum(self.dims[:i + 1])]
+                for i in range(len(self.dims))
+            ]
+
+            # collect remarks
+            assert all(sum(h) == 0 for h in hs)
+            remarks = []
+            if c == 0: remarks.append('o')
+            if sum(h[0] for h in hs) == c: remarks.append('*')
+
+            # format
+            hs = ['(%s)' % ', '.join(map(str, h)) for h in hs]
+            facets.append([idx + 1] + hs + [-c, ', '.join(remarks)])
+        return facets
+
+    def _vertices_table(self):
+        vertices = []
+        for idx, V in enumerate(self.vertices):
+            vs = [
+                V[sum(self.dims[:i]):sum(self.dims[:i + 1])]
+                for i in range(len(self.dims))
+            ]
+            vs = ['(%s)' % ', '.join(map(str, v)) for v in vs]
+            vertices.append([idx + 1] + vs)
+        return vertices
+
+
+pretty = PrettyPrinter
