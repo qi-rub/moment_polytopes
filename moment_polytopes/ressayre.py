@@ -10,6 +10,7 @@ __all__ = [
     'ressayre_tester',
     'is_ressayre',
     'is_admissible',
+    'c_candidates',
 ]
 
 logger = logging.getLogger(__name__)
@@ -272,3 +273,34 @@ def is_admissible(R, ieq):
     logger.debug('dimension of affine hull is %d, supposed to be %d', dim,
                  R.dimension_affine_hull_weights - 1)
     return dim == R.dimension_affine_hull_weights - 1
+
+
+def c_candidates(R, H):
+    """Return possible :math:`c` such that :math:`(H,c)` is admissible for the given representation (see :func:`is_admissible`).
+
+    :param R: the representation.
+    :param H: the normal vector.
+    :type R: :class:`Representation`
+    :type H: :class:`sage.vector`
+    :rtype: set of integers
+    """
+    # sort weights by H-weight (= possible values of c)
+    H = vector(H)
+    weights_by_c = defaultdict(list)
+    for omega in R.weights:
+        weights_by_c[omega.dot_product(H)].append(omega)
+
+    # test all possible values of c
+    cs = set()
+    for c, weights in weights_by_c.iteritems():
+        # impossible?
+        if len(weights) < R.dimension_affine_hull_weights:
+            continue
+
+        # check if affine hull has correct dimension
+        dim = dim_affine_hull(weights)
+        assert dim < R.dimension_affine_hull_weights
+        if dim == R.dimension_affine_hull_weights - 1:
+            cs.add(c)
+
+    return cs

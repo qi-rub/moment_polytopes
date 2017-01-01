@@ -14,6 +14,7 @@ This module contains functionality for computing moment polytopes of arbitrary f
 .. autofunction:: ressayre_tester
 .. autofunction:: is_ressayre
 .. autofunction:: is_admissible
+.. autofunction:: c_candidates
 
 Representations
 ---------------
