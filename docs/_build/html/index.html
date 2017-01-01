@@ -45,20 +45,20 @@
 <p>This is a <a class="reference external" href="http://www.sagemath.org">SageMath</a> package for computing moment polytopes associated with finite-dimensional representations of compact and connected Lie groups, based on the algorithm proposed by <a class="reference external" href="https://arxiv.org/abs/1410.8144">Vergne and Walter (2014)</a> (see also <a class="reference external" href="https://arxiv.org/abs/1410.6820">Walter (2014)</a> for further detail).</p>
 <div class="section" id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
-<p>The following code solves the one-body quantum marginal problem for three qubits:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">moment_polytopes</span>
+<p>The following code solves the one-body quantum marginal problem for three qubits (<a class="reference download internal" href="_downloads/three_qubits.py" download=""><code class="xref download docutils literal"><span class="pre">three_qubits.py</span></code></a>):</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">moment_polytopes</span>
 
-<span class="c1"># compute three-qubit moment cone in H-representation</span>
+<span class="c1"># compute three-qubit moment polytope in H-representation</span>
 <span class="n">three_qubits</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="n">hrepr</span> <span class="o">=</span> <span class="n">moment_polytopes</span><span class="o">.</span><span class="n">qmp_hrepr_irred</span><span class="p">(</span><span class="n">three_qubits</span><span class="p">)</span>
-<span class="nb">print</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> facets&#39;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">hrepr</span><span class="o">.</span><span class="n">ieqs</span><span class="p">)</span>
+<span class="n">hrepr</span> <span class="o">=</span> <span class="n">moment_polytopes</span><span class="o">.</span><span class="n">qmp</span><span class="o">.</span><span class="n">hrepr</span><span class="p">(</span><span class="n">three_qubits</span><span class="p">)</span>
+<span class="k">print</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> facets&#39;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">hrepr</span><span class="o">.</span><span class="n">ieqs</span><span class="p">)</span>
 
 <span class="c1"># convert to V-representation</span>
 <span class="n">vrepr</span> <span class="o">=</span> <span class="n">hrepr</span><span class="o">.</span><span class="n">vrepr</span><span class="p">()</span>
-<span class="nb">print</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> vertices&#39;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">vrepr</span><span class="o">.</span><span class="n">vertices</span><span class="p">)</span>
+<span class="k">print</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> vertices&#39;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">vrepr</span><span class="o">.</span><span class="n">vertices</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>We have used this package to compute moment cones associated with many other quantum marginal problems (TODO: add link).</p>
+<p>We have used this package to compute moment cones associated with many other quantum marginal problems (XXX: add link).</p>
 <p>You can install this package as follows:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>sage -i lrslib
 sage -pip install git+git://github.com/catch22/moment_polytopes
