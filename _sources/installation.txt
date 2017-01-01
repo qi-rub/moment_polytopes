@@ -14,6 +14,7 @@ To test your installation, download the :download:`three_qubits.py <../examples/
 
   sage three_qubits.py
 
+
 Troubleshooting
 ---------------
 
@@ -23,3 +24,11 @@ If on the second line you get an error message saying that "pip is configured wi
 
   sage -i openssl
   sage -f python2
+
+
+Mathematica Integration
+-----------------------
+
+`Wolfram Mathematica <https://www.wolfram.com/mathematica/>`_ contains some clever heuristics for evaluating determinants of polynomial matrices, and we provide the ``mathematica`` algorithm in :func:`moment_polytopes.ressayre_tester` etc. to leverage its functionality.
+
+To use it, Mathematica needs to be installed and the ``math`` executable has to be available in the current ``PATH``. Run ``print mathematica._install_hints()`` at the ``sage`` prompt for further information on how to set up SageMath's Mathematica integration.
