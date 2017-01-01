@@ -1,6 +1,7 @@
 from __future__ import absolute_import, print_function
 from sage.all import Integer, vector, gcd, ZZ, QQ, RootSystem, Partition, SemistandardTableaux, matrix, crystals, copy, Tableau, cartesian_product
 from . import HRepr
+from .utils import dim_affine_hull
 
 __all__ = [
     "Representation",
@@ -10,11 +11,6 @@ __all__ = [
     "dual_root_primitive",
     "positive_weyl_chamber_hrepr",
 ]
-
-
-def _dim_affine_hull(points):
-    """Return dimension of affine hull of given collection of points."""
-    return matrix([p - points[0] for p in points[1:]]).rank()
 
 
 class Representation(object):
@@ -56,8 +52,7 @@ class Representation(object):
         """The dimension of the affine subspace spanned by the weights."""
         # compute once and cache for future invocations
         if self._dimension_affine_hull_weights is None:
-            self._dimension_affine_hull_weights = _dim_affine_hull(
-                self.weights)
+            self._dimension_affine_hull_weights = dim_affine_hull(self.weights)
         return self._dimension_affine_hull_weights
 
     @property

@@ -56,9 +56,12 @@ Combinatorics
 Internals
 ---------
 
+.. currentmodule:: moment_polytopes
 .. autodata:: __version__
 
 .. currentmodule:: moment_polytopes.disk_cache
-
 .. autodata:: DISK_CACHE_DIR
 .. autofunction:: disk_cache
+
+.. currentmodule:: moment_polytopes.utils
+.. autofunction:: dim_affine_hull
