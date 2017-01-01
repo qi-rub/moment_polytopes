@@ -198,8 +198,12 @@ class CompositeRessayreTester(RessayreTester):
         #: The delegate testers.
         self.testers = testers
 
-    def is_ressayre(self, ieq):
-        return any(T.is_ressayre(ieq) for T in self.testers)
+    def det(self, Ts, d):
+        for T in self.testers:
+            det = T.det(Ts, d)
+            if det:
+                return det
+        return 0
 
 
 def ressayre_tester(R, algorithm=None, failure_probability=None):
