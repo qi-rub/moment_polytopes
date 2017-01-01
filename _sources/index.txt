@@ -1,3 +1,5 @@
+.. title:: moment_polytopes
+
 Welcome!
 ========
 
