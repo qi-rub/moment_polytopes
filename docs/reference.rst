@@ -54,6 +54,27 @@ Combinatorics
 .. autoclass:: StabilizerGroup
    :members:
 
+Quantum Marginal Problem
+------------------------
+
+This module contains functionality for computing moment polytopes associated with the pure-state marginal problem, i.e., the :math:`\times_i GL(d_i)`-representation :math:`\bigotimes_i \mathbb C^{d_i}`.
+
+.. currentmodule:: moment_polytopes.qmp
+.. autofunction:: facet_normal_form
+
+Third-Party Data
+----------------
+
+This module contains inequalities of moment polytopes computed by others.
+We use them to verify that our implementation is correct.
+
+.. currentmodule:: moment_polytopes.third_party
+.. autodata:: KLYACHKO_FERMI_SCENARIOS
+.. autofunction:: klyachko_fermi_hrepr
+.. autodata:: KLYACHKO_TENSOR_SCENARIOS
+.. autodata:: KLYACHKO_GOOD_TENSOR_SCENARIOS
+.. autofunction:: klyachko_qmp_hrepr
+
 Internals
 ---------
 

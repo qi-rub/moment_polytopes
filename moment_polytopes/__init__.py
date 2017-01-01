@@ -7,3 +7,6 @@ from .polyhedron import *
 from .lie_group import *
 from .ressayre import *
 from .combinat import *
+
+from . import qmp
+from . import third_party

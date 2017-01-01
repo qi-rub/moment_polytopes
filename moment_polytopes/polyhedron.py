@@ -179,11 +179,11 @@ class HRepr(object):
             eqns=self.eqns + rhs.eqns,
             ambient_dim=self.ambient_dim)
 
-    # def map(self, f):
-    #     return HRepr(
-    #         ieqs=map(f, self.ieqs),
-    #         eqns=map(f, self.eqns),
-    #         ambient_dim=self.ambient_dim)
+    def map(self, f, ambient_dim=None):
+        return HRepr(
+            ieqs=map(f, self.ieqs),
+            eqns=map(f, self.eqns),
+            ambient_dim=ambient_dim)
 
     def to_sage(self):
         """Convert to Sage :class:`sage.Polyhedron` object.
