@@ -1,3 +1,4 @@
 /moment_polytopes.egg-info
 /docs/_build/doctrees
-.cache/v/cache/lastfailed
+/.cache/v/cache/lastfailed
+.ipynb_checkpoints
