@@ -977,7 +977,7 @@ def _find_qmp_scenario(dims):
     raise Exception("Cannot obtain %s from Klyachko's scenarios." % (dims, ))
 
 
-def klyachko_qmp_hrepr(dims, bare=False):
+def klyachko_qmp_hrepr(dims, bare=False, irred=True):
     r"""Return the moment polytope for the :math:`\times_i GL(d_i)`-representation on :math:`\bigotimes_i \mathbb C^{d_i}` as computed in `Klyachko (2004) <https://arxiv.org/abs/quant-ph/0409113>`_.
 
     See :data:`KLYACHKO_QMP_SCENARIOS` and :data:`KLYACHKO_GOOD_QMP_SCENARIOS` for available scenarios.
@@ -985,6 +985,7 @@ def klyachko_qmp_hrepr(dims, bare=False):
 
     :param dims: the dimensions :math:`(d_1,\dots,d_n)`.
     :param bare: if ``True`` then permutations, positivity, and Weyl chamber inequalities are omitted.
+    :param irred: if ``True`` then an irredunant H-representation is returned.
     :rtype: :class:`moment_polytopes.HRepr`
     """
     # look up klyachko scenario
@@ -999,7 +1000,8 @@ def klyachko_qmp_hrepr(dims, bare=False):
     # fetch bare inequalities
     bare_ieqs = _klyachko_qmp_bare_ieqs(dims_klyachko)
     if bare:
-        return HRepr(ieqs=bare_ieqs)
+        hrepr = HRepr(ieqs=bare_ieqs)
+        return hrepr.irred() if irred else hrepr
 
     # positivity_ieq = ((0,) * (sum(dims_klyachko) - 1) + (1,), 0)
     # bare_ieqs += [positivity_ieq]
@@ -1033,7 +1035,10 @@ def klyachko_qmp_hrepr(dims, bare=False):
 
     # intersect with reduced Weyl chamber
     R = external_tensor_product(dims)
-    return HRepr(ieqs=ieqs) & R.reduced_positive_weyl_chamber_hrepr
+    hrepr = HRepr(ieqs=ieqs) & R.reduced_positive_weyl_chamber_hrepr
+
+    # make irredundant?
+    return hrepr.irred() if irred else hrepr
 
 
 def higuchi_hrepr(num_qubits=3):

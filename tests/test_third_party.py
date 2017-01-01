@@ -55,7 +55,7 @@ def test_fermi_ieqs(algorithm, n, d):
 
 
 def test_qmp_333():
-    hrepr = third_party.klyachko_qmp_hrepr([3, 3, 3]).irred()
+    hrepr = third_party.klyachko_qmp_hrepr([3, 3, 3])
     assert len(hrepr.ieqs) == 45
     assert len(hrepr.vertices()) == 33
 
@@ -72,7 +72,7 @@ def test_qmp_333():
     ])
 def test_klyachko_qmp_hrepr_bare(algorithm, dims):
     # retrieve inequalities according to Klyachko (w/o Weyl chamber and permutations)
-    bare_hrepr = third_party.klyachko_qmp_hrepr(dims, bare=True)
+    bare_hrepr = third_party.klyachko_qmp_hrepr(dims, bare=True, irred=False)
 
     # verify inequalities
     R = external_tensor_product(dims)
@@ -92,11 +92,11 @@ def test_klyachko_qmp_hrepr_bare(algorithm, dims):
 ])
 def test_klyachko_qmp_hrepr_positivity_bug(dims):
     # retrieve QMP polytope according to Klyachko
-    hrepr = third_party.klyachko_qmp_hrepr(dims)
+    hrepr = third_party.klyachko_qmp_hrepr(dims, irred=False)
 
     # check that lambda_{AB,ab} >= 0 holds for all vertices (and hence for the polytope) -- there was a bug where we forgot to add this (which also implied that the polytope was unbounded!)
-    vs = hrepr.vertices()
-    assert all(v[-1] >= 0 for v in vs)
+    vertices = hrepr.vertices()
+    assert all(v[-1] >= 0 for v in vertices)
 
 
 def test_klyachko_vs_higuchi():
