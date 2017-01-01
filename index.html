@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Welcome! &#8212; moment_polytopes</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Changelog" href="changes.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="welcome">
+<h1>Welcome!<a class="headerlink" href="#welcome" title="Permalink to this headline">¶</a></h1>
+<p>This is a <a class="reference external" href="http://www.sagemath.org">SageMath</a> package for computing moment polytopes associated with finite-dimensional representations of compact and connected Lie groups.</p>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>The following code solves the one-body quantum marginal problem for three qubits:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">moment_polytopes</span>
+
+<span class="c1"># compute three-qubit moment cone in H-representation</span>
+<span class="n">three_qubits</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">hrepr</span> <span class="o">=</span> <span class="n">moment_polytopes</span><span class="o">.</span><span class="n">qmp_hrepr_irred</span><span class="p">(</span><span class="n">three_qubits</span><span class="p">)</span>
+<span class="nb">print</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> facets&#39;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">hrepr</span><span class="o">.</span><span class="n">ieqs</span><span class="p">)</span>
+
+<span class="c1"># convert to V-representation</span>
+<span class="n">vrepr</span> <span class="o">=</span> <span class="n">hrepr</span><span class="o">.</span><span class="n">vrepr</span><span class="p">()</span>
+<span class="nb">print</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> vertices&#39;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">vrepr</span><span class="o">.</span><span class="n">vertices</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We have used this package to compute moment cones associated with many other quantum marginal problems.</p>
+</div>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>This package requires <a class="reference external" href="http://www.sagemath.org">SageMath</a> 7.5 or higher. It can be installed as follows:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>sage -i lrslib
+sage -pip install git+git://github.com/catch22/moment_polytopes
+</pre></div>
+</div>
+<div class="section" id="ssl-troubleshooting">
+<h3>SSL Troubleshooting<a class="headerlink" href="#ssl-troubleshooting" title="Permalink to this headline">¶</a></h3>
+<p>If on the second line you get an error message of the type <code class="docutils literal"><span class="pre">pip</span> <span class="pre">is</span> <span class="pre">configured</span> <span class="pre">with</span> <span class="pre">locations</span> <span class="pre">that</span> <span class="pre">require</span> <span class="pre">TLS/SSL,</span> <span class="pre">however</span> <span class="pre">the</span> <span class="pre">ssl</span> <span class="pre">module</span> <span class="pre">in</span> <span class="pre">Python</span> <span class="pre">is</span> <span class="pre">not</span> <span class="pre">available.</span></code>, please run the following and retry:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>sage -i openssl
+sage -f python2
+</pre></div>
+</div>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+</div>
+<div class="section" id="miscellaneous-pages">
+<h2>Miscellaneous Pages<a class="headerlink" href="#miscellaneous-pages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="changes.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#version-1-0">Version 1.0</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><h3 class="logo"><a href="#">moment_polytopes</a></h3>
+<p class="blurb">This is a <a href="http://www.sagemath.org">SageMath</a> package for computing moment polytopes.</p>
+
+<h3>Useful Links</h3>
+<ul>
+  <li><a href="https://catch22.github.io/moment_polytopes">The Website</a></li>
+  <li><a href="https://arxiv.org/abs/1410.8144">The Paper</a></li>
+  <li><a href="https://github.com/catch22/moment_polytopes">GitHub</a></li>
+  <li><a href="https://github.com/catch22/moment_polytopes/issues">Issue Tracker</a></li>
+</ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2014-2017 Michael Walter.
+      
+    </div>
+
+    
+    <a href="https://github.com/catch22/moment_polytopes" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>
