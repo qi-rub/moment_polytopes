@@ -3,6 +3,12 @@ Reference
 
 .. module:: moment_polytopes
 
+Lie Groups
+----------
+
+.. autofunction:: is_dual_root_primitive
+.. autofunction:: dual_root_primitive
+
 Polyhedra
 ---------
 

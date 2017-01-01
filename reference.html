@@ -43,6 +43,51 @@
             
   <div class="section" id="module-moment_polytopes">
 <span id="reference"></span><h1>Reference<a class="headerlink" href="#module-moment_polytopes" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="lie-groups">
+<h2>Lie Groups<a class="headerlink" href="#lie-groups" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="moment_polytopes.is_dual_root_primitive">
+<code class="descclassname">moment_polytopes.</code><code class="descname">is_dual_root_primitive</code><span class="sig-paren">(</span><em>root_system</em>, <em>H</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.is_dual_root_primitive" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determine if the vector <code class="docutils literal"><span class="pre">H</span></code> is primitive in the dual root lattice of the given root system.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>root_system</strong> (<code class="xref py py-class docutils literal"><span class="pre">sage.RootSystem</span></code>) &#8211; root system.</li>
+<li><strong>H</strong> (<code class="xref py py-class docutils literal"><span class="pre">sage.vector</span></code>) &#8211; vector to be rescaled. Should be an element of the dual root lattice (in ambient coordinates).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><code class="xref py py-class docutils literal"><span class="pre">sage.vector</span></code></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="moment_polytopes.dual_root_primitive">
+<code class="descclassname">moment_polytopes.</code><code class="descname">dual_root_primitive</code><span class="sig-paren">(</span><em>root_system</em>, <em>H</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.dual_root_primitive" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rescale the vector <code class="docutils literal"><span class="pre">H</span></code> so that it is primitive in the dual root lattice of the given root system.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>root_system</strong> (<code class="xref py py-class docutils literal"><span class="pre">sage.RootSystem</span></code>) &#8211; root system.</li>
+<li><strong>H</strong> (<code class="xref py py-class docutils literal"><span class="pre">sage.vector</span></code>) &#8211; vector to be rescaled. Should be an element of the dual root lattice (in ambient coordinates).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><code class="xref py py-class docutils literal"><span class="pre">sage.vector</span></code></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
 <div class="section" id="polyhedra">
 <h2>Polyhedra<a class="headerlink" href="#polyhedra" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
@@ -747,6 +792,7 @@ This is the maximal-dimensional polytope defined by</p>
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Reference</a><ul>
+<li><a class="reference internal" href="#lie-groups">Lie Groups</a></li>
 <li><a class="reference internal" href="#polyhedra">Polyhedra</a></li>
 <li><a class="reference internal" href="#combinatorics">Combinatorics</a></li>
 <li><a class="reference internal" href="#internals">Internals</a></li>
