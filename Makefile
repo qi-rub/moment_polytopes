@@ -1,7 +1,9 @@
 .PHONY: test docs upload-docs
 
+TEST_FLAGS?=-s
+
 test:
-	SAGE_PATH=. sage -python -m pytest --doctest-glob="*.rst" --tb=short -s -vvvvv
+	SAGE_PATH=. sage -python -m pytest --tb=short $(TEST_FLAGS)
 
 docs:
 	SAGE_PATH=. make -C docs html
