@@ -2,12 +2,14 @@ from __future__ import absolute_import, print_function
 import logging
 from collections import defaultdict
 from sage.all import vector, matrix, ceil, log, random_vector, ZZ, PolynomialRing, mathematica
+from .utils import dim_affine_hull
 
 __all__ = [
     'DEFAULT_FAILURE_PROBABILITY',
     'RessayreTester',
     'ressayre_tester',
     'is_ressayre',
+    'is_admissible',
 ]
 
 logger = logging.getLogger(__name__)
@@ -201,13 +203,13 @@ class CompositeRessayreTester(RessayreTester):
 def ressayre_tester(R, algorithm=None, failure_probability=None):
     r"""Create object for batch-testing Ressayre elements (see :func:`is_ressayre`).
 
-    A **Ressayre element** :math:`(H,c)` for a :math:`G`-representation :math:`R` satisfies:
+    A **Ressayre element** :math:`(H,c)` for a :math:`G`-representation :math:`R` satisfies the following three properties:
 
-    - the hyperplane :math:`H \cdot \omega = c` is spanned by weights,
-    - the number of negative roots :math:`\alpha` with :math:`H \cdot \alpha < c` is equal to the number of weights :math:`\varphi` of the representation :math:`R` such that :math:`H \cdot \varphi < c`,
-    - for some weight vector with weight on the hyperplane :math:`H \cdot \omega = c`, the correspondingly restricted tangent map is an isomorphism.
+    1. the hyperplane :math:`H \cdot \omega = c` is spanned by weights (admissibility, see :func:`is_admissible`),
+    2. the number of negative roots :math:`\alpha` with :math:`H \cdot \alpha < c` is equal to the number of weights :math:`\varphi` of the representation :math:`R` such that :math:`H \cdot \varphi < c`,
+    3. for some weight vector with weight on the hyperplane :math:`H \cdot \omega = c`, the correspondingly restricted tangent map is an isomorphism.
 
-    By `Vergne and Walter (2014) <https://arxiv.org/abs/1410.8144>`_, the Ressayre elements form a complete set of inequalities describing the moment polytope for the :math:`G`-action on the projective space :math:`\mathbb P(R)`.
+    By `Vergne and Walter (2014) <https://arxiv.org/abs/1410.8144>`_, the Ressayre elements form a complete set of inequalities moment polytope for the :math:`G`-action on the projective space :math:`\mathbb P(R)` (except for the Weyl chamber constraints).
 
     :param R: the representation.
     :param algorithm: ``None``, ``'sage'``, ``'mathematica'``, or ``'probabilistic'``.
@@ -242,3 +244,30 @@ def is_ressayre(R, ieq, **kwargs):
     :type R: :class:`Representation`
     """
     return ressayre_tester(R, **kwargs).is_ressayre(ieq)
+
+
+def is_admissible(R, ieq):
+    r"""Determine whether the given element :math:`(H,c)` is admissible (i.e., that the hyperplane :math:`H \cdot \omega = c` is spanned by weights of the representation).
+
+    :param R: the representation.
+    :param ieq: the element :math:`(H,c)`.
+    :type R: :class:`Representation`
+    """
+    # extract element
+    H, c = ieq
+    H = vector(H)
+
+    # determine weights on the hyperplane
+    weights = [omega for omega in R.weights if omega.dot_product(H) == c]
+
+    # impossible?
+    if len(weights) < R.dim_span_weights:
+        logging.debug('not enough weights on the hyperplane')
+        return False
+
+    # check if affine hull has the correct dimension
+    dim = dim_affine_hull(weights)
+    assert dim < R.dim_span_weights, 'Absurd'
+    logging.debug('dimension of affine hull is %d, supposed to be %d', dim,
+                  R.dimension_affine_hull_weights - 1)
+    return dim == R.dimension_affine_hull_weights - 1
