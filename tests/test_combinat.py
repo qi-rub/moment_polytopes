@@ -1,8 +1,8 @@
 from __future__ import absolute_import, print_function
 from collections import defaultdict
+import pytest
 from sage.all import prod, factorial, QQ, vector, Permutation, Permutations
 from moment_polytopes import *
-import pytest
 
 
 def test_rect_tableaux_22():
