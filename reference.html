@@ -43,8 +43,153 @@
             
   <div class="section" id="module-moment_polytopes">
 <span id="reference"></span><h1>Reference<a class="headerlink" href="#module-moment_polytopes" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="lie-groups">
-<h2>Lie Groups<a class="headerlink" href="#lie-groups" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="lie-group-representations">
+<h2>Lie Group Representations<a class="headerlink" href="#lie-group-representations" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="moment_polytopes.Representation">
+<em class="property">class </em><code class="descclassname">moment_polytopes.</code><code class="descname">Representation</code><a class="headerlink" href="#moment_polytopes.Representation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base class for irreducible representations.</p>
+<dl class="attribute">
+<dt id="moment_polytopes.Representation.root_system">
+<code class="descname">root_system</code><a class="headerlink" href="#moment_polytopes.Representation.root_system" title="Permalink to this definition">¶</a></dt>
+<dd><p>Root system of the corresponding Lie group.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="moment_polytopes.Representation.ambient_dim">
+<code class="descname">ambient_dim</code><a class="headerlink" href="#moment_polytopes.Representation.ambient_dim" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dimension of the ambient space containing all negative roots and weights.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="moment_polytopes.Representation.negative_roots">
+<code class="descname">negative_roots</code><a class="headerlink" href="#moment_polytopes.Representation.negative_roots" title="Permalink to this definition">¶</a></dt>
+<dd><p>List of negative roots of the corresponding Lie group.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="moment_polytopes.Representation.weights">
+<code class="descname">weights</code><a class="headerlink" href="#moment_polytopes.Representation.weights" title="Permalink to this definition">¶</a></dt>
+<dd><p>List of weights of the corresponding Lie group (repeated according to multiplicity).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="moment_polytopes.Representation.reduced_eqns">
+<code class="descname">reduced_eqns</code><a class="headerlink" href="#moment_polytopes.Representation.reduced_eqns" title="Permalink to this definition">¶</a></dt>
+<dd><p>Equations <span class="math">\((H,c)\)</span> defining the affine subspace spanned by the weights.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="moment_polytopes.Representation.dimension">
+<code class="descname">dimension</code><a class="headerlink" href="#moment_polytopes.Representation.dimension" title="Permalink to this definition">¶</a></dt>
+<dd><p>The dimension of the representation.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="moment_polytopes.Representation.dimension_affine_hull_weights">
+<code class="descname">dimension_affine_hull_weights</code><a class="headerlink" href="#moment_polytopes.Representation.dimension_affine_hull_weights" title="Permalink to this definition">¶</a></dt>
+<dd><p>The dimension of the affine subspace spanned by the weights.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="moment_polytopes.Representation.negative_root_action">
+<code class="descname">negative_root_action</code><span class="sig-paren">(</span><em>idx_negative_root</em>, <em>idx_weight_vector=None</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.Representation.negative_root_action" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply lowering operator corresponding to a negative root.</p>
+<p>The indices refer to <a class="reference internal" href="#moment_polytopes.Representation.negative_roots" title="moment_polytopes.Representation.negative_roots"><code class="xref py py-attr docutils literal"><span class="pre">negative_roots</span></code></a> and <a class="reference internal" href="#moment_polytopes.Representation.weights" title="moment_polytopes.Representation.weights"><code class="xref py py-attr docutils literal"><span class="pre">weights</span></code></a>, respectively.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>idx_negative_root</strong> &#8211; index of the negative root.</li>
+<li><strong>idx_weight_vector</strong> &#8211; index of the weight vector, or <code class="docutils literal"><span class="pre">None</span></code>. If <code class="docutils literal"><span class="pre">None</span></code> then the matrix representation of the lowering operator is returned.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><code class="xref py py-class docutils literal"><span class="pre">sage.vector</span></code> or <code class="xref py py-class docutils literal"><span class="pre">sage.matrix</span></code></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="moment_polytopes.Representation.reduced_positive_weyl_chamber_hrepr">
+<code class="descname">reduced_positive_weyl_chamber_hrepr</code><a class="headerlink" href="#moment_polytopes.Representation.reduced_positive_weyl_chamber_hrepr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return intersection of positive Weyl chamber and the affine subspace spanned by the weights.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference internal" href="#moment_polytopes.HRepr" title="moment_polytopes.HRepr"><code class="xref py py-class docutils literal"><span class="pre">HRepr</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="moment_polytopes.weyl_module">
+<code class="descclassname">moment_polytopes.</code><code class="descname">weyl_module</code><span class="sig-paren">(</span><em>d</em>, <em>partition</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.weyl_module" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return polynomial irreducible representation of <span class="math">\(GL(d)\)</span> with given highest weight.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">weyl_module</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="go">WeylModule(4, [2, 1])</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>d</strong> &#8211; the rank of the Lie group <span class="math">\(GL(d)\)</span>.</li>
+<li><strong>partition</strong> (<code class="xref py py-class docutils literal"><span class="pre">sage.Partition</span></code>) &#8211; the partition defining the highest weight. Should have no more than <code class="docutils literal"><span class="pre">d</span></code> parts.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#moment_polytopes.Representation" title="moment_polytopes.Representation"><code class="xref py py-class docutils literal"><span class="pre">Representation</span></code></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="moment_polytopes.external_tensor_product">
+<code class="descclassname">moment_polytopes.</code><code class="descname">external_tensor_product</code><span class="sig-paren">(</span><em>Rs</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.external_tensor_product" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct external tensor product of given representations.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">external_tensor_product</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+<span class="go">ExternalTensorProduct([WeylModule(2, [1]), WeylModule(3, [1])])</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>Rs</strong> (list of <a class="reference internal" href="#moment_polytopes.Representation" title="moment_polytopes.Representation"><code class="xref py py-class docutils literal"><span class="pre">Representation</span></code></a> or integers.) &#8211; the representations. Integers <span class="math">\(d\)</span> are interpreted as fundamental representations of <span class="math">\(GL(d)\)</span>.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#moment_polytopes.Representation" title="moment_polytopes.Representation"><code class="xref py py-class docutils literal"><span class="pre">Representation</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="moment_polytopes.positive_weyl_chamber_hrepr">
+<code class="descclassname">moment_polytopes.</code><code class="descname">positive_weyl_chamber_hrepr</code><span class="sig-paren">(</span><em>root_system</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.positive_weyl_chamber_hrepr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return H-representation of positive Weyl chamber for given root system.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>root_system</strong> (<code class="xref py py-class docutils literal"><span class="pre">sage.RootSystem</span></code>) &#8211; the root system.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#moment_polytopes.HRepr" title="moment_polytopes.HRepr"><code class="xref py py-class docutils literal"><span class="pre">HRepr</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="function">
 <dt id="moment_polytopes.is_dual_root_primitive">
 <code class="descclassname">moment_polytopes.</code><code class="descname">is_dual_root_primitive</code><span class="sig-paren">(</span><em>root_system</em>, <em>H</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.is_dual_root_primitive" title="Permalink to this definition">¶</a></dt>
@@ -792,7 +937,7 @@ This is the maximal-dimensional polytope defined by</p>
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Reference</a><ul>
-<li><a class="reference internal" href="#lie-groups">Lie Groups</a></li>
+<li><a class="reference internal" href="#lie-group-representations">Lie Group Representations</a></li>
 <li><a class="reference internal" href="#polyhedra">Polyhedra</a></li>
 <li><a class="reference internal" href="#combinatorics">Combinatorics</a></li>
 <li><a class="reference internal" href="#internals">Internals</a></li>
