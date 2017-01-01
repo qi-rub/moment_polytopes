@@ -75,7 +75,7 @@ KLYACHKO_FERMI_DATA = {
 }
 
 #: Scenarios :math:`(n,d)`, corresponding to the representation of :math:`GL(d)` on the anti-symmetric power :math:`\bigwedge^n \mathbb C^d`.
-KLYACHKO_FERMI_SCENARIOS = KLYACHKO_FERMI_DATA.keys()
+KLYACHKO_FERMI_SCENARIOS = sorted(KLYACHKO_FERMI_DATA.keys())
 
 
 def _parse_fermi_ieq(d, s, split_at):
@@ -898,7 +898,7 @@ KLYACHKO_QMP_DATA = {
 }
 
 #: Scenarios :math:`(d_1,\dots,d_n)`, corresponding to :math:`\times_i GL(d_i)`-representation on :math:`\bigotimes_i \mathbb C^{d_i}`.
-KLYACHKO_QMP_SCENARIOS = KLYACHKO_QMP_DATA.keys()
+KLYACHKO_QMP_SCENARIOS = sorted(KLYACHKO_QMP_DATA.keys())
 
 #: Scenarios :math:`(d_1,\dots,d_n)`, corresponding to :math:`\times_i GL(d_i)`-representation on :math:`\bigotimes_i \mathbb C^{d_i}` for which Klyachko's inequalities do not contain any mistake.
 KLYACHKO_GOOD_QMP_SCENARIOS = [
