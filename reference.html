@@ -43,34 +43,9 @@
             
   <div class="section" id="module-moment_polytopes">
 <span id="reference"></span><h1>Reference<a class="headerlink" href="#module-moment_polytopes" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="quantum-marginal-problem">
-<h2>Quantum Marginal Problem<a class="headerlink" href="#quantum-marginal-problem" title="Permalink to this headline">¶</a></h2>
-<p>This module contains functionality for computing moment polytopes associated with the pure-state marginal problem, i.e., the <span class="math">\(\times_i GL(d_i)\)</span>-representation <span class="math">\(\bigotimes_i \mathbb C^{d_i}\)</span>.</p>
-<dl class="function">
-<dt id="moment_polytopes.qmp.facet_normal_form">
-<code class="descclassname">moment_polytopes.qmp.</code><code class="descname">facet_normal_form</code><span class="sig-paren">(</span><em>dims</em>, <em>ieq</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.qmp.facet_normal_form" title="Permalink to this definition">¶</a></dt>
-<dd><p>Given a facet <span class="math">\(H \cdot \lambda \geq c\)</span> for the quantum marginal problem with given dimensions, where <span class="math">\(H = (H_A, H_B, \dots)\)</span>, make each component <span class="math">\(H_A, H_B, \dots\)</span> traceless, integral, and primitive.</p>
-<p>This generically makes the inequality unique.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>dims</strong> &#8211; the dimensions <span class="math">\(d_1,\dots,d_n\)</span>.</li>
-<li><strong>ieq</strong> &#8211; the inequality <span class="math">\((H,c)\)</span> defining the facet.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">the</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</div>
 <div class="section" id="ressayre-elements">
 <h2>Ressayre Elements<a class="headerlink" href="#ressayre-elements" title="Permalink to this headline">¶</a></h2>
+<p>This module contains functionality for computing moment polytopes of arbitrary finite-dimensional representations of compact, connected Lie groups (see <a class="reference internal" href="#moment_polytopes.is_ressayre" title="moment_polytopes.is_ressayre"><code class="xref py py-func docutils literal"><span class="pre">is_ressayre()</span></code></a> and <a class="reference internal" href="#moment_polytopes.Representation" title="moment_polytopes.Representation"><code class="xref py py-class docutils literal"><span class="pre">Representation</span></code></a> below).</p>
 <dl class="data">
 <dt id="moment_polytopes.DEFAULT_FAILURE_PROBABILITY">
 <code class="descclassname">moment_polytopes.</code><code class="descname">DEFAULT_FAILURE_PROBABILITY</code><em class="property"> = 1e-10</em><a class="headerlink" href="#moment_polytopes.DEFAULT_FAILURE_PROBABILITY" title="Permalink to this definition">¶</a></dt>
@@ -397,6 +372,32 @@
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><code class="xref py py-class docutils literal"><span class="pre">sage.vector</span></code></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="quantum-marginal-problem">
+<h2>Quantum Marginal Problem<a class="headerlink" href="#quantum-marginal-problem" title="Permalink to this headline">¶</a></h2>
+<p>This module contains functionality for computing moment polytopes associated with the pure-state marginal problem, i.e., the <span class="math">\(\times_i GL(d_i)\)</span>-representation <span class="math">\(\bigotimes_i \mathbb C^{d_i}\)</span>.</p>
+<dl class="function">
+<dt id="moment_polytopes.qmp.facet_normal_form">
+<code class="descclassname">moment_polytopes.qmp.</code><code class="descname">facet_normal_form</code><span class="sig-paren">(</span><em>dims</em>, <em>ieq</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.qmp.facet_normal_form" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a facet <span class="math">\(H \cdot \lambda \geq c\)</span> for the quantum marginal problem with given dimensions, where <span class="math">\(H = (H_A, H_B, \dots)\)</span>, make each component <span class="math">\(H_A, H_B, \dots\)</span> traceless, integral, and primitive.</p>
+<p>This generically makes the inequality unique.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>dims</strong> &#8211; the dimensions <span class="math">\(d_1,\dots,d_n\)</span>.</li>
+<li><strong>ieq</strong> &#8211; the inequality <span class="math">\((H,c)\)</span> defining the facet.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">the</p>
 </td>
 </tr>
 </tbody>
@@ -1179,9 +1180,9 @@ Sub-scenarios of these scenarios are also supported (i.e., <span class="math">\(
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Reference</a><ul>
-<li><a class="reference internal" href="#quantum-marginal-problem">Quantum Marginal Problem</a></li>
 <li><a class="reference internal" href="#ressayre-elements">Ressayre Elements</a></li>
 <li><a class="reference internal" href="#representations">Representations</a></li>
+<li><a class="reference internal" href="#quantum-marginal-problem">Quantum Marginal Problem</a></li>
 <li><a class="reference internal" href="#polyhedra">Polyhedra</a></li>
 <li><a class="reference internal" href="#combinatorics">Combinatorics</a></li>
 <li><a class="reference internal" href="#third-party-data">Third-Party Data</a></li>

@@ -3,18 +3,11 @@ Reference
 
 .. module:: moment_polytopes
 
-Quantum Marginal Problem
-------------------------
-
-This module contains functionality for computing moment polytopes associated with the pure-state marginal problem, i.e., the :math:`\times_i GL(d_i)`-representation :math:`\bigotimes_i \mathbb C^{d_i}`.
-
-.. currentmodule:: moment_polytopes.qmp
-.. autofunction:: facet_normal_form
-
 Ressayre Elements
 -----------------
 
-.. currentmodule:: moment_polytopes
+This module contains functionality for computing moment polytopes of arbitrary finite-dimensional representations of compact, connected Lie groups (see :func:`is_ressayre` and :class:`Representation` below).
+
 .. autodata:: DEFAULT_FAILURE_PROBABILITY
 .. autoclass:: RessayreTester
    :members:
@@ -32,6 +25,15 @@ Representations
 .. autofunction:: positive_weyl_chamber_hrepr
 .. autofunction:: is_dual_root_primitive
 .. autofunction:: dual_root_primitive
+
+Quantum Marginal Problem
+------------------------
+
+This module contains functionality for computing moment polytopes associated with the pure-state marginal problem, i.e., the :math:`\times_i GL(d_i)`-representation :math:`\bigotimes_i \mathbb C^{d_i}`.
+
+.. currentmodule:: moment_polytopes.qmp
+.. autofunction:: facet_normal_form
+.. currentmodule:: moment_polytopes
 
 Polyhedra
 ---------
