@@ -22,26 +22,14 @@ The following code solves the one-body quantum marginal problem for three qubits
 
 We have used this package to compute moment cones associated with many other quantum marginal problems (TODO: add link).
 
-
-Installation
-------------
-
-This package requires SageMath_ 7.5 or higher. It can be installed as follows:
+You can install this package as follows:
 
 .. code-block:: bash
 
   sage -i lrslib
   sage -pip install git+git://github.com/catch22/moment_polytopes
 
-SSL Troubleshooting
-~~~~~~~~~~~~~~~~~~~
-
-If on the second line you get an error message of the type ``pip is configured with locations that require TLS/SSL, however the ssl module in Python is not available.``, please run the following and retry:
-
-.. code-block:: bash
-
-  sage -i openssl
-  sage -f python2
+See :doc:`installation` for further detail and troubleshooting.
 
 Citation
 --------
@@ -59,16 +47,17 @@ If you use this software, please consider citing our article:
     note    = {Software available at \url{https://github.com/catch22/moment_polytopes}.},
   }
 
+Documentation
+-------------
+
+.. toctree::
+   :maxdepth: 1
+
+   installation
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
 
-Miscellaneous Pages
--------------------
-
-.. toctree::
-   :maxdepth: 2
-
+   reference
    changes
    license
