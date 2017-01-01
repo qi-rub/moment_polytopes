@@ -15,6 +15,9 @@ def pytest_addoption(parser):
         help="select algorithm(s) used to test Ressayre elements (separate by commas)"
     )
 
+    # --slow option to run tests that take a long time
+    parser.addoption("--slow", action="store_true", help="run slow tests")
+
 
 def pytest_configure(config):
     if config.getoption('--disable-disk-cache'):
@@ -32,3 +35,8 @@ def pytest_generate_tests(metafunc):
             metafunc.parametrize('algorithm', algorithms, ids=algorithms)
         else:
             metafunc.parametrize('algorithm', [None], ids=['default'])
+
+
+def pytest_runtest_setup(item):
+    if 'slow' in item.keywords and not item.config.getoption("--slow"):
+        pytest.skip("--slow option not provided")
