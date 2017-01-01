@@ -5,7 +5,7 @@ __all__ = ['facet_normal_form']
 
 
 def facet_normal_form(dims, ieq):
-    r"""Given a facet :math:`H \cdot \lambda \geq c` for the quantum marginal problem with given dimensions, where :math:`H = (H_A, H_B, \dots)`, make each component :math`H_A, H_B, \dots` traceless and integral.
+    r"""Given a facet :math:`H \cdot \lambda \geq c` for the quantum marginal problem with given dimensions, where :math:`H = (H_A, H_B, \dots)`, make each component :math:`H_A, H_B, \dots` traceless, integral, and primitive.
 
     This generically makes the inequality unique.
 

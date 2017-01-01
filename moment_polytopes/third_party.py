@@ -899,6 +899,8 @@ KLYACHKO_QMP_DATA = {
 
 #: Scenarios :math:`(d_1,\dots,d_n)`, corresponding to :math:`\times_i GL(d_i)`-representation on :math:`\bigotimes_i \mathbb C^{d_i}`.
 KLYACHKO_QMP_SCENARIOS = KLYACHKO_QMP_DATA.keys()
+
+#: Scenarios :math:`(d_1,\dots,d_n)`, corresponding to :math:`\times_i GL(d_i)`-representation on :math:`\bigotimes_i \mathbb C^{d_i}` for which Klyachko's inequalities do not contain any mistake.
 KLYACHKO_GOOD_QMP_SCENARIOS = [
     dims for dims in KLYACHKO_QMP_SCENARIOS if dims != (2, 2, 3, 12)
 ]
