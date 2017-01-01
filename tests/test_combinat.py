@@ -141,16 +141,18 @@ def test_primitivity_lemma(a, b):
     """Test Lemma 6.3 in Vergne and Walter (2014)."""
     edges = extremal_edges((a, b), include_perms=False)
 
-    G_A, G_B = GL(a), GL(b)
-    G = times([G_A, G_B])
+    root_system_A = ["A", a - 1]
+    root_system_B = ["A", b - 1]
+    root_system_AB = [root_system_A, root_system_B]
+
     for H in edges:
         # edge (H_A, H_B) should be primitive...
-        assert G.is_dual_root_primitive(H)
+        assert is_dual_root_primitive(root_system_AB, H)
 
         # ...and by our lemma this should imply primitivity of H_A and H_B (if non-zero)
         H_A, H_B = H[:a], H[a:]
-        assert H_A.is_zero() or G_A.is_dual_root_primitive(H_A)
-        assert H_B.is_zero() or G_B.is_dual_root_primitive(H_B)
+        assert H_A.is_zero() or is_dual_root_primitive(root_system_A, H_A)
+        assert H_B.is_zero() or is_dual_root_primitive(root_system_B, H_B)
 
 
 def P(*pi):
