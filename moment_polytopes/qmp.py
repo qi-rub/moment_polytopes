@@ -86,14 +86,15 @@ def H_dominant_admissible(dims, include_perms=True):
     :param include_perms: if ``True``, include permutations of the :math:`n` subsystems.
     :rtype: set of tuples :math:`((H_A,H_B,H_C,\dots),c)`.
     """
-    assert not include_perms
+    assert not include_perms, 'Not implemented yet.'
     assert list(dims) == sorted(
         dims), 'Dimensions should be sorted increasingly: %s' % str(dims)
 
     # HEURISTICS ONE: extremal edges, partial sums, z = 0
     if prod(dims[:-1]) == dims[-1]:
         candidates = set()
-        for H in extremal_edges(dims[:-1], include_perms=False):
+        edges = extremal_edges(dims[:-1], include_perms=False)
+        for H in edges:
             # build chunks and extend by the vector of partial sums
             most = [
                 tuple(H[sum(dims[:i]):sum(dims[:i + 1])])
@@ -118,7 +119,8 @@ def H_dominant_admissible(dims, include_perms=True):
     if len(dims) == 3:
         R = external_tensor_product(dims)
         candidates = set()
-        for hs in H_ABC_dominant(*dims, include_perms=False):
+        triples = H_ABC_dominant(*dims, include_perms=False)
+        for hs in triples:
             for z in c_candidates(R, sum(hs, ())):
                 candidates.add((hs, z))
         return candidates
@@ -134,16 +136,20 @@ def H_candidates(dims, include_perms=True):
     :param include_perms: if ``True``, include permutations of the :math:`n` subsystems.
     :rtype: set of tuples :math:`((H_A,H_B,H_C,\dots),c)`.
     """
-    if include_perms:
-        raise NotImplementedError
+    assert not include_perms, 'Not implemented yet.'
     R = external_tensor_product(dims)
     stab = StabilizerGroup(dims)
     antilength_max = len(R.negative_roots)
 
     # for all dominant admissible H
     candidates = set()
-    for (hs_dominant, z) in H_dominant_admissible(dims, include_perms=False):
+    domads = H_dominant_admissible(dims, include_perms=False)
+    for i, (hs_dominant, z) in enumerate(domads):
+        logger.debug('processing dominant admissible (%d/%d)', i + 1,
+                     len(domads))
+
         # compute desired antilength
+
         H_dominant = vector(sum(hs_dominant, ()))
         antilength_desired = sum(1 for omega in R.weights
                                  if omega.dot_product(H_dominant) < z)
@@ -182,7 +188,7 @@ def H_ressayre(dims, include_perms=True, **kwargs):
 
     All other arguments are forwarded to :func:`moment_polytopes.ressayre_tester`.
     """
-    assert not include_perms
+    assert not include_perms, 'Not implemented yet.'
     R = external_tensor_product(dims)
     T = ressayre_tester(R, **kwargs)
 
