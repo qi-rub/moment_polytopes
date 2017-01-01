@@ -54,13 +54,13 @@ class RessayreTester(object):
 
         # weight blocks mismatch?
         if sorted(n_neg.keys()) != sorted(M_neg.keys()):
-            logging.debug("H-weights do not match: %r != %r",
-                          n_neg.keys(), M_neg.keys())
+            logger.debug("H-weights do not match: %r != %r",
+                         n_neg.keys(), M_neg.keys())
             return False
         for weight in n_neg:
             if len(n_neg[weight]) != len(M_neg[weight]):
-                logging.debug("H-weight %r multiplicity mismatch: %d != %d",
-                              weight, len(n_neg[weight]), len(M_neg[weight]))
+                logger.debug("H-weight %r multiplicity mismatch: %d != %d",
+                             weight, len(n_neg[weight]), len(M_neg[weight]))
                 return False
 
         # determine M(H = c)
@@ -68,10 +68,11 @@ class RessayreTester(object):
             j for j, omega in enumerate(R.weights) if omega.dot_product(H) == c
         ]
         if not M_null:
-            logging.debug("H-weight space %d is empty", c)
+            logger.debug("H-weight space %d is empty", c)
             return False
 
         # proceed block by block...
+        logger.debug('need to compute %d determinants...', len(n_neg))
         for weight, n_neg_block in n_neg.iteritems():
             # only nonzero blocks without mismatches should appear
             M_neg_block = M_neg[weight]
@@ -90,17 +91,17 @@ class RessayreTester(object):
             }
 
             # compute determinant
-            logging.debug(
+            logger.debug(
                 'processing H-weight block %d -> %d: size %dx%d with %d variables',
                 weight, weight + c,
                 len(n_neg_block), len(n_neg_block), len(M_null))
 
             # compute determinant of polynomial matrix
             det = self.det(Ts, len(n_neg_block))
-            logging.debug('... det() returned %s', det)
+            logger.debug('... det() returned %s', det)
             if not det:
                 return False
-        logging.debug('all %d determinants nonzero', len(n_neg))
+        logger.debug('all %d determinants nonzero', len(n_neg))
         return True
 
     def det(self, Ts, d):
@@ -134,7 +135,7 @@ class ProbabilisticRessayreTester(RessayreTester):
         # XXX: we might want to keep N * d bounded to avoid expensive arithmetic
         N = 16
         num_repetitions = ceil(-log(self.failure_probability) / log(N))
-        logging.debug(
+        logger.debug(
             '%d repetitions to achieve desired failure probability %r',
             num_repetitions, self.failure_probability)
 
@@ -262,12 +263,12 @@ def is_admissible(R, ieq):
 
     # impossible?
     if len(weights) < R.dim_span_weights:
-        logging.debug('not enough weights on the hyperplane')
+        logger.debug('not enough weights on the hyperplane')
         return False
 
     # check if affine hull has the correct dimension
     dim = dim_affine_hull(weights)
     assert dim < R.dim_span_weights, 'Absurd'
-    logging.debug('dimension of affine hull is %d, supposed to be %d', dim,
-                  R.dimension_affine_hull_weights - 1)
+    logger.debug('dimension of affine hull is %d, supposed to be %d', dim,
+                 R.dimension_affine_hull_weights - 1)
     return dim == R.dimension_affine_hull_weights - 1
