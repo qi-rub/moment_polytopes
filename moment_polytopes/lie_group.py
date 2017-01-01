@@ -81,6 +81,14 @@ class Representation(object):
         """
         raise NotImplementedError
 
+    def weight_vector(self, idx_weight_vector):
+        """Return weight vector for given index (this is just a standard basis vector with a single ``1`` at the given index).
+
+        :param idx_weight_vector: index of the weight vector (indexes the :attr:`weights` list).
+        :rtype: :class:`sage.vector`
+        """
+        return vector(ZZ, self.dimension, {idx_weight_vector: 1})
+
 
 def weyl_module(d, partition):
     """Return polynomial irreducible representation of :math:`GL(d)` with given highest weight.
