@@ -9,12 +9,10 @@ This is a `SageMath <http://www.sagemath.org>`_ package for computing moment pol
 Introduction
 ------------
 
-The following code solves the one-body quantum marginal problem for three qubits (:download:`three_qubits.py <../examples/three_qubits.py>`):
+The following code solves the one-body quantum marginal problem for three qubits:
 
 .. literalinclude:: ../examples/three_qubits.py
    :language: python
-
-We have used this package to compute moment cones associated with various quantum marginal problems (XXX: add link).
 
 You can install this package as follows:
 
@@ -26,6 +24,8 @@ You can install this package as follows:
 Now download the :download:`three_qubits.py <../examples/three_qubits.py>` example and run it via ``sage three_qubits.py``.
 See :doc:`installation` for further detail and troubleshooting.
 
+We have used this package to compute moment polytopes associated with various :doc:`qmp`.
+
 
 Documentation
 -------------
@@ -34,6 +34,7 @@ Documentation
    :maxdepth: 2
 
    installation
+   qmp
    reference
    changes
    license
