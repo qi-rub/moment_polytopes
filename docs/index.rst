@@ -14,7 +14,7 @@ The following code solves the one-body quantum marginal problem for three qubits
 .. literalinclude:: ../examples/three_qubits.py
    :language: python
 
-We have used this package to compute moment cones associated with many other quantum marginal problems (XXX: add link).
+We have used this package to compute moment cones associated with various quantum marginal problems (XXX: add link).
 
 You can install this package as follows:
 
@@ -23,7 +23,21 @@ You can install this package as follows:
   sage -i lrslib
   sage -pip install git+git://github.com/catch22/moment_polytopes
 
+Now download the :download:`three_qubits.py <../examples/three_qubits.py>` example and run it via ``sage three_qubits.py``.
 See :doc:`installation` for further detail and troubleshooting.
+
+
+Documentation
+-------------
+
+.. toctree::
+   :maxdepth: 2
+
+   installation
+   reference
+   changes
+   license
+
 
 Citation
 --------
@@ -40,18 +54,3 @@ If you use this software, please consider citing our article:
     eprint  = {1410.8144},
     note    = {Software available at \url{https://github.com/catch22/moment_polytopes}.},
   }
-
-Documentation
--------------
-
-.. toctree::
-   :maxdepth: 1
-
-   installation
-
-.. toctree::
-   :maxdepth: 2
-
-   reference
-   changes
-   license
