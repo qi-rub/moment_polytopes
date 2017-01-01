@@ -14,6 +14,15 @@ Lie Group Representations
 .. autofunction:: is_dual_root_primitive
 .. autofunction:: dual_root_primitive
 
+Ressayre Elements
+-----------------
+
+.. autodata:: DEFAULT_FAILURE_PROBABILITY
+.. autoclass:: RessayreTester
+   :members:
+.. autofunction:: ressayre_tester
+.. autofunction:: is_ressayre
+
 Polyhedra
 ---------
 
