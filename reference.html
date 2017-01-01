@@ -171,6 +171,27 @@
 </table>
 </dd></dl>
 
+<dl class="function">
+<dt id="moment_polytopes.c_candidates">
+<code class="descclassname">moment_polytopes.</code><code class="descname">c_candidates</code><span class="sig-paren">(</span><em>R</em>, <em>H</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.c_candidates" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return possible <span class="math">\(c\)</span> such that <span class="math">\((H,c)\)</span> is admissible for the given representation (see <a class="reference internal" href="#moment_polytopes.is_admissible" title="moment_polytopes.is_admissible"><code class="xref py py-func docutils literal"><span class="pre">is_admissible()</span></code></a>).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>R</strong> (<a class="reference internal" href="#moment_polytopes.Representation" title="moment_polytopes.Representation"><code class="xref py py-class docutils literal"><span class="pre">Representation</span></code></a>) &#8211; the representation.</li>
+<li><strong>H</strong> (<code class="xref py py-class docutils literal"><span class="pre">sage.vector</span></code>) &#8211; the normal vector.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">set of integers</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </div>
 <div class="section" id="representations">
 <h2>Representations<a class="headerlink" href="#representations" title="Permalink to this headline">¶</a></h2>
@@ -383,6 +404,166 @@
 <h2>Quantum Marginal Problem<a class="headerlink" href="#quantum-marginal-problem" title="Permalink to this headline">¶</a></h2>
 <p>This module contains functionality for computing moment polytopes associated with the pure-state marginal problem, i.e., the <span class="math">\(\times_i GL(d_i)\)</span>-representation <span class="math">\(\bigotimes_i \mathbb C^{d_i}\)</span>.</p>
 <dl class="function">
+<dt id="moment_polytopes.qmp.hrepr">
+<code class="descclassname">moment_polytopes.qmp.</code><code class="descname">hrepr</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.qmp.hrepr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return H-representation of moment polytope for representation of <span class="math">\(\times_i GL(d_i)\)</span> on <span class="math">\(\bigotimes_i \mathbb C^{d_i}\)</span>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>dims</strong> &#8211; dimensions <span class="math">\(d_1,\dots,d_n\)</span> of the tensor factors.</li>
+<li><strong>irred</strong> &#8211; if <code class="docutils literal"><span class="pre">True</span></code> then an irredunant H-representation is returned.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>All other arguments are forwarded to <a class="reference internal" href="#moment_polytopes.ressayre_tester" title="moment_polytopes.ressayre_tester"><code class="xref py py-func docutils literal"><span class="pre">moment_polytopes.ressayre_tester()</span></code></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#moment_polytopes.HRepr" title="moment_polytopes.HRepr"><code class="xref py py-class docutils literal"><span class="pre">moment_polytopes.HRepr</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="moment_polytopes.qmp.vrepr">
+<code class="descclassname">moment_polytopes.qmp.</code><code class="descname">vrepr</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.qmp.vrepr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return V-representation of moment polytope for representation of <span class="math">\(\times_i GL(d_i)\)</span> on <span class="math">\(\bigotimes_i \mathbb C^{d_i}\)</span>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>dims</strong> &#8211; dimensions <span class="math">\(d_1,\dots,d_n\)</span> of the tensor factors.</li>
+<li><strong>irred</strong> &#8211; if <code class="docutils literal"><span class="pre">True</span></code> then an irredunant H-representation is returned.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>All other arguments are forwarded to <a class="reference internal" href="#moment_polytopes.ressayre_tester" title="moment_polytopes.ressayre_tester"><code class="xref py py-func docutils literal"><span class="pre">moment_polytopes.ressayre_tester()</span></code></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#moment_polytopes.VRepr" title="moment_polytopes.VRepr"><code class="xref py py-class docutils literal"><span class="pre">moment_polytopes.VRepr</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="moment_polytopes.qmp.H_AB_dominant">
+<code class="descclassname">moment_polytopes.qmp.</code><code class="descname">H_AB_dominant</code><span class="sig-paren">(</span><em>a</em>, <em>b</em>, <em>include_perms=True</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.qmp.H_AB_dominant" title="Permalink to this definition">¶</a></dt>
+<dd><p>Candidates for dominant and primitive <span class="math">\((H_A, H_B)\)</span>, i.e., extremal edges.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>a</strong> &#8211; dimension of first tensor factor.</li>
+<li><strong>b</strong> &#8211; dimension of second tensor factor.</li>
+<li><strong>include_perms</strong> &#8211; if <code class="docutils literal"><span class="pre">True</span></code>, include permutations of the two subsystems.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">set of tuples <span class="math">\((H_A,H_B)\)</span>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="moment_polytopes.qmp.H_ABC_dominant">
+<code class="descclassname">moment_polytopes.qmp.</code><code class="descname">H_ABC_dominant</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.qmp.H_ABC_dominant" title="Permalink to this definition">¶</a></dt>
+<dd><p>Candidates for dominant and primitive <span class="math">\((H_A, H_B, H_C)\)</span>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>a</strong> &#8211; dimension of first tensor factor.</li>
+<li><strong>b</strong> &#8211; dimension of second tensor factor.</li>
+<li><strong>c</strong> &#8211; dimension of third tensor factor.</li>
+<li><strong>include_perms</strong> &#8211; if <code class="docutils literal"><span class="pre">True</span></code>, include permutations of the three subsystems.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">set of tuples <span class="math">\((H_A,H_B,H_C)\)</span>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="moment_polytopes.qmp.H_dominant_admissible">
+<code class="descclassname">moment_polytopes.qmp.</code><code class="descname">H_dominant_admissible</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.qmp.H_dominant_admissible" title="Permalink to this definition">¶</a></dt>
+<dd><p>Candidates for dominant and admissible <span class="math">\(((H_A, H_B, H_C,\dots),c)\)</span>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>dims</strong> &#8211; dimensions <span class="math">\(d_1,\dots,d_n\)</span> of the tensor factors.</li>
+<li><strong>include_perms</strong> &#8211; if <code class="docutils literal"><span class="pre">True</span></code>, include permutations of the <span class="math">\(n\)</span> subsystems.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">set of tuples <span class="math">\(((H_A,H_B,H_C,\dots),c)\)</span>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="moment_polytopes.qmp.H_candidates">
+<code class="descclassname">moment_polytopes.qmp.</code><code class="descname">H_candidates</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.qmp.H_candidates" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return candidates for Ressayre elements (all conditions except determinant condition).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>dims</strong> &#8211; dimensions <span class="math">\(d_1,\dots,d_n\)</span> of the tensor factors.</li>
+<li><strong>include_perms</strong> &#8211; if <code class="docutils literal"><span class="pre">True</span></code>, include permutations of the <span class="math">\(n\)</span> subsystems.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">set of tuples <span class="math">\(((H_A,H_B,H_C,\dots),c)\)</span>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="moment_polytopes.qmp.H_ressayre">
+<code class="descclassname">moment_polytopes.qmp.</code><code class="descname">H_ressayre</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.qmp.H_ressayre" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return all Ressayre elements for representation of :math:`      imes_i GL(d_i)` on <span class="math">\(igotimes_i \mathbb C^{d_i}\)</span>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>dims</strong> &#8211; dimensions <span class="math">\(d_1,\dots,d_n\)</span> of the tensor factors.</li>
+<li><strong>include_perms</strong> &#8211; if <code class="docutils literal"><span class="pre">True</span></code>, include permutations of the <span class="math">\(n\)</span> subsystems.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>All other arguments are forwarded to <a class="reference internal" href="#moment_polytopes.ressayre_tester" title="moment_polytopes.ressayre_tester"><code class="xref py py-func docutils literal"><span class="pre">moment_polytopes.ressayre_tester()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="function">
 <dt id="moment_polytopes.qmp.facet_normal_form">
 <code class="descclassname">moment_polytopes.qmp.</code><code class="descname">facet_normal_form</code><span class="sig-paren">(</span><em>dims</em>, <em>ieq</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.qmp.facet_normal_form" title="Permalink to this definition">¶</a></dt>
 <dd><p>Given a facet <span class="math">\(H \cdot \lambda \geq c\)</span> for the quantum marginal problem with given dimensions, where <span class="math">\(H = (H_A, H_B, \dots)\)</span>, make each component <span class="math">\(H_A, H_B, \dots\)</span> traceless, integral, and primitive.</p>
@@ -391,13 +572,46 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>dims</strong> &#8211; the dimensions <span class="math">\(d_1,\dots,d_n\)</span>.</li>
 <li><strong>ieq</strong> &#8211; the inequality <span class="math">\((H,c)\)</span> defining the facet.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">the</p>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="moment_polytopes.qmp.ieqs_wo_perms">
+<code class="descclassname">moment_polytopes.qmp.</code><code class="descname">ieqs_wo_perms</code><span class="sig-paren">(</span><em>dims</em>, <em>ieqs</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.qmp.ieqs_wo_perms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns list of inequalities up to permutations of subsystems.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>dims</strong> &#8211; the dimensions <span class="math">\(d_1,\dots,d_n\)</span>.</li>
+<li><strong>ieqs</strong> &#8211; list of inequalities <span class="math">\((H,c)\)</span>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="moment_polytopes.qmp.vertices_wo_perms">
+<code class="descclassname">moment_polytopes.qmp.</code><code class="descname">vertices_wo_perms</code><span class="sig-paren">(</span><em>dims</em>, <em>vertices</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.qmp.vertices_wo_perms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns list of vertices up to permutations of subsystems.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>dims</strong> &#8211; the dimensions <span class="math">\(d_1,\dots,d_n\)</span>.</li>
+<li><strong>vertices</strong> &#8211; list of vertices.</li>
+</ul>
 </td>
 </tr>
 </tbody>
@@ -1079,7 +1293,7 @@ This is the maximal-dimensional polytope defined by</p>
 We use them to verify that our implementation is correct.</p>
 <dl class="data">
 <dt id="moment_polytopes.third_party.KLYACHKO_FERMI_SCENARIOS">
-<code class="descclassname">moment_polytopes.third_party.</code><code class="descname">KLYACHKO_FERMI_SCENARIOS</code><em class="property"> = [(3, 8), (3, 7), (3, 6), (4, 8)]</em><a class="headerlink" href="#moment_polytopes.third_party.KLYACHKO_FERMI_SCENARIOS" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">moment_polytopes.third_party.</code><code class="descname">KLYACHKO_FERMI_SCENARIOS</code><em class="property"> = [(3, 6), (3, 7), (3, 8), (4, 8)]</em><a class="headerlink" href="#moment_polytopes.third_party.KLYACHKO_FERMI_SCENARIOS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Scenarios <span class="math">\((n,d)\)</span>, corresponding to the representation of <span class="math">\(GL(d)\)</span> on the anti-symmetric power <span class="math">\(\bigwedge^n \mathbb C^d\)</span>.</p>
 </dd></dl>
 
@@ -1108,13 +1322,13 @@ We use them to verify that our implementation is correct.</p>
 
 <dl class="data">
 <dt id="moment_polytopes.third_party.KLYACHKO_QMP_SCENARIOS">
-<code class="descclassname">moment_polytopes.third_party.</code><code class="descname">KLYACHKO_QMP_SCENARIOS</code><em class="property"> = [(3, 3, 9), (2, 2, 3, 12), (4, 2, 8), (3, 2, 6), (2, 2, 2, 2, 16)]</em><a class="headerlink" href="#moment_polytopes.third_party.KLYACHKO_QMP_SCENARIOS" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">moment_polytopes.third_party.</code><code class="descname">KLYACHKO_QMP_SCENARIOS</code><em class="property"> = [(2, 2, 2, 2, 16), (2, 2, 3, 12), (3, 2, 6), (3, 3, 9), (4, 2, 8)]</em><a class="headerlink" href="#moment_polytopes.third_party.KLYACHKO_QMP_SCENARIOS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Scenarios <span class="math">\((d_1,\dots,d_n)\)</span>, corresponding to <span class="math">\(\times_i GL(d_i)\)</span>-representation on <span class="math">\(\bigotimes_i \mathbb C^{d_i}\)</span>.</p>
 </dd></dl>
 
 <dl class="data">
 <dt id="moment_polytopes.third_party.KLYACHKO_GOOD_QMP_SCENARIOS">
-<code class="descclassname">moment_polytopes.third_party.</code><code class="descname">KLYACHKO_GOOD_QMP_SCENARIOS</code><em class="property"> = [(3, 3, 9), (4, 2, 8), (3, 2, 6), (2, 2, 2, 2, 16)]</em><a class="headerlink" href="#moment_polytopes.third_party.KLYACHKO_GOOD_QMP_SCENARIOS" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">moment_polytopes.third_party.</code><code class="descname">KLYACHKO_GOOD_QMP_SCENARIOS</code><em class="property"> = [(2, 2, 2, 2, 16), (3, 2, 6), (3, 3, 9), (4, 2, 8)]</em><a class="headerlink" href="#moment_polytopes.third_party.KLYACHKO_GOOD_QMP_SCENARIOS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Scenarios <span class="math">\((d_1,\dots,d_n)\)</span>, corresponding to <span class="math">\(\times_i GL(d_i)\)</span>-representation on <span class="math">\(\bigotimes_i \mathbb C^{d_i}\)</span> for which Klyachko&#8217;s inequalities do not contain any mistake.</p>
 </dd></dl>
 
