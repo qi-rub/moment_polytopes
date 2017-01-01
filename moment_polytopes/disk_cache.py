@@ -5,7 +5,7 @@ from functools import wraps
 from . import __name__ as package_name
 from . import __version__ as package_version
 
-__all__ = ["DISK_CACHE_DIR", "disk_cache"]
+__all__ = ['DISK_CACHE_DIR', 'disk_cache']
 
 logger = logging.getLogger(__name__)
 

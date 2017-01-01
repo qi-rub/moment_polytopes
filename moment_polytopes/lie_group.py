@@ -4,12 +4,12 @@ from . import HRepr
 from .utils import dim_affine_hull
 
 __all__ = [
-    "Representation",
-    "weyl_module",
-    "external_tensor_product",
-    "is_dual_root_primitive",
-    "dual_root_primitive",
-    "positive_weyl_chamber_hrepr",
+    'Representation',
+    'weyl_module',
+    'external_tensor_product',
+    'is_dual_root_primitive',
+    'dual_root_primitive',
+    'positive_weyl_chamber_hrepr',
 ]
 
 

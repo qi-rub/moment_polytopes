@@ -6,21 +6,21 @@ from . import dual_root_primitive
 from .disk_cache import disk_cache
 
 __all__ = [
-    "rect_tableaux",
-    "cubicle",
-    "cubicle_tableaux",
-    "is_dominant",
-    "is_extremal_edge",
-    "is_extremal_edge_ieq",
-    "extremal_edges",
-    "perms_of_length",
-    "length_tuples",
-    "is_shuffle",
-    "is_antishuffle",
-    "shuffles",
-    "antishuffles",
-    "perm_action",
-    "StabilizerGroup",
+    'rect_tableaux',
+    'cubicle',
+    'cubicle_tableaux',
+    'is_dominant',
+    'is_extremal_edge',
+    'is_extremal_edge_ieq',
+    'extremal_edges',
+    'perms_of_length',
+    'length_tuples',
+    'is_shuffle',
+    'is_antishuffle',
+    'shuffles',
+    'antishuffles',
+    'perm_action',
+    'StabilizerGroup',
 ]
 
 logger = logging.getLogger(__name__)

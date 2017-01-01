@@ -2,7 +2,7 @@ from __future__ import absolute_import, print_function
 import os, subprocess, tempfile, errno, logging
 from sage.all import vector, QQ, Polyhedron
 
-__all__ = ["HRepr", "VRepr", "LrsError"]
+__all__ = ['HRepr', 'VRepr', 'LrsError']
 
 logger = logging.getLogger(__name__)
 
