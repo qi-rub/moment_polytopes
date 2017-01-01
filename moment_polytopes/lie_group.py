@@ -18,7 +18,9 @@ def _dim_affine_hull(points):
 
 
 class Representation(object):
-    """Base class for irreducible representations.
+    """Base class for representations of complex reductive Lie groups.
+
+    See :func:`weyl_module` and :func:`external_tensor_product` for concrete representations.
 
     .. attribute:: root_system
 
