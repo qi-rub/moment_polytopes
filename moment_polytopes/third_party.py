@@ -1003,11 +1003,8 @@ def klyachko_qmp_hrepr(dims, bare=False, irred=True):
         hrepr = HRepr(ieqs=bare_ieqs)
         return hrepr.irred() if irred else hrepr
 
-    # positivity_ieq = ((0,) * (sum(dims_klyachko) - 1) + (1,), 0)
-    # bare_ieqs += [positivity_ieq]
-
-    # truncate inequalities
-    stab = StabilizerGroup(dims)
+    # permute and truncate bare inequalities
+    stab = StabilizerGroup(dims_klyachko)
     ieqs = set()
     for H, z in bare_ieqs:
         # extract
@@ -1016,16 +1013,18 @@ def klyachko_qmp_hrepr(dims, bare=False, irred=True):
             for i in range(len(dims_klyachko))
         ]
 
-        # truncate
-        hs = [h[:d] for (h, d) in zip(hs, dims_permuted)]
-
-        # permute back
-        hs = perm_action(pi_inverse, hs)
-
-        # find all permutations relative to the stabilizer group of the dimensions array
+        # permute subsystems
         for hs_permuted in stab.orbit([hs]):
+            # truncate
+            hs_permuted = [h[:d] for (h, d) in zip(hs_permuted, dims_permuted)]
+
+            # permute back
+            hs_permuted = perm_action(pi_inverse, hs_permuted)
             H_permuted = sum(hs_permuted, ())
-            ieqs.add((H_permuted, z))
+
+            # add ieq
+            ieq = (H_permuted, z)
+            ieqs.add(ieq)
 
     # add positivity for all parties [[ more conceptually, we should ONLY add lambda_{AB,ab} >= 0 and get the other ones either implicitly (if dims_permuted == dims_klyachko) or from tracing out the Weyl chamber inequalities ]]
     for k in range(len(dims)):
