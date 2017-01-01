@@ -175,7 +175,7 @@ of some :math:`\times_i GL(d_i)` on
 
     #qmp.pretty((2, 2, 3, 12), algorithm='mathematica', show_vrepr=False)
 
-Further examples
+Further Examples
 ----------------
 
 .. code:: python
