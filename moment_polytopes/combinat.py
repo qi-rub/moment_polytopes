@@ -467,7 +467,7 @@ def antishuffles(v, antilength):
     return [Permutation([d + 1 - pi[i] for i in range(d)]) for pi in pis]
 
 
-def perm_action(pi, v, zero_based=False):
+def perm_action(pi, v):
     r"""Left action of a permutation :math:`\pi \in S_n` on :math:`v \in \mathbb R^n`:
 
     .. math::
@@ -482,11 +482,10 @@ def perm_action(pi, v, zero_based=False):
 
     :param pi: the permutation :math:`\pi`.
     :param v: the vector :math:`v`.
-    :para, zero_based: if ``True`` then permutation is in :math:`S_{\{0,\dots,n-1\}}` instead.
     :rtype: :class:`sage.vector`
     """
     # make zero-based
-    pi = list(pi) if zero_based else [x - 1 for x in pi]
+    pi = [x - 1 for x in pi]
     assert len(pi) == len(v) and sorted(pi) == range(len(v))
 
     # permute components

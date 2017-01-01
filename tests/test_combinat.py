@@ -289,18 +289,9 @@ def test_perm_action():
     H = ['X', 'Y', 'Z', 'W']
     for pi in Permutations(4):
         for tau in Permutations(4):
-            # 1-based action
-            assert perm_action(pi, perm_action(tau, H)) == perm_action(
-                pi.left_action_product(tau), H)
-
-            # 0-based action
-            pi0 = perm0(pi)
-            tau0 = perm0(tau)
-            pitau0 = perm0(pi.left_action_product(tau))
-            assert perm_action(
-                pi0, perm_action(tau0, H, zero_based=True),
-                zero_based=True) == perm_action(
-                    pitau0, H, zero_based=True)
+            pi_tau = pi.left_action_product(tau)
+            assert perm_action(pi, perm_action(tau, H)) == perm_action(pi_tau,
+                                                                       H)
 
 
 def test_stabilizer_group():
