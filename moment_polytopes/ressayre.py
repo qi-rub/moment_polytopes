@@ -262,13 +262,13 @@ def is_admissible(R, ieq):
     weights = [omega for omega in R.weights if omega.dot_product(H) == c]
 
     # impossible?
-    if len(weights) < R.dim_span_weights:
+    if len(weights) < R.dimension_affine_hull_weights:
         logger.debug('not enough weights on the hyperplane')
         return False
 
     # check if affine hull has the correct dimension
     dim = dim_affine_hull(weights)
-    assert dim < R.dim_span_weights, 'Absurd'
+    assert dim < R.dimension_affine_hull_weights, 'Absurd'
     logger.debug('dimension of affine hull is %d, supposed to be %d', dim,
                  R.dimension_affine_hull_weights - 1)
     return dim == R.dimension_affine_hull_weights - 1
