@@ -1,109 +1,46 @@
 from __future__ import absolute_import, print_function
-from sage.all import Integer, vector, gcd, QQ
+from sage.all import Integer, vector, gcd, ZZ, QQ, RootSystem
 
-__all__ = ["Group", "GL", "times", "CartesianProduct"]
-
-
-class Group(object):
-    """Compact, connected Lie group"""
-
-    @property
-    def pwc_hrepr(self):
-        """Return H-representation of positive Weyl chamber."""
-        if hasattr(self, 'simple_roots'):
-            roots = self.simple_roots
-        else:
-            roots = [-alpha for alpha in self.negative_roots]
-        return HRepr(
-            ieqs=[(alpha, 0) for alpha in roots], ambient_dim=self.rank)
-
-    def make_dual_root_primitive(self, H):
-        """Make H primitive in the dual root lattice."""
-        H = vector(H)
-        c = gcd(alpha.dot_product(H) for alpha in self.simple_roots)
-        assert c, 'Expected non-zero vector.'
-        return vector([QQ((x, c)) for x in H])
-
-    def is_dual_root_primitive(self, H):
-        """Determine if H is primitive in the dual lattice of the root lattice."""
-        H = vector(H)
-        c = gcd(alpha.dot_product(H) for alpha in self.simple_roots)
-        return c == 1 or c == -1
+__all__ = ["is_dual_root_primitive", "dual_root_primitive"]
 
 
-class GL(Group):
-    """The general linear group GL(d)."""
+def _dual_root_primitive_gcd(root_system, H):
+    """Return greatest common divisor of coefficients of H with respect to dual roots."""
+    # get ambient space
+    ambient_space = RootSystem(root_system).ambient_space()
+    assert len(H) == ambient_space.dimension(), 'Dimension mismatch'
 
-    def __init__(self, d):
-        super(GL, self).__init__()
-        self.rank = d
-        self.d = d
+    # compute coefficients
+    H = vector(H)
+    cs = [
+        vector(alpha).dot_product(H) for alpha in ambient_space.simple_roots()
+    ]
+    assert all(c in ZZ for c in cs), 'Vector is not in the dual root lattice.'
 
-        # compute simple roots
-        self.simple_roots = []
-        for i in range(d - 1):
-            root = vector(QQ, d, {i: 1, i + 1: -1}, sparse=False)
-            self.simple_roots.append(root)
-
-        # compute *lists* of positive and negative roots (order matters since we will later address them by index)
-        self.negative_roots = []
-        self.negative_root_ij = []
-        for j in range(d):
-            for i in range(j + 1, d):
-                root = vector(QQ, d, {i: 1, j: -1}, sparse=False)
-                self.negative_roots.append(root)
-                self.negative_root_ij.append((i, j))
-
-    def fundamental(self, n=1):
-        """Return n-th fundamental (i.e., antisymmetric) representation."""
-        assert 1 <= n <= self.rank
-        return self.antisymmetric(n)
-
-    def antisymmetric(self, n):
-        """Return n-th antisymmetric power."""
-        return AntisymmetricRepr(self, n)
-
-    def weyl_module_21(self):
-        """Return Wey module with Young diagram (2,1)."""
-        return WeylModule21(self)
+    # divide by gcd
+    return gcd(cs)
 
 
-def _embed_vector(v, k, dims):
-    before = sum(dims[:k])
-    after = sum(dims[k + 1:])
-    return vector([0] * before + list(v) + [0] * after)
+def is_dual_root_primitive(root_system, H):
+    """Determine if the vector ``H`` is primitive in the dual root lattice of the given root system.
+
+    :param root_system: root system.
+    :param H: vector to be rescaled. Should be an element of the dual root lattice (in ambient coordinates).
+    :type root_system: :class:`sage.RootSystem`
+    :type H: :class:`sage.vector`
+    :rtype: :class:`sage.vector`
+    """
+    return _dual_root_primitive_gcd(root_system, H) in [1, -1]
 
 
-def _embed_ieq((H, c), k, dims):
-    return (_embed_vector(H, k, dims), c)
+def dual_root_primitive(root_system, H):
+    """Rescale the vector ``H`` so that it is primitive in the dual root lattice of the given root system.
 
-
-class CartesianProduct(Group):
-    """Cartesian product of Lie groups."""
-
-    def __init__(self, Gs):
-        super(CartesianProduct, self).__init__()
-        ranks = [G.rank for G in Gs]
-        self.Gs = Gs
-        self.rank = sum(ranks)
-
-        # collect simple roots
-        self.simple_roots = []
-        for k, G in enumerate(Gs):
-            self.simple_roots += [
-                _embed_vector(alpha, k, ranks) for alpha in G.simple_roots
-            ]
-
-        # collect negative roots and build reverse look-up table
-        self.negative_roots = []
-        self.negative_root_table = []
-        for k, G in enumerate(Gs):
-            for i, alpha in enumerate(G.negative_roots):
-                self.negative_roots.append(_embed_vector(alpha, k, ranks))
-                self.negative_root_table.append((k, i))
-
-
-def times(Gs):
-    """Return Cartesian product of given Lie groups."""
-    Gs = list(GL(G) if isinstance(G, (int, Integer)) else G for G in Gs)
-    return CartesianProduct(Gs)
+    :param root_system: root system.
+    :param H: vector to be rescaled. Should be an element of the dual root lattice (in ambient coordinates).
+    :type root_system: :class:`sage.RootSystem`
+    :type H: :class:`sage.vector`
+    :rtype: :class:`sage.vector`
+    """
+    c = _dual_root_primitive_gcd(root_system, H)
+    return vector(H) / c

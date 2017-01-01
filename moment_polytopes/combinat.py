@@ -2,7 +2,7 @@ from __future__ import absolute_import, print_function
 import logging
 from collections import defaultdict
 from sage.all import gcd, vector, matrix, QQ, Polyhedron, cartesian_product, Permutation, Permutations
-from . import HRepr, times
+from . import dual_root_primitive
 from .disk_cache import disk_cache
 
 __all__ = [
@@ -244,8 +244,8 @@ def _extremal_edges_bipartite(a, b, include_perms=True):
         edges = {sort(H) for H in edges}
 
     # make edges primitive in dual root lattice
-    G = times([a, b])
-    return map(G.make_dual_root_primitive, edges)
+    root_system = [['A', a - 1], ['A', b - 1]]
+    return map(lambda e: dual_root_primitive(root_system, e), edges)
 
 
 @disk_cache
@@ -318,8 +318,9 @@ def _extremal_edges_generic(dims, include_perms=True):
         rays = ray_nfs
 
     # post-process edges
-    G = times(dims)
-    return map(G.make_dual_root_primitive, rays)
+    # make edges primitive in dual root lattice
+    root_system = [['A', d - 1] for d in dims]
+    return map(lambda r: dual_root_primitive(root_system, r), rays)
 
 
 def extremal_edges(dims, include_perms=True, algorithm=None):
