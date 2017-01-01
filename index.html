@@ -45,7 +45,7 @@
             
   <div class="section" id="welcome">
 <h1>Welcome!<a class="headerlink" href="#welcome" title="Permalink to this headline">¶</a></h1>
-<p>This is a <a class="reference external" href="http://www.sagemath.org">SageMath</a> package for computing moment polytopes associated with finite-dimensional representations of compact and connected Lie groups.</p>
+<p>This is a <a class="reference external" href="http://www.sagemath.org">SageMath</a> package for computing moment polytopes associated with finite-dimensional representations of compact and connected Lie groups, based on the algorithm proposed by <a class="reference external" href="https://arxiv.org/abs/1410.8144">Vergne and Walter (2014)</a>.</p>
 <div class="section" id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
 <p>The following code solves the one-body quantum marginal problem for three qubits:</p>
@@ -61,7 +61,7 @@
 <span class="nb">print</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> vertices&#39;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">vrepr</span><span class="o">.</span><span class="n">vertices</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>We have used this package to compute moment cones associated with many other quantum marginal problems.</p>
+<p>We have used this package to compute moment cones associated with many other quantum marginal problems (TODO: add link).</p>
 </div>
 <div class="section" id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
@@ -77,8 +77,22 @@ sage -pip install git+git://github.com/catch22/moment_polytopes
 sage -f python2
 </pre></div>
 </div>
-<div class="toctree-wrapper compound">
 </div>
+</div>
+<div class="section" id="citation">
+<h2>Citation<a class="headerlink" href="#citation" title="Permalink to this headline">¶</a></h2>
+<p>If you use this software, please consider citing our article:</p>
+<div class="highlight-bibtex"><div class="highlight"><pre><span></span><span class="nc">@article</span><span class="p">{</span><span class="nl">moment_polytopes</span><span class="p">,</span>
+  <span class="na">author</span>  <span class="p">=</span> <span class="s">{Vergne, M. and Walter, M.}</span><span class="p">,</span>
+  <span class="na">title</span>   <span class="p">=</span> <span class="s">{Inequalities for moment cones of finite-dimensional representations}</span><span class="p">,</span>
+  <span class="na">year</span>    <span class="p">=</span> <span class="s">{2014}</span><span class="p">,</span>
+  <span class="na">journal</span> <span class="p">=</span> <span class="s">{to appear in Journal of Symplectic Geometry}</span><span class="p">,</span>
+  <span class="na">eprint</span>  <span class="p">=</span> <span class="s">{1410.8144}</span><span class="p">,</span>
+  <span class="na">note</span>    <span class="p">=</span> <span class="s">{Software available at \url{https://github.com/catch22/moment_polytopes}.}</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="toctree-wrapper compound">
 </div>
 </div>
 <div class="section" id="miscellaneous-pages">
