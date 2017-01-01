@@ -3,7 +3,7 @@
 TEST_FLAGS?=-s
 
 test:
-	SAGE_PATH=. sage -python -m pytest --tb=short $(TEST_FLAGS)
+	SAGE_PATH=. sage -python -m pytest --tb=short --doctest-modules moment_polytopes tests $(TEST_FLAGS)
 
 docs:
 	SAGE_PATH=. make -C docs html
