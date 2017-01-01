@@ -52,7 +52,7 @@
 <p>Inequalities</p>
 <div class="math">
 \[H_1 x_1 + \dots + H_d x_d \geq c\]</div>
-<p>are represented by pairs <span class="math">\((H, c)\)</span>, where <span class="math">\(H\)</span> is a <code class="xref py py-class docutils literal"><span class="pre">vector</span></code> and <span class="math">\(c\)</span> an integer (and likewise for equations).</p>
+<p>are represented by pairs <span class="math">\((H, c)\)</span>, where <span class="math">\(H\)</span> is a <code class="xref py py-class docutils literal"><span class="pre">sage.vector</span></code> and <span class="math">\(c\)</span> an integer (and likewise for equations).</p>
 <p>A H-representation without any inequalities and equations is assumed to be the full ambient space.
 Inequalities and equations are sorted lexicographically.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -131,12 +131,12 @@ Inequalities and equations are sorted lexicographically.</p>
 <dl class="staticmethod">
 <dt id="moment_polytopes.HRepr.from_sage">
 <em class="property">static </em><code class="descname">from_sage</code><span class="sig-paren">(</span><em>p</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.HRepr.from_sage" title="Permalink to this definition">¶</a></dt>
-<dd><p>Construct H-representation from Sage <code class="xref py py-class docutils literal"><span class="pre">Polyhedron</span></code>.</p>
+<dd><p>Construct H-representation from Sage <code class="xref py py-class docutils literal"><span class="pre">sage.Polyhedron</span></code>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>p</strong> &#8211; the <code class="xref py py-class docutils literal"><span class="pre">Polyhedron</span></code> instance.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>p</strong> &#8211; the <code class="xref py py-class docutils literal"><span class="pre">sage.Polyhedron</span></code> instance.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#moment_polytopes.HRepr" title="moment_polytopes.HRepr"><code class="xref py py-class docutils literal"><span class="pre">HRepr</span></code></a></td>
 </tr>
@@ -169,7 +169,7 @@ Inequalities and equations are sorted lexicographically.</p>
 <dl class="method">
 <dt id="moment_polytopes.HRepr.to_sage">
 <code class="descname">to_sage</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.HRepr.to_sage" title="Permalink to this definition">¶</a></dt>
-<dd><p>Convert to Sage <code class="xref py py-class docutils literal"><span class="pre">Polyhedron</span></code> object.</p>
+<dd><p>Convert to Sage <code class="xref py py-class docutils literal"><span class="pre">sage.Polyhedron</span></code> object.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -190,7 +190,7 @@ This potentially expensive operation is implemented by calling <a class="referen
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list of <code class="xref py py-class docutils literal"><span class="pre">vector</span></code></td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list of <code class="xref py py-class docutils literal"><span class="pre">sage.vector</span></code></td>
 </tr>
 <tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><strong>ValueError</strong> &#8211; polytope is not bounded (use <a class="reference internal" href="#moment_polytopes.HRepr.vrepr" title="moment_polytopes.HRepr.vrepr"><code class="xref py py-func docutils literal"><span class="pre">vrepr()</span></code></a> to access V-representation)</td>
 </tr>
@@ -226,9 +226,9 @@ Vertices, rays, and lines are sorted lexicographically.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>vertices</strong> (list of <code class="xref py py-class docutils literal"><span class="pre">vector</span></code>) &#8211; vertices.</li>
-<li><strong>rays</strong> (list of <code class="xref py py-class docutils literal"><span class="pre">vector</span></code>) &#8211; rays.</li>
-<li><strong>lines</strong> (list of <code class="xref py py-class docutils literal"><span class="pre">vector</span></code>) &#8211; lines.</li>
+<li><strong>vertices</strong> (list of <code class="xref py py-class docutils literal"><span class="pre">sage.vector</span></code>) &#8211; vertices.</li>
+<li><strong>rays</strong> (list of <code class="xref py py-class docutils literal"><span class="pre">sage.vector</span></code>) &#8211; rays.</li>
+<li><strong>lines</strong> (list of <code class="xref py py-class docutils literal"><span class="pre">sage.vector</span></code>) &#8211; lines.</li>
 </ul>
 </td>
 </tr>
@@ -261,12 +261,12 @@ Vertices, rays, and lines are sorted lexicographically.</p>
 <dl class="staticmethod">
 <dt id="moment_polytopes.VRepr.from_sage">
 <em class="property">static </em><code class="descname">from_sage</code><span class="sig-paren">(</span><em>p</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.VRepr.from_sage" title="Permalink to this definition">¶</a></dt>
-<dd><p>Construct V-representation from Sage <code class="xref py py-class docutils literal"><span class="pre">Polyhedron</span></code>.</p>
+<dd><p>Construct V-representation from Sage <code class="xref py py-class docutils literal"><span class="pre">sage.Polyhedron</span></code>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>p</strong> &#8211; the <code class="xref py py-class docutils literal"><span class="pre">Polyhedron</span></code> instance.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>p</strong> &#8211; the <code class="xref py py-class docutils literal"><span class="pre">sage.Polyhedron</span></code> instance.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#moment_polytopes.VRepr" title="moment_polytopes.VRepr"><code class="xref py py-class docutils literal"><span class="pre">VRepr</span></code></a></td>
 </tr>
@@ -304,7 +304,7 @@ Vertices, rays, and lines are sorted lexicographically.</p>
 <dl class="method">
 <dt id="moment_polytopes.VRepr.to_sage">
 <code class="descname">to_sage</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.VRepr.to_sage" title="Permalink to this definition">¶</a></dt>
-<dd><p>Convert to Sage <code class="xref py py-class docutils literal"><span class="pre">Polyhedron</span></code> object.</p>
+<dd><p>Convert to Sage <code class="xref py py-class docutils literal"><span class="pre">sage.Polyhedron</span></code> object.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -342,8 +342,387 @@ Vertices, rays, and lines are sorted lexicographically.</p>
 </dd></dl>
 
 </div>
+<div class="section" id="combinatorics">
+<h2>Combinatorics<a class="headerlink" href="#combinatorics" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="moment_polytopes.rect_tableaux">
+<code class="descclassname">moment_polytopes.</code><code class="descname">rect_tableaux</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.rect_tableaux" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return all rectangular standard Young tableaux of shape <span class="math">\(a \times b\)</span>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>a</strong> &#8211; number of rows</li>
+<li><strong>b</strong> &#8211; number of columns</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list of <code class="xref py py-class docutils literal"><span class="pre">sage.StandardTableau</span></code></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="moment_polytopes.cubicle">
+<code class="descclassname">moment_polytopes.</code><code class="descname">cubicle</code><span class="sig-paren">(</span><em>T</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.cubicle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return Sage <code class="xref py py-class docutils literal"><span class="pre">sage.Polyhedron</span></code> representing the cubicle that corresponds to the given rectangular tableaux T (if any).
+This is the maximal-dimensional polytope defined by</p>
+<div class="math">
+\[\{ (a,b) : a_i + b_j \leq a_k + b_l \Leftrightarrow T_{i,j} \geq T_{k,l} \}\]</div>
+<p>together with the equations <span class="math">\(\sum_i a_i = \sum_j b_j = 0\)</span>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>T</strong> (<code class="xref py py-class docutils literal"><span class="pre">sage.StandardTableau</span></code>) &#8211; a rectangular standard Young tableaux</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">sage.Polyhedron</span></code> or None, if the tableaux is not additive (i.e., does not correspond to a cubicle).</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="moment_polytopes.cubicle_tableaux">
+<code class="descclassname">moment_polytopes.</code><code class="descname">cubicle_tableaux</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.cubicle_tableaux" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return list of tableaux corresponding to cubicles for <span class="math">\(a \times b\)</span>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>a</strong> &#8211; number of rows</li>
+<li><strong>b</strong> &#8211; number of columns</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list of <code class="xref py py-class docutils literal"><span class="pre">sage.StandardTableau</span></code></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="moment_polytopes.is_dominant">
+<code class="descclassname">moment_polytopes.</code><code class="descname">is_dominant</code><span class="sig-paren">(</span><em>v</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.is_dominant" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determine if vector <span class="math">\(v\)</span> is dominant, i.e., <span class="math">\(v_0 \geq v_1 \geq \dots\)</span>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>v</strong> &#8211; vector to test.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">bool.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="moment_polytopes.is_extremal_edge">
+<code class="descclassname">moment_polytopes.</code><code class="descname">is_extremal_edge</code><span class="sig-paren">(</span><em>dims</em>, <em>V</em>, <em>assert_dominant=True</em>, <em>assert_primitive=True</em>, <em>assert_traceless=True</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.is_extremal_edge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determine whether given vector is an extremal edge. That is, verify whether <span class="math">\(V=(H_1,\dots,H_n)\)</span> is</p>
+<ul class="simple">
+<li>dominant</li>
+<li>primitive</li>
+<li>traceless</li>
+<li>admissible for the system <span class="math">\(C(d_1,\dots,d_n)\)</span> of restricted roots for <span class="math">\(SU(d_1) \times \dots \times SU(d_n) \to SU(\prod_i d_i)\)</span></li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>dims</strong> &#8211; dimensions <span class="math">\(d_1,\dots,d_n\)</span> of local unitary group.</li>
+<li><strong>V</strong> &#8211; vector of length <span class="math">\(\sum_i d_i\)</span> to test.</li>
+<li><strong>assert_dominant</strong> &#8211; verify that vector is dominant.</li>
+<li><strong>assert_primitive</strong> &#8211; verify that vector is primitive.</li>
+<li><strong>assert_traceless</strong> &#8211; verify that vector is traceless.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="moment_polytopes.is_extremal_edge_ieq">
+<code class="descclassname">moment_polytopes.</code><code class="descname">is_extremal_edge_ieq</code><span class="sig-paren">(</span><em>dims</em>, <em>ieq</em>, <em>assert_dominant=True</em>, <em>assert_primitive=True</em>, <em>assert_traceless=True</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.is_extremal_edge_ieq" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check whether given inequality corresponds to an extremal edge (see <a class="reference internal" href="#moment_polytopes.is_extremal_edge" title="moment_polytopes.is_extremal_edge"><code class="xref py py-func docutils literal"><span class="pre">is_extremal_edge()</span></code></a>).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>dims</strong> &#8211; dimensions <span class="math">\(d_1,\dots,d_n\)</span> of local unitary group.</li>
+<li><strong>ieq</strong> &#8211; inequality <span class="math">\((H,c)\)</span> to test. We require that <span class="math">\(c=0\)</span>.</li>
+<li><strong>assert_dominant</strong> &#8211; verify that vector is dominant.</li>
+<li><strong>assert_primitive</strong> &#8211; verify that vector is primitive.</li>
+<li><strong>assert_traceless</strong> &#8211; verify that vector is traceless.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="moment_polytopes.extremal_edges">
+<code class="descclassname">moment_polytopes.</code><code class="descname">extremal_edges</code><span class="sig-paren">(</span><em>dims</em>, <em>include_perms=True</em>, <em>algorithm=None</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.extremal_edges" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns extremal edges for <code class="docutils literal"><span class="pre">dims</span></code> (see <a class="reference internal" href="#moment_polytopes.is_extremal_edge" title="moment_polytopes.is_extremal_edge"><code class="xref py py-func docutils literal"><span class="pre">is_extremal_edge()</span></code></a>).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>dims</strong> &#8211; dimensions <span class="math">\(d_1,\dots,d_n\)</span> of local unitary group.</li>
+<li><strong>algorithm</strong> &#8211; <code class="docutils literal"><span class="pre">None</span></code>, <code class="docutils literal"><span class="pre">'bipartite'</span></code>, or <code class="docutils literal"><span class="pre">'generic'</span></code>.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list of <code class="xref py py-class docutils literal"><span class="pre">sage.vector</span></code></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="moment_polytopes.perms_of_length">
+<code class="descclassname">moment_polytopes.</code><code class="descname">perms_of_length</code><span class="sig-paren">(</span><em>n</em>, <em>length</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.perms_of_length" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return all permutations in <span class="math">\(S_n\)</span> of the given length (i.e., with the specified number of inversion).</p>
+<p>This uses the algorithm in <a class="reference external" href="http://webhome.cs.uvic.ca/~ruskey/Publications/Inversion/InversionCAT.pdf">http://webhome.cs.uvic.ca/~ruskey/Publications/Inversion/InversionCAT.pdf</a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>n</strong> &#8211; specifies the permutation group <span class="math">\(S_n\)</span>.</li>
+<li><strong>length</strong> &#8211; number of inversions.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list of <code class="xref py py-class docutils literal"><span class="pre">sage.Permutation</span></code></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="moment_polytopes.length_tuples">
+<code class="descclassname">moment_polytopes.</code><code class="descname">length_tuples</code><span class="sig-paren">(</span><em>dims</em>, <em>total</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.length_tuples" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return integer tuples <span class="math">\((\ell_1, ..., \ell_n)\)</span> such that</p>
+<ul class="simple">
+<li>each component <span class="math">\(\ell_i\)</span> is in <span class="math">\(\{0,\dots,{d_i \choose 2}\}\)</span></li>
+<li>their sum is equal to <code class="docutils literal"><span class="pre">total</span></code></li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>dims</strong> &#8211; dimensions <span class="math">\(d_1,\dots,d_n\)</span>.</li>
+<li><strong>total</strong> &#8211; total length</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">generator of tuples of integers</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="moment_polytopes.is_shuffle">
+<code class="descclassname">moment_polytopes.</code><code class="descname">is_shuffle</code><span class="sig-paren">(</span><em>pi</em>, <em>v</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.is_shuffle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if the permutation <code class="docutils literal"><span class="pre">pi</span></code> is a shuffle with respect to the dominant element <code class="docutils literal"><span class="pre">v</span></code>, i.e.,</p>
+<div class="math">
+\[v_i = v_{i+1} \Rightarrow \pi_i &lt; pi_{i+1}.\]</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>pi</strong> &#8211; the permutation <span class="math">\(pi\)</span>.</li>
+<li><strong>v</strong> &#8211; the dominant vector <span class="math">\(v\)</span>.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">bool</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="moment_polytopes.is_antishuffle">
+<code class="descclassname">moment_polytopes.</code><code class="descname">is_antishuffle</code><span class="sig-paren">(</span><em>pi</em>, <em>v</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.is_antishuffle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if the permutation <code class="docutils literal"><span class="pre">pi</span></code> is an antishuffle with respect to the dominant element <code class="docutils literal"><span class="pre">v</span></code>, i.e.,</p>
+<div class="math">
+\[v_i = v_{i+1} \Rightarrow \pi_i &gt; pi_{i+1}.\]</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>pi</strong> &#8211; the permutation <span class="math">\(pi\)</span>.</li>
+<li><strong>v</strong> &#8211; the dominant vector <span class="math">\(v\)</span>.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">bool</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="moment_polytopes.shuffles">
+<code class="descclassname">moment_polytopes.</code><code class="descname">shuffles</code><span class="sig-paren">(</span><em>v</em>, <em>length</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.shuffles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return all permutations in <span class="math">\(S_{\lvert v \rvert}\)</span> that are shuffles with respect to the dominant element <code class="docutils literal"><span class="pre">v</span></code> (see <a class="reference internal" href="#moment_polytopes.is_shuffle" title="moment_polytopes.is_shuffle"><code class="xref py py-func docutils literal"><span class="pre">is_shuffle()</span></code></a>) and have the desired length.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>v</strong> &#8211; the dominant vector <span class="math">\(v\)</span>.</li>
+<li><strong>length</strong> &#8211; the desired length.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><code class="xref py py-class docutils literal"><span class="pre">sage.Permutation</span></code></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="moment_polytopes.antishuffles">
+<code class="descclassname">moment_polytopes.</code><code class="descname">antishuffles</code><span class="sig-paren">(</span><em>v</em>, <em>antilength</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.antishuffles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return all permutations in <span class="math">\(S_{\lvert v \rvert}\)</span> that are antishuffles with respect to the dominant element <code class="docutils literal"><span class="pre">v</span></code> (see <a class="reference internal" href="#moment_polytopes.is_antishuffle" title="moment_polytopes.is_antishuffle"><code class="xref py py-func docutils literal"><span class="pre">is_antishuffle()</span></code></a>) and have the desired antilength.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>v</strong> &#8211; the dominant vector <span class="math">\(v\)</span>.</li>
+<li><strong>antilength</strong> &#8211; the desired antilength.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><code class="xref py py-class docutils literal"><span class="pre">sage.Permutation</span></code></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="moment_polytopes.perm_action">
+<code class="descclassname">moment_polytopes.</code><code class="descname">perm_action</code><span class="sig-paren">(</span><em>pi</em>, <em>v</em>, <em>zero_based=False</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.perm_action" title="Permalink to this definition">¶</a></dt>
+<dd><p>Left action of a permutation <span class="math">\(\pi \in S_n\)</span> on <span class="math">\(v \in \mathbb R^n\)</span>:</p>
+<div class="math">
+\[(\pi \cdot v)_i = v_{\pi^{-1}(i)}\]</div>
+<p>i.e.</p>
+<div class="math">
+\[(\pi \cdot v)_{\pi(i)} = v_i.\]</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>pi</strong> &#8211; the permutation <span class="math">\(\pi\)</span>.</li>
+<li><strong>v</strong> &#8211; the vector <span class="math">\(v\)</span>.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Para, zero_based:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first">if <code class="docutils literal"><span class="pre">True</span></code> then permutation is in <span class="math">\(S_{\{0,\dots,n-1\}}\)</span> instead.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><code class="xref py py-class docutils literal"><span class="pre">sage.vector</span></code></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="moment_polytopes.StabilizerGroup">
+<em class="property">class </em><code class="descclassname">moment_polytopes.</code><code class="descname">StabilizerGroup</code><span class="sig-paren">(</span><em>v</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.StabilizerGroup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stabilizer group <span class="math">\(S_v \subseteq S_{\lvert v \rvert}\)</span> of a vector <span class="math">\(v\)</span>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>v</strong> &#8211; the vector.</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="moment_polytopes.StabilizerGroup.blocks">
+<code class="descname">blocks</code><em class="property"> = None</em><a class="headerlink" href="#moment_polytopes.StabilizerGroup.blocks" title="Permalink to this definition">¶</a></dt>
+<dd><p>The blocks of indices of components that are equal.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="moment_polytopes.StabilizerGroup.normal_form">
+<code class="descname">normal_form</code><span class="sig-paren">(</span><em>hs</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.StabilizerGroup.normal_form" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the unique normal form of a vector <code class="docutils literal"><span class="pre">hs</span></code> in its orbit under the stabilizer group.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>hs</strong> &#8211; a vector of the same length as <a class="reference internal" href="#moment_polytopes.StabilizerGroup.v" title="moment_polytopes.StabilizerGroup.v"><code class="xref py py-attr docutils literal"><span class="pre">v</span></code></a>.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">tuple</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="moment_polytopes.StabilizerGroup.orbit">
+<code class="descname">orbit</code><span class="sig-paren">(</span><em>hs_iterable</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.StabilizerGroup.orbit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the orbit of a vectors <code class="docutils literal"><span class="pre">hs_iterable</span></code> under the stabilizer group.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>hs_iterable</strong> &#8211; a collection of vectors</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">set of tuples</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="moment_polytopes.StabilizerGroup.v">
+<code class="descname">v</code><em class="property"> = None</em><a class="headerlink" href="#moment_polytopes.StabilizerGroup.v" title="Permalink to this definition">¶</a></dt>
+<dd><p>The vector defining the stabilizer group.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="internals">
 <h2>Internals<a class="headerlink" href="#internals" title="Permalink to this headline">¶</a></h2>
+<dl class="data">
+<dt id="moment_polytopes.__version__">
+<code class="descclassname">moment_polytopes.</code><code class="descname">__version__</code><em class="property"> = '1.0.dev0'</em><a class="headerlink" href="#moment_polytopes.__version__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Current version.</p>
+</dd></dl>
+
 <dl class="data">
 <dt id="moment_polytopes.disk_cache.DISK_CACHE_DIR">
 <code class="descclassname">moment_polytopes.disk_cache.</code><code class="descname">DISK_CACHE_DIR</code><em class="property"> = '/Users/michael/.cache/moment_polytopes-1.0.dev0'</em><a class="headerlink" href="#moment_polytopes.disk_cache.DISK_CACHE_DIR" title="Permalink to this definition">¶</a></dt>
@@ -369,6 +748,7 @@ Vertices, rays, and lines are sorted lexicographically.</p>
   <ul>
 <li><a class="reference internal" href="#">Reference</a><ul>
 <li><a class="reference internal" href="#polyhedra">Polyhedra</a></li>
+<li><a class="reference internal" href="#combinatorics">Combinatorics</a></li>
 <li><a class="reference internal" href="#internals">Internals</a></li>
 </ul>
 </li>
