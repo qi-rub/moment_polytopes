@@ -8,6 +8,12 @@ This package requires `SageMath <http://www.sagemath.org>`_ 7.5 or higher. It ca
   sage -i lrslib
   sage -pip install git+git://github.com/catch22/moment_polytopes
 
+To test your installation, download the :download:`three_qubits.py <../examples/three_qubits.py>` example and run it as follows:
+
+.. code-block:: bash
+
+  sage three_qubits.py
+
 Troubleshooting
 ---------------
 

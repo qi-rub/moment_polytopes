@@ -1334,7 +1334,7 @@ We use them to verify that our implementation is correct.</p>
 
 <dl class="function">
 <dt id="moment_polytopes.third_party.klyachko_qmp_hrepr">
-<code class="descclassname">moment_polytopes.third_party.</code><code class="descname">klyachko_qmp_hrepr</code><span class="sig-paren">(</span><em>dims</em>, <em>bare=False</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.third_party.klyachko_qmp_hrepr" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">moment_polytopes.third_party.</code><code class="descname">klyachko_qmp_hrepr</code><span class="sig-paren">(</span><em>dims</em>, <em>bare=False</em>, <em>irred=True</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.third_party.klyachko_qmp_hrepr" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the moment polytope for the <span class="math">\(\times_i GL(d_i)\)</span>-representation on <span class="math">\(\bigotimes_i \mathbb C^{d_i}\)</span> as computed in <a class="reference external" href="https://arxiv.org/abs/quant-ph/0409113">Klyachko (2004)</a>.</p>
 <p>See <a class="reference internal" href="#moment_polytopes.third_party.KLYACHKO_QMP_SCENARIOS" title="moment_polytopes.third_party.KLYACHKO_QMP_SCENARIOS"><code class="xref py py-data docutils literal"><span class="pre">KLYACHKO_QMP_SCENARIOS</span></code></a> and <a class="reference internal" href="#moment_polytopes.third_party.KLYACHKO_GOOD_QMP_SCENARIOS" title="moment_polytopes.third_party.KLYACHKO_GOOD_QMP_SCENARIOS"><code class="xref py py-data docutils literal"><span class="pre">KLYACHKO_GOOD_QMP_SCENARIOS</span></code></a> for available scenarios.
 Sub-scenarios of these scenarios are also supported (i.e., <span class="math">\(d'_{\pi(i)} \leq d_i\)</span> for some permutation <span class="math">\(\pi\)</span>).</p>
@@ -1345,6 +1345,7 @@ Sub-scenarios of these scenarios are also supported (i.e., <span class="math">\(
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>dims</strong> &#8211; the dimensions <span class="math">\((d_1,\dots,d_n)\)</span>.</li>
 <li><strong>bare</strong> &#8211; if <code class="docutils literal"><span class="pre">True</span></code> then permutations, positivity, and Weyl chamber inequalities are omitted.</li>
+<li><strong>irred</strong> &#8211; if <code class="docutils literal"><span class="pre">True</span></code> then an irredunant H-representation is returned.</li>
 </ul>
 </td>
 </tr>
