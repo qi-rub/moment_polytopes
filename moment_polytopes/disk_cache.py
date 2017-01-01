@@ -14,6 +14,9 @@ DISK_CACHE_DIR = os.path.expanduser('~/.cache/%s-%s' %
                                     (package_name, package_version))
 logger.debug('Using directory %s', DISK_CACHE_DIR)
 
+#:Globally disable disk cache.
+DISABLED = False
+
 
 def disk_cache(f):
     """
@@ -24,6 +27,9 @@ def disk_cache(f):
 
     @wraps(f)
     def wrapper(*args, **kwargs):
+        if DISABLED:
+            return f(*args, **kwargs)
+
         key = (args, tuple(sorted(kwargs.items())))
 
         # lazily load cache
