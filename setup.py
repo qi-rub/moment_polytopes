@@ -29,4 +29,5 @@ setup(
         'Programming Language :: Python :: 2',
     ],
     packages=['moment_polytopes'],
-    install_requires=['tabulate'], )
+    install_requires=['tabulate'],
+    extras_require={'dev': ['bibtex-pygments-lexer']})

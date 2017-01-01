@@ -1,4 +1,4 @@
-include CHANGES LICENSE README
+include CHANGES LICENSE README Makefile
 
 graft docs
 prune docs/_build

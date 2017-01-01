@@ -104,6 +104,7 @@ html_theme_options = {
     # 'github_button': 'true',
     'github_banner': 'true',
     'show_powered_by': 'false',
+    'font_size': '14px',
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
