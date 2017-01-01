@@ -1,1 +1,3 @@
 moment_polytopes is a SageMath package for computing moment polytopes associated with finite-dimensional representations of compact and connected Lie groups.
+
+Read the docs at https://catch22.github.io/moment_polytopes.
