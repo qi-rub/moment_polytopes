@@ -71,7 +71,7 @@ class HRepr(object):
 
         H_1 x_1 + \dots + H_d x_d \geq c
 
-    are represented by pairs :math:`(H, c)`, where :math:`H` is a :class:`vector` and :math:`c` an integer (and likewise for equations).
+    are represented by pairs :math:`(H, c)`, where :math:`H` is a :class:`sage.vector` and :math:`c` an integer (and likewise for equations).
 
     A H-representation without any inequalities and equations is assumed to be the full ambient space.
     Inequalities and equations are sorted lexicographically.
@@ -159,7 +159,7 @@ class HRepr(object):
         Convenience function that ensures that polyhedron is bounded.
         This potentially expensive operation is implemented by calling :func:`vrepr`.
 
-        :rtype: list of :class:`vector`
+        :rtype: list of :class:`sage.vector`
         :raises ValueError: polytope is not bounded (use :func:`vrepr` to access V-representation)
         """
         vrepr = self.vrepr()
@@ -186,7 +186,7 @@ class HRepr(object):
     #         ambient_dim=self.ambient_dim)
 
     def to_sage(self):
-        """Convert to Sage :class:`Polyhedron` object.
+        """Convert to Sage :class:`sage.Polyhedron` object.
 
         :rtype: :class:`sage.Polyhedron`"""
         if self.eqns or self.ieqs:
@@ -230,9 +230,9 @@ class HRepr(object):
 
     @staticmethod
     def from_sage(p):
-        """Construct H-representation from Sage :class:`Polyhedron`.
+        """Construct H-representation from Sage :class:`sage.Polyhedron`.
 
-        :param p: the :class:`Polyhedron` instance.
+        :param p: the :class:`sage.Polyhedron` instance.
         :rtype: :class:`HRepr`
         """
 
@@ -299,9 +299,9 @@ class VRepr(object):
     :param vertices: vertices.
     :param rays: rays.
     :param lines: lines.
-    :type vertices: list of :class:`vector`
-    :type rays: list of :class:`vector`
-    :type lines: list of :class:`vector`
+    :type vertices: list of :class:`sage.vector`
+    :type rays: list of :class:`sage.vector`
+    :type lines: list of :class:`sage.vector`
     :raises ValueError: neither ``vertices``, ``rays``, ``lines``, nor ``ambient_dim`` were specified.
 
     .. automethod:: __eq__
@@ -358,7 +358,7 @@ class VRepr(object):
         return HRepr._from_lrs(stdout)
 
     def to_sage(self):
-        """Convert to Sage :class:`Polyhedron` object.
+        """Convert to Sage :class:`sage.Polyhedron` object.
 
         :rtype: :class:`sage.Polyhedron`"""
         logger.debug('Converting VRepr to Sage Polyhedron')
@@ -395,9 +395,9 @@ class VRepr(object):
 
     @staticmethod
     def from_sage(p):
-        """Construct V-representation from Sage :class:`Polyhedron`.
+        """Construct V-representation from Sage :class:`sage.Polyhedron`.
 
-        :param p: the :class:`Polyhedron` instance.
+        :param p: the :class:`sage.Polyhedron` instance.
         :rtype: :class:`VRepr`
         """
         return VRepr(vertices=p.vertices(), rays=p.rays(), lines=p.lines())
