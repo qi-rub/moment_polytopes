@@ -43,8 +43,162 @@
             
   <div class="section" id="module-moment_polytopes">
 <span id="reference"></span><h1>Reference<a class="headerlink" href="#module-moment_polytopes" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="lie-group-representations">
-<h2>Lie Group Representations<a class="headerlink" href="#lie-group-representations" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="quantum-marginal-problem">
+<h2>Quantum Marginal Problem<a class="headerlink" href="#quantum-marginal-problem" title="Permalink to this headline">¶</a></h2>
+<p>This module contains functionality for computing moment polytopes associated with the pure-state marginal problem, i.e., the <span class="math">\(\times_i GL(d_i)\)</span>-representation <span class="math">\(\bigotimes_i \mathbb C^{d_i}\)</span>.</p>
+<dl class="function">
+<dt id="moment_polytopes.qmp.facet_normal_form">
+<code class="descclassname">moment_polytopes.qmp.</code><code class="descname">facet_normal_form</code><span class="sig-paren">(</span><em>dims</em>, <em>ieq</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.qmp.facet_normal_form" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a facet <span class="math">\(H \cdot \lambda \geq c\)</span> for the quantum marginal problem with given dimensions, where <span class="math">\(H = (H_A, H_B, \dots)\)</span>, make each component <span class="math">\(H_A, H_B, \dots\)</span> traceless, integral, and primitive.</p>
+<p>This generically makes the inequality unique.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>dims</strong> &#8211; the dimensions <span class="math">\(d_1,\dots,d_n\)</span>.</li>
+<li><strong>ieq</strong> &#8211; the inequality <span class="math">\((H,c)\)</span> defining the facet.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">the</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="ressayre-elements">
+<h2>Ressayre Elements<a class="headerlink" href="#ressayre-elements" title="Permalink to this headline">¶</a></h2>
+<dl class="data">
+<dt id="moment_polytopes.DEFAULT_FAILURE_PROBABILITY">
+<code class="descclassname">moment_polytopes.</code><code class="descname">DEFAULT_FAILURE_PROBABILITY</code><em class="property"> = 1e-10</em><a class="headerlink" href="#moment_polytopes.DEFAULT_FAILURE_PROBABILITY" title="Permalink to this definition">¶</a></dt>
+<dd><p>float(x) -&gt; floating point number</p>
+<p>Convert a string or number to a floating point number, if possible.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="moment_polytopes.RessayreTester">
+<em class="property">class </em><code class="descclassname">moment_polytopes.</code><code class="descname">RessayreTester</code><span class="sig-paren">(</span><em>R</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.RessayreTester" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base class for testing Ressayre elements. Use <a class="reference internal" href="#moment_polytopes.is_ressayre" title="moment_polytopes.is_ressayre"><code class="xref py py-func docutils literal"><span class="pre">is_ressayre()</span></code></a> and <a class="reference internal" href="#moment_polytopes.ressayre_tester" title="moment_polytopes.ressayre_tester"><code class="xref py py-func docutils literal"><span class="pre">ressayre_tester()</span></code></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>R</strong> (<a class="reference internal" href="#moment_polytopes.Representation" title="moment_polytopes.Representation"><code class="xref py py-class docutils literal"><span class="pre">Representation</span></code></a>) &#8211; the representation.</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="moment_polytopes.RessayreTester.det">
+<code class="descname">det</code><span class="sig-paren">(</span><em>Ts</em>, <em>d</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.RessayreTester.det" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return nonzero value if and only if determinant of polynomial matrix <span class="math">\(sum_j z_j T_j\)</span> is nonzero.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>Ts</strong> &#8211; quadratic matrices <span class="math">\(T_j\)</span>, indexed by weight vector index <span class="math">\(j\)</span>.</li>
+<li><strong>d</strong> &#8211; size of the matrices <span class="math">\(T_j\)</span></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="moment_polytopes.RessayreTester.is_ressayre">
+<code class="descname">is_ressayre</code><span class="sig-paren">(</span><em>ieq</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.RessayreTester.is_ressayre" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check whether given <span class="math">\((H,c)\)</span> is a Ressayre element (see <a class="reference internal" href="#moment_polytopes.is_ressayre" title="moment_polytopes.is_ressayre"><code class="xref py py-func docutils literal"><span class="pre">is_ressayre()</span></code></a>).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>ieq</strong> &#8211; the inequality <span class="math">\((H,c)\)</span> to be tested.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="moment_polytopes.RessayreTester.representation">
+<code class="descname">representation</code><em class="property"> = None</em><a class="headerlink" href="#moment_polytopes.RessayreTester.representation" title="Permalink to this definition">¶</a></dt>
+<dd><p>The representation.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="moment_polytopes.ressayre_tester">
+<code class="descclassname">moment_polytopes.</code><code class="descname">ressayre_tester</code><span class="sig-paren">(</span><em>R</em>, <em>algorithm=None</em>, <em>failure_probability=None</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.ressayre_tester" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create object for batch-testing Ressayre elements (see <a class="reference internal" href="#moment_polytopes.is_ressayre" title="moment_polytopes.is_ressayre"><code class="xref py py-func docutils literal"><span class="pre">is_ressayre()</span></code></a>).</p>
+<p>A <strong>Ressayre element</strong> <span class="math">\((H,c)\)</span> for a <span class="math">\(G\)</span>-representation <span class="math">\(R\)</span> satisfies the following three properties:</p>
+<ol class="arabic simple">
+<li>the hyperplane <span class="math">\(H \cdot \omega = c\)</span> is spanned by weights (admissibility, see <a class="reference internal" href="#moment_polytopes.is_admissible" title="moment_polytopes.is_admissible"><code class="xref py py-func docutils literal"><span class="pre">is_admissible()</span></code></a>),</li>
+<li>the number of negative roots <span class="math">\(\alpha\)</span> with <span class="math">\(H \cdot \alpha &lt; c\)</span> is equal to the number of weights <span class="math">\(\varphi\)</span> of the representation <span class="math">\(R\)</span> such that <span class="math">\(H \cdot \varphi &lt; c\)</span>,</li>
+<li>for some weight vector with weight on the hyperplane <span class="math">\(H \cdot \omega = c\)</span>, the correspondingly restricted tangent map is an isomorphism.</li>
+</ol>
+<p>By <a class="reference external" href="https://arxiv.org/abs/1410.8144">Vergne and Walter (2014)</a>, the Ressayre elements form a complete set of inequalities moment polytope for the <span class="math">\(G\)</span>-action on the projective space <span class="math">\(\mathbb P(R)\)</span> (except for the Weyl chamber constraints).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>R</strong> (<a class="reference internal" href="#moment_polytopes.Representation" title="moment_polytopes.Representation"><code class="xref py py-class docutils literal"><span class="pre">Representation</span></code></a>) &#8211; the representation.</li>
+<li><strong>algorithm</strong> &#8211; <code class="docutils literal"><span class="pre">None</span></code>, <code class="docutils literal"><span class="pre">'sage'</span></code>, <code class="docutils literal"><span class="pre">'mathematica'</span></code>, or <code class="docutils literal"><span class="pre">'probabilistic'</span></code>.</li>
+<li><strong>failure_probability</strong> &#8211; <code class="docutils literal"><span class="pre">None</span></code>, or desired probability of failure. This only affects the correctness when using the <code class="docutils literal"><span class="pre">'probabilistic'</span></code> algorithm.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#moment_polytopes.RessayreTester" title="moment_polytopes.RessayreTester"><code class="xref py py-class docutils literal"><span class="pre">RessayreTester</span></code></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="moment_polytopes.is_ressayre">
+<code class="descclassname">moment_polytopes.</code><code class="descname">is_ressayre</code><span class="sig-paren">(</span><em>R</em>, <em>ieq</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.is_ressayre" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determine whether given inequality <span class="math">\((H,c)\)</span> is a Ressayre element for the given representation.</p>
+<p>Convenience function that accepts the same optional argument as <a class="reference internal" href="#moment_polytopes.ressayre_tester" title="moment_polytopes.ressayre_tester"><code class="xref py py-func docutils literal"><span class="pre">ressayre_tester()</span></code></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>R</strong> (<a class="reference internal" href="#moment_polytopes.Representation" title="moment_polytopes.Representation"><code class="xref py py-class docutils literal"><span class="pre">Representation</span></code></a>) &#8211; the representation.</li>
+<li><strong>ieq</strong> &#8211; the inequality <span class="math">\((H,c)\)</span> to be tested.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="moment_polytopes.is_admissible">
+<code class="descclassname">moment_polytopes.</code><code class="descname">is_admissible</code><span class="sig-paren">(</span><em>R</em>, <em>ieq</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.is_admissible" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determine whether the given element <span class="math">\((H,c)\)</span> is admissible (i.e., that the hyperplane <span class="math">\(H \cdot \omega = c\)</span> is spanned by weights of the representation).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>R</strong> (<a class="reference internal" href="#moment_polytopes.Representation" title="moment_polytopes.Representation"><code class="xref py py-class docutils literal"><span class="pre">Representation</span></code></a>) &#8211; the representation.</li>
+<li><strong>ieq</strong> &#8211; the element <span class="math">\((H,c)\)</span>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="representations">
+<h2>Representations<a class="headerlink" href="#representations" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="moment_polytopes.Representation">
 <em class="property">class </em><code class="descclassname">moment_polytopes.</code><code class="descname">Representation</code><a class="headerlink" href="#moment_polytopes.Representation" title="Permalink to this definition">¶</a></dt>
@@ -243,116 +397,6 @@
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><code class="xref py py-class docutils literal"><span class="pre">sage.vector</span></code></p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</div>
-<div class="section" id="ressayre-elements">
-<h2>Ressayre Elements<a class="headerlink" href="#ressayre-elements" title="Permalink to this headline">¶</a></h2>
-<dl class="data">
-<dt id="moment_polytopes.DEFAULT_FAILURE_PROBABILITY">
-<code class="descclassname">moment_polytopes.</code><code class="descname">DEFAULT_FAILURE_PROBABILITY</code><em class="property"> = 1e-10</em><a class="headerlink" href="#moment_polytopes.DEFAULT_FAILURE_PROBABILITY" title="Permalink to this definition">¶</a></dt>
-<dd><p>float(x) -&gt; floating point number</p>
-<p>Convert a string or number to a floating point number, if possible.</p>
-</dd></dl>
-
-<dl class="class">
-<dt id="moment_polytopes.RessayreTester">
-<em class="property">class </em><code class="descclassname">moment_polytopes.</code><code class="descname">RessayreTester</code><span class="sig-paren">(</span><em>R</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.RessayreTester" title="Permalink to this definition">¶</a></dt>
-<dd><p>Base class for testing Ressayre elements. Use <a class="reference internal" href="#moment_polytopes.is_ressayre" title="moment_polytopes.is_ressayre"><code class="xref py py-func docutils literal"><span class="pre">is_ressayre()</span></code></a> and <a class="reference internal" href="#moment_polytopes.ressayre_tester" title="moment_polytopes.ressayre_tester"><code class="xref py py-func docutils literal"><span class="pre">ressayre_tester()</span></code></a>.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>R</strong> (<a class="reference internal" href="#moment_polytopes.Representation" title="moment_polytopes.Representation"><code class="xref py py-class docutils literal"><span class="pre">Representation</span></code></a>) &#8211; the representation.</td>
-</tr>
-</tbody>
-</table>
-<dl class="method">
-<dt id="moment_polytopes.RessayreTester.det">
-<code class="descname">det</code><span class="sig-paren">(</span><em>Ts</em>, <em>d</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.RessayreTester.det" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return nonzero value if and only if determinant of polynomial matrix <span class="math">\(sum_j z_j T_j\)</span> is nonzero.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>Ts</strong> &#8211; quadratic matrices <span class="math">\(T_j\)</span>, indexed by weight vector index <span class="math">\(j\)</span>.</li>
-<li><strong>d</strong> &#8211; size of the matrices <span class="math">\(T_j\)</span></li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="moment_polytopes.RessayreTester.is_ressayre">
-<code class="descname">is_ressayre</code><span class="sig-paren">(</span><em>ieq</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.RessayreTester.is_ressayre" title="Permalink to this definition">¶</a></dt>
-<dd><p>Check whether given <span class="math">\((H,c)\)</span> is a Ressayre element (see <a class="reference internal" href="#moment_polytopes.is_ressayre" title="moment_polytopes.is_ressayre"><code class="xref py py-func docutils literal"><span class="pre">is_ressayre()</span></code></a>).</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>ieq</strong> &#8211; the inequality <span class="math">\((H,c)\)</span> to be tested.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="moment_polytopes.RessayreTester.representation">
-<code class="descname">representation</code><em class="property"> = None</em><a class="headerlink" href="#moment_polytopes.RessayreTester.representation" title="Permalink to this definition">¶</a></dt>
-<dd><p>The representation.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="function">
-<dt id="moment_polytopes.ressayre_tester">
-<code class="descclassname">moment_polytopes.</code><code class="descname">ressayre_tester</code><span class="sig-paren">(</span><em>R</em>, <em>algorithm=None</em>, <em>failure_probability=None</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.ressayre_tester" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create object for batch-testing Ressayre elements (see <a class="reference internal" href="#moment_polytopes.is_ressayre" title="moment_polytopes.is_ressayre"><code class="xref py py-func docutils literal"><span class="pre">is_ressayre()</span></code></a>).</p>
-<p>A <strong>Ressayre element</strong> <span class="math">\((H,c)\)</span> for a <span class="math">\(G\)</span>-representation <span class="math">\(R\)</span> satisfies:</p>
-<ul class="simple">
-<li>the hyperplane <span class="math">\(H \cdot \omega = c\)</span> is spanned by weights,</li>
-<li>the number of negative roots <span class="math">\(\alpha\)</span> with <span class="math">\(H \cdot \alpha &lt; c\)</span> is equal to the number of weights <span class="math">\(\varphi\)</span> of the representation <span class="math">\(R\)</span> such that <span class="math">\(H \cdot \varphi &lt; c\)</span>,</li>
-<li>for some weight vector with weight on the hyperplane <span class="math">\(H \cdot \omega = c\)</span>, the correspondingly restricted tangent map is an isomorphism.</li>
-</ul>
-<p>By <a class="reference external" href="https://arxiv.org/abs/1410.8144">Vergne and Walter (2014)</a>, the Ressayre elements form a complete set of inequalities describing the moment polytope for the <span class="math">\(G\)</span>-action on the projective space <span class="math">\(\mathbb P(R)\)</span>.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>R</strong> (<a class="reference internal" href="#moment_polytopes.Representation" title="moment_polytopes.Representation"><code class="xref py py-class docutils literal"><span class="pre">Representation</span></code></a>) &#8211; the representation.</li>
-<li><strong>algorithm</strong> &#8211; <code class="docutils literal"><span class="pre">None</span></code>, <code class="docutils literal"><span class="pre">'sage'</span></code>, <code class="docutils literal"><span class="pre">'mathematica'</span></code>, or <code class="docutils literal"><span class="pre">'probabilistic'</span></code>.</li>
-<li><strong>failure_probability</strong> &#8211; <code class="docutils literal"><span class="pre">None</span></code>, or desired probability of failure. This only affects the correctness when using the <code class="docutils literal"><span class="pre">'probabilistic'</span></code> algorithm.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#moment_polytopes.RessayreTester" title="moment_polytopes.RessayreTester"><code class="xref py py-class docutils literal"><span class="pre">RessayreTester</span></code></a></p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="moment_polytopes.is_ressayre">
-<code class="descclassname">moment_polytopes.</code><code class="descname">is_ressayre</code><span class="sig-paren">(</span><em>R</em>, <em>ieq</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.is_ressayre" title="Permalink to this definition">¶</a></dt>
-<dd><p>Determine whether given inequality <span class="math">\((H,c)\)</span> is a Ressayre element for the given representation.</p>
-<p>Convenience function that accepts the same optional argument as <a class="reference internal" href="#moment_polytopes.ressayre_tester" title="moment_polytopes.ressayre_tester"><code class="xref py py-func docutils literal"><span class="pre">ressayre_tester()</span></code></a>.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>R</strong> (<a class="reference internal" href="#moment_polytopes.Representation" title="moment_polytopes.Representation"><code class="xref py py-class docutils literal"><span class="pre">Representation</span></code></a>) &#8211; the representation.</li>
-<li><strong>ieq</strong> &#8211; the inequality <span class="math">\((H,c)\)</span> to be tested.</li>
-</ul>
 </td>
 </tr>
 </tbody>
@@ -945,7 +989,7 @@ This is the maximal-dimensional polytope defined by</p>
 
 <dl class="function">
 <dt id="moment_polytopes.perm_action">
-<code class="descclassname">moment_polytopes.</code><code class="descname">perm_action</code><span class="sig-paren">(</span><em>pi</em>, <em>v</em>, <em>zero_based=False</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.perm_action" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">moment_polytopes.</code><code class="descname">perm_action</code><span class="sig-paren">(</span><em>pi</em>, <em>v</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.perm_action" title="Permalink to this definition">¶</a></dt>
 <dd><p>Left action of a permutation <span class="math">\(\pi \in S_n\)</span> on <span class="math">\(v \in \mathbb R^n\)</span>:</p>
 <div class="math">
 \[(\pi \cdot v)_i = v_{\pi^{-1}(i)}\]</div>
@@ -962,11 +1006,7 @@ This is the maximal-dimensional polytope defined by</p>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name" colspan="2">Para, zero_based:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first">if <code class="docutils literal"><span class="pre">True</span></code> then permutation is in <span class="math">\(S_{\{0,\dots,n-1\}}\)</span> instead.</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><code class="xref py py-class docutils literal"><span class="pre">sage.vector</span></code></p>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><code class="xref py py-class docutils literal"><span class="pre">sage.vector</span></code></p>
 </td>
 </tr>
 </tbody>
@@ -1032,6 +1072,75 @@ This is the maximal-dimensional polytope defined by</p>
 </dd></dl>
 
 </div>
+<div class="section" id="third-party-data">
+<h2>Third-Party Data<a class="headerlink" href="#third-party-data" title="Permalink to this headline">¶</a></h2>
+<p>This module contains inequalities of moment polytopes computed by others.
+We use them to verify that our implementation is correct.</p>
+<dl class="data">
+<dt id="moment_polytopes.third_party.KLYACHKO_FERMI_SCENARIOS">
+<code class="descclassname">moment_polytopes.third_party.</code><code class="descname">KLYACHKO_FERMI_SCENARIOS</code><em class="property"> = [(3, 8), (3, 7), (3, 6), (4, 8)]</em><a class="headerlink" href="#moment_polytopes.third_party.KLYACHKO_FERMI_SCENARIOS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Scenarios <span class="math">\((n,d)\)</span>, corresponding to the representation of <span class="math">\(GL(d)\)</span> on the anti-symmetric power <span class="math">\(\bigwedge^n \mathbb C^d\)</span>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="moment_polytopes.third_party.klyachko_fermi_hrepr">
+<code class="descclassname">moment_polytopes.third_party.</code><code class="descname">klyachko_fermi_hrepr</code><span class="sig-paren">(</span><em>n</em>, <em>d</em>, <em>bare=False</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.third_party.klyachko_fermi_hrepr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the moment polytope for the <span class="math">\(GL(d)\)</span>-representation on <span class="math">\(\bigwedge^n \mathbb C^d\)</span> as computed in <a class="reference external" href="https://arxiv.org/abs/0802.0918">Altunbulak and Klyachko (2008)</a>.</p>
+<p>See <a class="reference internal" href="#moment_polytopes.third_party.KLYACHKO_FERMI_SCENARIOS" title="moment_polytopes.third_party.KLYACHKO_FERMI_SCENARIOS"><code class="xref py py-data docutils literal"><span class="pre">KLYACHKO_FERMI_SCENARIOS</span></code></a> for available scenarios.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>n</strong> &#8211; the antisymmetric power.</li>
+<li><strong>d</strong> &#8211; the rank of the group.</li>
+<li><strong>bare</strong> &#8211; if <code class="docutils literal"><span class="pre">True</span></code> then the reduced Weyl chamber inequalities are omitted.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#moment_polytopes.HRepr" title="moment_polytopes.HRepr"><code class="xref py py-class docutils literal"><span class="pre">moment_polytopes.HRepr</span></code></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="data">
+<dt id="moment_polytopes.third_party.KLYACHKO_QMP_SCENARIOS">
+<code class="descclassname">moment_polytopes.third_party.</code><code class="descname">KLYACHKO_QMP_SCENARIOS</code><em class="property"> = [(3, 3, 9), (2, 2, 3, 12), (4, 2, 8), (3, 2, 6), (2, 2, 2, 2, 16)]</em><a class="headerlink" href="#moment_polytopes.third_party.KLYACHKO_QMP_SCENARIOS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Scenarios <span class="math">\((d_1,\dots,d_n)\)</span>, corresponding to <span class="math">\(\times_i GL(d_i)\)</span>-representation on <span class="math">\(\bigotimes_i \mathbb C^{d_i}\)</span>.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="moment_polytopes.third_party.KLYACHKO_GOOD_QMP_SCENARIOS">
+<code class="descclassname">moment_polytopes.third_party.</code><code class="descname">KLYACHKO_GOOD_QMP_SCENARIOS</code><em class="property"> = [(3, 3, 9), (4, 2, 8), (3, 2, 6), (2, 2, 2, 2, 16)]</em><a class="headerlink" href="#moment_polytopes.third_party.KLYACHKO_GOOD_QMP_SCENARIOS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Scenarios <span class="math">\((d_1,\dots,d_n)\)</span>, corresponding to <span class="math">\(\times_i GL(d_i)\)</span>-representation on <span class="math">\(\bigotimes_i \mathbb C^{d_i}\)</span> for which Klyachko&#8217;s inequalities do not contain any mistake.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="moment_polytopes.third_party.klyachko_qmp_hrepr">
+<code class="descclassname">moment_polytopes.third_party.</code><code class="descname">klyachko_qmp_hrepr</code><span class="sig-paren">(</span><em>dims</em>, <em>bare=False</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.third_party.klyachko_qmp_hrepr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the moment polytope for the <span class="math">\(\times_i GL(d_i)\)</span>-representation on <span class="math">\(\bigotimes_i \mathbb C^{d_i}\)</span> as computed in <a class="reference external" href="https://arxiv.org/abs/quant-ph/0409113">Klyachko (2004)</a>.</p>
+<p>See <a class="reference internal" href="#moment_polytopes.third_party.KLYACHKO_QMP_SCENARIOS" title="moment_polytopes.third_party.KLYACHKO_QMP_SCENARIOS"><code class="xref py py-data docutils literal"><span class="pre">KLYACHKO_QMP_SCENARIOS</span></code></a> and <a class="reference internal" href="#moment_polytopes.third_party.KLYACHKO_GOOD_QMP_SCENARIOS" title="moment_polytopes.third_party.KLYACHKO_GOOD_QMP_SCENARIOS"><code class="xref py py-data docutils literal"><span class="pre">KLYACHKO_GOOD_QMP_SCENARIOS</span></code></a> for available scenarios.
+Sub-scenarios of these scenarios are also supported (i.e., <span class="math">\(d'_{\pi(i)} \leq d_i\)</span> for some permutation <span class="math">\(\pi\)</span>).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>dims</strong> &#8211; the dimensions <span class="math">\((d_1,\dots,d_n)\)</span>.</li>
+<li><strong>bare</strong> &#8211; if <code class="docutils literal"><span class="pre">True</span></code> then permutations, positivity, and Weyl chamber inequalities are omitted.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#moment_polytopes.HRepr" title="moment_polytopes.HRepr"><code class="xref py py-class docutils literal"><span class="pre">moment_polytopes.HRepr</span></code></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
 <div class="section" id="internals">
 <h2>Internals<a class="headerlink" href="#internals" title="Permalink to this headline">¶</a></h2>
 <dl class="data">
@@ -1052,6 +1161,12 @@ This is the maximal-dimensional polytope defined by</p>
 <dd><p>Decorator that wraps a function such that calls are only evaluated once and otherwise retrieve from an on-disk cache.</p>
 </dd></dl>
 
+<dl class="function">
+<dt id="moment_polytopes.utils.dim_affine_hull">
+<code class="descclassname">moment_polytopes.utils.</code><code class="descname">dim_affine_hull</code><span class="sig-paren">(</span><em>points</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.utils.dim_affine_hull" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return dimension of affine hull of given collection of points.</p>
+</dd></dl>
+
 </div>
 </div>
 
@@ -1064,10 +1179,12 @@ This is the maximal-dimensional polytope defined by</p>
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Reference</a><ul>
-<li><a class="reference internal" href="#lie-group-representations">Lie Group Representations</a></li>
+<li><a class="reference internal" href="#quantum-marginal-problem">Quantum Marginal Problem</a></li>
 <li><a class="reference internal" href="#ressayre-elements">Ressayre Elements</a></li>
+<li><a class="reference internal" href="#representations">Representations</a></li>
 <li><a class="reference internal" href="#polyhedra">Polyhedra</a></li>
 <li><a class="reference internal" href="#combinatorics">Combinatorics</a></li>
+<li><a class="reference internal" href="#third-party-data">Third-Party Data</a></li>
 <li><a class="reference internal" href="#internals">Internals</a></li>
 </ul>
 </li>
