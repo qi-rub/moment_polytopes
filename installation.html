@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Changelog &mdash; moment_polytopes</title>
+    <title>Installation &mdash; moment_polytopes</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -25,8 +25,8 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="moment_polytopes" href="index.html" />
-    <link rel="next" title="License" href="license.html" />
-    <link rel="prev" title="Reference" href="reference.html" />
+    <link rel="next" title="Reference" href="reference.html" />
+    <link rel="prev" title="Welcome!" href="index.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -41,14 +41,20 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="changelog">
-<h1>Changelog<a class="headerlink" href="#changelog" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="version-1-0">
-<h2>Version 1.0<a class="headerlink" href="#version-1-0" title="Permalink to this headline">¶</a></h2>
-<p>(upcoming release)</p>
-<ul class="simple">
-<li>initial release.</li>
-</ul>
+  <div class="section" id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<p>This package requires <a href="#id1"><span class="problematic" id="id2">SageMath_</span></a> 7.5 or higher. It can be installed as follows:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>sage -i lrslib
+sage -pip install git+git://github.com/catch22/moment_polytopes
+</pre></div>
+</div>
+<div class="section" id="ssl-troubleshooting">
+<h2>SSL Troubleshooting<a class="headerlink" href="#ssl-troubleshooting" title="Permalink to this headline">¶</a></h2>
+<p>If on the second line you get an error message of the type <code class="docutils literal"><span class="pre">pip</span> <span class="pre">is</span> <span class="pre">configured</span> <span class="pre">with</span> <span class="pre">locations</span> <span class="pre">that</span> <span class="pre">require</span> <span class="pre">TLS/SSL,</span> <span class="pre">however</span> <span class="pre">the</span> <span class="pre">ssl</span> <span class="pre">module</span> <span class="pre">in</span> <span class="pre">Python</span> <span class="pre">is</span> <span class="pre">not</span> <span class="pre">available</span></code>, please run the following and retry:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>sage -i openssl
+sage -f python2
+</pre></div>
+</div>
 </div>
 </div>
 
@@ -60,8 +66,8 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Changelog</a><ul>
-<li><a class="reference internal" href="#version-1-0">Version 1.0</a></li>
+<li><a class="reference internal" href="#">Installation</a><ul>
+<li><a class="reference internal" href="#ssl-troubleshooting">SSL Troubleshooting</a></li>
 </ul>
 </li>
 </ul>
@@ -69,8 +75,8 @@
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="reference.html" title="previous chapter">Reference</a></li>
-      <li>Next: <a href="license.html" title="next chapter">License</a></li>
+      <li>Previous: <a href="index.html" title="previous chapter">Welcome!</a></li>
+      <li>Next: <a href="reference.html" title="next chapter">Reference</a></li>
   </ul></li>
 </ul>
 </div>

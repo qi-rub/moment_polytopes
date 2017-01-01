@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Welcome! &#8212; moment_polytopes</title>
+    <title>Welcome! &mdash; moment_polytopes</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -17,20 +17,17 @@
         VERSION:     '',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
+        HAS_SOURCE:  true
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Changelog" href="changes.html" />
+    <link rel="top" title="moment_polytopes" href="#" />
+    <link rel="next" title="Installation" href="installation.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
-  
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
@@ -62,43 +59,40 @@
 </pre></div>
 </div>
 <p>We have used this package to compute moment cones associated with many other quantum marginal problems (TODO: add link).</p>
-</div>
-<div class="section" id="installation">
-<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
-<p>This package requires <a class="reference external" href="http://www.sagemath.org">SageMath</a> 7.5 or higher. It can be installed as follows:</p>
+<p>You can install this package as follows:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>sage -i lrslib
 sage -pip install git+git://github.com/catch22/moment_polytopes
 </pre></div>
 </div>
-<div class="section" id="ssl-troubleshooting">
-<h3>SSL Troubleshooting<a class="headerlink" href="#ssl-troubleshooting" title="Permalink to this headline">¶</a></h3>
-<p>If on the second line you get an error message of the type <code class="docutils literal"><span class="pre">pip</span> <span class="pre">is</span> <span class="pre">configured</span> <span class="pre">with</span> <span class="pre">locations</span> <span class="pre">that</span> <span class="pre">require</span> <span class="pre">TLS/SSL,</span> <span class="pre">however</span> <span class="pre">the</span> <span class="pre">ssl</span> <span class="pre">module</span> <span class="pre">in</span> <span class="pre">Python</span> <span class="pre">is</span> <span class="pre">not</span> <span class="pre">available.</span></code>, please run the following and retry:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>sage -i openssl
-sage -f python2
-</pre></div>
-</div>
-</div>
+<p>See <a class="reference internal" href="installation.html"><span class="doc">Installation</span></a> for further detail and troubleshooting.</p>
 </div>
 <div class="section" id="citation">
 <h2>Citation<a class="headerlink" href="#citation" title="Permalink to this headline">¶</a></h2>
 <p>If you use this software, please consider citing our article:</p>
-<div class="highlight-bibtex"><div class="highlight"><pre><span></span><span class="nc">@article</span><span class="p">{</span><span class="nl">moment_polytopes</span><span class="p">,</span>
-  <span class="na">author</span>  <span class="p">=</span> <span class="s">{Vergne, M. and Walter, M.}</span><span class="p">,</span>
-  <span class="na">title</span>   <span class="p">=</span> <span class="s">{Inequalities for moment cones of finite-dimensional representations}</span><span class="p">,</span>
-  <span class="na">year</span>    <span class="p">=</span> <span class="s">{2014}</span><span class="p">,</span>
-  <span class="na">journal</span> <span class="p">=</span> <span class="s">{to appear in Journal of Symplectic Geometry}</span><span class="p">,</span>
-  <span class="na">eprint</span>  <span class="p">=</span> <span class="s">{1410.8144}</span><span class="p">,</span>
-  <span class="na">note</span>    <span class="p">=</span> <span class="s">{Software available at \url{https://github.com/catch22/moment_polytopes}.}</span><span class="p">,</span>
+<div class="highlight-bibtex"><div class="highlight"><pre><span></span><span class="kd">@article</span><span class="p">{</span><span class="nl">moment_polytopes</span><span class="p">,</span>
+  <span class="na">author</span>  = <span class="p">{</span><span class="s2">Vergne, M. and Walter, M.</span><span class="p">},</span>
+  <span class="na">title</span>   = <span class="p">{</span><span class="s2">Inequalities for moment cones of finite-dimensional representations</span><span class="p">},</span>
+  <span class="na">year</span>    = <span class="p">{</span><span class="s2">2014</span><span class="p">},</span>
+  <span class="na">journal</span> = <span class="p">{</span><span class="s2">to appear in Journal of Symplectic Geometry</span><span class="p">},</span>
+  <span class="na">eprint</span>  = <span class="p">{</span><span class="s2">1410.8144</span><span class="p">},</span>
+  <span class="na">note</span>    = <span class="p">{</span><span class="s2">Software available at \url</span><span class="p">{</span><span class="s2">https://github.com/catch22/moment_polytopes</span><span class="p">}</span><span class="s2">.</span><span class="p">},</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<div class="toctree-wrapper compound">
 </div>
-</div>
-<div class="section" id="miscellaneous-pages">
-<h2>Miscellaneous Pages<a class="headerlink" href="#miscellaneous-pages" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="reference.html#internals">Internals</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="changes.html">Changelog</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="changes.html#version-1-0">Version 1.0</a></li>
 </ul>
