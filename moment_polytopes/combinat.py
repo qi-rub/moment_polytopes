@@ -228,7 +228,7 @@ def _extremal_edges_bipartite(a, b, include_perms=True):
     Ts = rect_tableaux(a, b)
     for i, T in enumerate(Ts):
         if i % 100 == 0:
-            logger.debug('Computing extremal edges (%s/%s)', i + 1, len(Ts))
+            logger.debug('computing extremal edges (%s/%s)', i + 1, len(Ts))
         P = cubicle(T)
         if P:
             edges |= {tuple(ray.vector()) for ray in P.rays()}
