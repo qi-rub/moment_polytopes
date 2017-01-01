@@ -43,11 +43,310 @@
             
   <div class="section" id="module-moment_polytopes">
 <span id="reference"></span><h1>Reference<a class="headerlink" href="#module-moment_polytopes" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="polyhedra">
+<h2>Polyhedra<a class="headerlink" href="#polyhedra" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="moment_polytopes.HRepr">
+<em class="property">class </em><code class="descclassname">moment_polytopes.</code><code class="descname">HRepr</code><span class="sig-paren">(</span><em>ieqs=[]</em>, <em>eqns=[]</em>, <em>ambient_dim=None</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.HRepr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Light-weight container that stores a rational polyhedron in H-representation.</p>
+<p>Inequalities</p>
+<div class="math">
+\[H_1 x_1 + \dots + H_d x_d \geq c\]</div>
+<p>are represented by pairs <span class="math">\((H, c)\)</span>, where <span class="math">\(H\)</span> is a <code class="xref py py-class docutils literal"><span class="pre">vector</span></code> and <span class="math">\(c\)</span> an integer (and likewise for equations).</p>
+<p>A H-representation without any inequalities and equations is assumed to be the full ambient space.
+Inequalities and equations are sorted lexicographically.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>ieqs</strong> &#8211; inequalities.</li>
+<li><strong>eqns</strong> &#8211; equations.</li>
+<li><strong>ambient_dim</strong> &#8211; ambient dimension. Needs to be specified only if both <code class="docutils literal"><span class="pre">ieqs</span></code> and <code class="docutils literal"><span class="pre">eqns</span></code> are empty.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><strong>ValueError</strong> &#8211; neither <code class="docutils literal"><span class="pre">ieqs</span></code>, <code class="docutils literal"><span class="pre">eqns</span></code>, nor <code class="docutils literal"><span class="pre">ambient_dim</span></code> were specified.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="moment_polytopes.HRepr.__contains__">
+<code class="descname">__contains__</code><span class="sig-paren">(</span><em>pt</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.HRepr.__contains__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if given point <code class="docutils literal"><span class="pre">pt</span></code> is contained in the polyhedron.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="moment_polytopes.HRepr.__eq__">
+<code class="descname">__eq__</code><span class="sig-paren">(</span><em>rhs</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.HRepr.__eq__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compare H-representations.</p>
+<p><em>Warning:</em> Equal polyhedra can have different H-representation!</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="moment_polytopes.HRepr.__and__">
+<code class="descname">__and__</code><span class="sig-paren">(</span><em>rhs</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.HRepr.__and__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Intersect two H-representations (the resulting H-representation will typically be redundant).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>rhs</strong> &#8211; the H-representation to intersect with.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#moment_polytopes.HRepr" title="moment_polytopes.HRepr"><code class="xref py py-class docutils literal"><span class="pre">HRepr</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="moment_polytopes.HRepr.ambient_dim">
+<code class="descname">ambient_dim</code><em class="property"> = None</em><a class="headerlink" href="#moment_polytopes.HRepr.ambient_dim" title="Permalink to this definition">¶</a></dt>
+<dd><p>The ambient dimension.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="moment_polytopes.HRepr.eqns">
+<code class="descname">eqns</code><em class="property"> = None</em><a class="headerlink" href="#moment_polytopes.HRepr.eqns" title="Permalink to this definition">¶</a></dt>
+<dd><p>The equations.</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="moment_polytopes.HRepr.from_sage">
+<em class="property">static </em><code class="descname">from_sage</code><span class="sig-paren">(</span><em>p</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.HRepr.from_sage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct H-representation from Sage <code class="xref py py-class docutils literal"><span class="pre">Polyhedron</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>p</strong> &#8211; the <code class="xref py py-class docutils literal"><span class="pre">Polyhedron</span></code> instance.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#moment_polytopes.HRepr" title="moment_polytopes.HRepr"><code class="xref py py-class docutils literal"><span class="pre">HRepr</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="moment_polytopes.HRepr.ieqs">
+<code class="descname">ieqs</code><em class="property"> = None</em><a class="headerlink" href="#moment_polytopes.HRepr.ieqs" title="Permalink to this definition">¶</a></dt>
+<dd><p>The inequalities.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="moment_polytopes.HRepr.irred">
+<code class="descname">irred</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.HRepr.irred" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return H-representation with redundant inequalities and equations removed.</p>
+<p><em>Warning:</em> This is unique only if there are no equations.</p>
+<p>This potentially expensive operation is implemented by calling the <code class="docutils literal"><span class="pre">redund</span></code> tool from <code class="docutils literal"><span class="pre">lrslib</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#moment_polytopes.HRepr" title="moment_polytopes.HRepr"><code class="xref py py-class docutils literal"><span class="pre">HRepr</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="moment_polytopes.HRepr.to_sage">
+<code class="descname">to_sage</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.HRepr.to_sage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert to Sage <code class="xref py py-class docutils literal"><span class="pre">Polyhedron</span></code> object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">sage.Polyhedron</span></code></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="moment_polytopes.HRepr.vertices">
+<code class="descname">vertices</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.HRepr.vertices" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return vertices of convex polytope described by this H-representation.</p>
+<p>Convenience function that ensures that polyhedron is bounded.
+This potentially expensive operation is implemented by calling <a class="reference internal" href="#moment_polytopes.HRepr.vrepr" title="moment_polytopes.HRepr.vrepr"><code class="xref py py-func docutils literal"><span class="pre">vrepr()</span></code></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list of <code class="xref py py-class docutils literal"><span class="pre">vector</span></code></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><strong>ValueError</strong> &#8211; polytope is not bounded (use <a class="reference internal" href="#moment_polytopes.HRepr.vrepr" title="moment_polytopes.HRepr.vrepr"><code class="xref py py-func docutils literal"><span class="pre">vrepr()</span></code></a> to access V-representation)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="moment_polytopes.HRepr.vrepr">
+<code class="descname">vrepr</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.HRepr.vrepr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert to V-representation.</p>
+<p>This potentially expensive operation is implemented by calling the <code class="docutils literal"><span class="pre">lrs</span></code> tool from <code class="docutils literal"><span class="pre">lrslib</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#moment_polytopes.VRepr" title="moment_polytopes.VRepr"><code class="xref py py-class docutils literal"><span class="pre">VRepr</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="moment_polytopes.VRepr">
+<em class="property">class </em><code class="descclassname">moment_polytopes.</code><code class="descname">VRepr</code><span class="sig-paren">(</span><em>vertices=[]</em>, <em>rays=[]</em>, <em>lines=[]</em>, <em>ambient_dim=None</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.VRepr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Light-weight container that stores a polyhedron in V-representation.</p>
+<p>A V-representation without any vertices, rays, and lines is assumed to be empty.
+Vertices, rays, and lines are sorted lexicographically.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>vertices</strong> (list of <code class="xref py py-class docutils literal"><span class="pre">vector</span></code>) &#8211; vertices.</li>
+<li><strong>rays</strong> (list of <code class="xref py py-class docutils literal"><span class="pre">vector</span></code>) &#8211; rays.</li>
+<li><strong>lines</strong> (list of <code class="xref py py-class docutils literal"><span class="pre">vector</span></code>) &#8211; lines.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><strong>ValueError</strong> &#8211; neither <code class="docutils literal"><span class="pre">vertices</span></code>, <code class="docutils literal"><span class="pre">rays</span></code>, <code class="docutils literal"><span class="pre">lines</span></code>, nor <code class="docutils literal"><span class="pre">ambient_dim</span></code> were specified.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="moment_polytopes.VRepr.__eq__">
+<code class="descname">__eq__</code><span class="sig-paren">(</span><em>rhs</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.VRepr.__eq__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compare V-representations.</p>
+<p><em>Warning:</em> Equal polyhedra can have different V-representation!</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="moment_polytopes.VRepr.ambient_dim">
+<code class="descname">ambient_dim</code><em class="property"> = None</em><a class="headerlink" href="#moment_polytopes.VRepr.ambient_dim" title="Permalink to this definition">¶</a></dt>
+<dd><p>The ambient dimension.</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="moment_polytopes.VRepr.from_sage">
+<em class="property">static </em><code class="descname">from_sage</code><span class="sig-paren">(</span><em>p</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.VRepr.from_sage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct V-representation from Sage <code class="xref py py-class docutils literal"><span class="pre">Polyhedron</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>p</strong> &#8211; the <code class="xref py py-class docutils literal"><span class="pre">Polyhedron</span></code> instance.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#moment_polytopes.VRepr" title="moment_polytopes.VRepr"><code class="xref py py-class docutils literal"><span class="pre">VRepr</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="moment_polytopes.VRepr.hrepr">
+<code class="descname">hrepr</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.VRepr.hrepr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert to H-representation.</p>
+<p>This potentially expensive operation is implemented by calling the <code class="docutils literal"><span class="pre">lrs</span></code> tool from <code class="docutils literal"><span class="pre">lrslib</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#moment_polytopes.HRepr" title="moment_polytopes.HRepr"><code class="xref py py-class docutils literal"><span class="pre">HRepr</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="moment_polytopes.VRepr.lines">
+<code class="descname">lines</code><em class="property"> = None</em><a class="headerlink" href="#moment_polytopes.VRepr.lines" title="Permalink to this definition">¶</a></dt>
+<dd><p>The lines.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="moment_polytopes.VRepr.rays">
+<code class="descname">rays</code><em class="property"> = None</em><a class="headerlink" href="#moment_polytopes.VRepr.rays" title="Permalink to this definition">¶</a></dt>
+<dd><p>The rays.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="moment_polytopes.VRepr.to_sage">
+<code class="descname">to_sage</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.VRepr.to_sage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert to Sage <code class="xref py py-class docutils literal"><span class="pre">Polyhedron</span></code> object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">sage.Polyhedron</span></code></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="moment_polytopes.VRepr.vertices">
+<code class="descname">vertices</code><em class="property"> = None</em><a class="headerlink" href="#moment_polytopes.VRepr.vertices" title="Permalink to this definition">¶</a></dt>
+<dd><p>The vertices.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="moment_polytopes.LrsError">
+<em class="property">class </em><code class="descclassname">moment_polytopes.</code><code class="descname">LrsError</code><span class="sig-paren">(</span><em>cmd</em>, <em>message</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.LrsError" title="Permalink to this definition">¶</a></dt>
+<dd><p>An error that occurred while invoking <code class="docutils literal"><span class="pre">lrslib</span></code>.</p>
+<dl class="attribute">
+<dt id="moment_polytopes.LrsError.cmd">
+<code class="descname">cmd</code><em class="property"> = None</em><a class="headerlink" href="#moment_polytopes.LrsError.cmd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Command that was invoked.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="moment_polytopes.LrsError.message">
+<code class="descname">message</code><em class="property"> = None</em><a class="headerlink" href="#moment_polytopes.LrsError.message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Error message.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="internals">
 <h2>Internals<a class="headerlink" href="#internals" title="Permalink to this headline">¶</a></h2>
 <dl class="data">
 <dt id="moment_polytopes.disk_cache.DISK_CACHE_DIR">
-<code class="descclassname">moment_polytopes.disk_cache.</code><code class="descname">DISK_CACHE_DIR</code><em class="property"> = '/Users/michael/.cache/moment_polytopes-1.0-dev'</em><a class="headerlink" href="#moment_polytopes.disk_cache.DISK_CACHE_DIR" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">moment_polytopes.disk_cache.</code><code class="descname">DISK_CACHE_DIR</code><em class="property"> = '/Users/michael/.cache/moment_polytopes-1.0.dev0'</em><a class="headerlink" href="#moment_polytopes.disk_cache.DISK_CACHE_DIR" title="Permalink to this definition">¶</a></dt>
 <dd><p>Cache directory used by the <a class="reference internal" href="#moment_polytopes.disk_cache.disk_cache" title="moment_polytopes.disk_cache.disk_cache"><code class="xref py py-func docutils literal"><span class="pre">disk_cache()</span></code></a> decorator.</p>
 </dd></dl>
 
@@ -69,6 +368,7 @@
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Reference</a><ul>
+<li><a class="reference internal" href="#polyhedra">Polyhedra</a></li>
 <li><a class="reference internal" href="#internals">Internals</a></li>
 </ul>
 </li>

@@ -3,6 +3,19 @@ Reference
 
 .. module:: moment_polytopes
 
+Polyhedra
+---------
+
+.. autoclass:: HRepr
+   :members:
+
+.. autoclass:: VRepr
+   :members:
+
+.. autoclass:: LrsError
+   :members:
+
+
 Internals
 ---------
 
