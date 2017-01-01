@@ -3,17 +3,6 @@ Reference
 
 .. module:: moment_polytopes
 
-Lie Group Representations
--------------------------
-
-.. autoclass:: Representation
-   :members:
-.. autofunction:: weyl_module
-.. autofunction:: external_tensor_product
-.. autofunction:: positive_weyl_chamber_hrepr
-.. autofunction:: is_dual_root_primitive
-.. autofunction:: dual_root_primitive
-
 Ressayre Elements
 -----------------
 
@@ -22,6 +11,18 @@ Ressayre Elements
    :members:
 .. autofunction:: ressayre_tester
 .. autofunction:: is_ressayre
+.. autofunction:: is_admissible
+
+Representations
+---------------
+
+.. autoclass:: Representation
+   :members:
+.. autofunction:: weyl_module
+.. autofunction:: external_tensor_product
+.. autofunction:: positive_weyl_chamber_hrepr
+.. autofunction:: is_dual_root_primitive
+.. autofunction:: dual_root_primitive
 
 Polyhedra
 ---------
