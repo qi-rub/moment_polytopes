@@ -14,12 +14,12 @@ The following code solves the one-body quantum marginal problem for three qubits
 .. literalinclude:: ../examples/three_qubits.py
    :language: python
 
-You can install this package as follows:
+You can install the latest version of this package as follows:
 
 .. code-block:: bash
 
   sage -i lrslib
-  sage -pip install git+git://github.com/catch22/moment_polytopes
+  sage -pip install git+git://github.com/catch22/moment_polytopes --upgrade
 
 Now download the :download:`three_qubits.py <../examples/three_qubits.py>` example and run it via ``sage three_qubits.py``.
 See :doc:`installation` for further detail and troubleshooting.
