@@ -53,5 +53,5 @@ If you use this software, please consider citing our article:
     year    = {2014},
     journal = {to appear in Journal of Symplectic Geometry},
     eprint  = {1410.8144},
-    note    = {Software available at \url{https://github.com/catch22/moment_polytopes}.},
+    note    = {Software available at \url{https://catch22.github.io/moment_polytopes/}.},
   }
