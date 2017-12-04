@@ -31,7 +31,6 @@
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
-  
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
@@ -50,6 +49,10 @@
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
 <p>The following code solves the one-body quantum marginal problem for three qubits:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">moment_polytopes</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="c1"># enable logging</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
 
 <span class="c1"># compute three-qubit moment polytope in H-representation</span>
 <span class="n">three_qubits</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
@@ -96,6 +99,7 @@ See <a class="reference internal" href="installation.html"><span class="doc">Ins
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="changes.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changes.html#version-1-1">Version 1.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changes.html#version-1-0">Version 1.0</a></li>
 </ul>
 </li>
