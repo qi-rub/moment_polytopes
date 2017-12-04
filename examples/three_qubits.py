@@ -1,4 +1,8 @@
 import moment_polytopes
+import logging
+
+# enable logging
+logging.basicConfig(level=logging.DEBUG)
 
 # compute three-qubit moment polytope in H-representation
 three_qubits = (2, 2, 2)
