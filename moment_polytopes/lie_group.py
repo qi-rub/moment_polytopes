@@ -85,7 +85,7 @@ class Representation(object):
         return vector(ZZ, self.dimension, {idx_weight_vector: 1})
 
 
-def weyl_module(d, partition):
+class WeylModule(Representation):
     """Return polynomial irreducible representation of :math:`GL(d)` with given highest weight.
 
     >>> weyl_module(4, [2, 1])
@@ -96,10 +96,7 @@ def weyl_module(d, partition):
     :type partition: :class:`sage.Partition`
     :rtype: :class:`Representation`
     """
-    return WeylModule(d, Partition(partition))
 
-
-class WeylModule(Representation):
     def __init__(self, d, partition):
         super(WeylModule, self).__init__()
 
@@ -107,7 +104,7 @@ class WeylModule(Representation):
         self.d = d
 
         #: The partition defining the highest weight.
-        self.partition = partition
+        self.partition = partition = Partition(partition)
         assert partition.length() <= d, 'Partition has more than %s parts.' % d
 
         # setup root system
@@ -175,6 +172,9 @@ class WeylModule(Representation):
         return vector(ZZ, self.dimension, {i: 1})
 
 
+weyl_module = WeylModule
+
+
 def _embed_vector(v, k, dims):
     """Inject vector into k-th summand of direct sum."""
     before = sum(dims[:k])
@@ -183,11 +183,21 @@ def _embed_vector(v, k, dims):
 
 
 class ExternalTensorProduct(Representation):
+    """Construct external tensor product of given representations.
+
+    >>> external_tensor_product([2,3])
+    ExternalTensorProduct([WeylModule(2, [1]), WeylModule(3, [1])])
+
+    :param Rs: the representations. Integers :math:`d` are interpreted as fundamental representations of :math:`GL(d)`.
+    :type Rs: list of :class:`Representation` or integers.
+    :rtype: :class:`Representation`
+    """
+
     def __init__(self, Rs):
         super(ExternalTensorProduct, self).__init__()
 
         #: The tensor factor representations.
-        self.factors = Rs
+        self.factors = Rs = [weyl_module(R, [1]) if R in ZZ else R for R in Rs]
 
         # implement properties of base class
         self.root_system = RootSystem([R.root_system for R in Rs])
@@ -247,18 +257,7 @@ class ExternalTensorProduct(Representation):
         return w
 
 
-def external_tensor_product(Rs):
-    """Construct external tensor product of given representations.
-
-    >>> external_tensor_product([2,3])
-    ExternalTensorProduct([WeylModule(2, [1]), WeylModule(3, [1])])
-
-    :param Rs: the representations. Integers :math:`d` are interpreted as fundamental representations of :math:`GL(d)`.
-    :type Rs: list of :class:`Representation` or integers.
-    :rtype: :class:`Representation`
-    """
-    Rs = [weyl_module(R, [1]) if R in ZZ else R for R in Rs]
-    return ExternalTensorProduct(Rs)
+external_tensor_product = ExternalTensorProduct
 
 
 def positive_weyl_chamber_hrepr(root_system):
