@@ -1,9 +1,9 @@
 .PHONY: test docs upload-docs
 
-TEST_FLAGS?=-s
+TEST_FLAGS?=
 
 test:
-	SAGE_PATH=. sage -python -m pytest --tb=short --doctest-modules moment_polytopes tests $(TEST_FLAGS)
+	SAGE_PATH=. sage -python -m pytest $(TEST_FLAGS)
 
 docs:
 	SAGE_PATH=. sage -ipython nbconvert examples/qmp.ipynb --to rst
