@@ -33,8 +33,8 @@ setup(
     extras_require={
         'dev': [
             'bibtex-pygments-lexer',
-            'pytest',
-            'pytest-logging',
+            'pytest>=3.3',
             'Sphinx',
         ]
-    }, )
+    },
+)
