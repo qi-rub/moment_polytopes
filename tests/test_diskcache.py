@@ -14,7 +14,6 @@ slow.callcount = 0
 def test_disk_cache():
     # initialize test
     slow.cache = {}
-    slow.print_cache_misses = False
     assert slow.callcount == 0
 
     # check call counts (we are quite pessimistic with regards to the different ways of calling a function with the same parameters)
