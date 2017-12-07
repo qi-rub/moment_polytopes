@@ -104,14 +104,16 @@ class WeylModule(Representation):
         self.d = d
 
         #: The partition defining the highest weight.
-        self.partition = partition = Partition(partition)
-        assert partition.length() <= d, 'Partition has more than %s parts.' % d
+        self.partition = Partition(partition)
+        assert self.partition.length(
+        ) <= d, 'Partition has more than %s parts.' % d
 
         # setup root system
         self.root_system = RootSystem(['A', d - 1])
 
         #: The crystal.
-        self.crystal = crystals.Tableaux(self.root_system, shape=partition)
+        self.crystal = crystals.Tableaux(
+            self.root_system, shape=self.partition)
 
         #: The tableaux labeling the basis vectors.
         self.tableaux = [v.to_tableau() for v in self.crystal]
@@ -122,7 +124,7 @@ class WeylModule(Representation):
         self._simple_roots = map(vector, ambient_space.simple_roots())
         self.negative_roots = map(vector, ambient_space.negative_roots())
         self.weights = [vector(v.weight()) for v in self.crystal]
-        self.reduced_eqns = [(vector([1] * d), sum(partition))]
+        self.reduced_eqns = [(vector([1] * d), sum(self.partition))]
 
         # precompute action of negative simple roots
         self._negative_simple_root_actions = []
