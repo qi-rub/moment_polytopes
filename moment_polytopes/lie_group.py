@@ -1,5 +1,5 @@
 from __future__ import absolute_import, print_function
-from sage.all import Integer, vector, gcd, ZZ, QQ, RootSystem, Partition, SemistandardTableaux, matrix, crystals, copy, Tableau, cartesian_product
+from sage.all import Integer, vector, gcd, ZZ, QQ, RootSystem, Partition, SemistandardTableaux, matrix, copy, Tableau, cartesian_product, GelfandTsetlinPatterns, GelfandTsetlinPattern, prod
 from . import HRepr
 from .utils import dim_affine_hull
 
@@ -86,60 +86,99 @@ class Representation(object):
 
 
 class WeylModule(Representation):
-    """Return polynomial irreducible representation of :math:`GL(d)` with given highest weight.
+    """Return rational irreducible representation of :math:`GL(d)` with given highest weight.
 
     >>> weyl_module(4, [2, 1])
-    WeylModule(4, [2, 1])
+    WeylModule(4, (2, 1, 0, 0))
 
     :param d: the rank of the Lie group :math:`GL(d)`.
-    :param partition: the partition defining the highest weight. Should have no more than ``d`` parts.
-    :type partition: :class:`sage.Partition`
+    :param highest_weight: the highest weight. Should have no more than ``d`` parts. Will be padded by 0 if has fewer than ``d`` parts.
+    :type highest_weight: `list`
     :rtype: :class:`Representation`
     """
 
-    def __init__(self, d, partition):
+    def __init__(self, d, highest_weight):
         super(WeylModule, self).__init__()
 
         #: The rank of GL(d).
         self.d = d
 
-        #: The partition defining the highest weight.
-        self.partition = Partition(partition)
-        assert self.partition.length(
-        ) <= d, 'Partition has more than %s parts.' % d
+        # normalize highest weight
+        highest_weight = list(highest_weight)
+        assert len(
+            highest_weight) <= d, 'Highest weight has more than %s parts.' % d
+        assert len(
+            highest_weight
+        ) == d or highest_weight[-1] >= 0, 'Cannot pad highest weight by zero.'
+        highest_weight = highest_weight + [0] * (d - len(highest_weight))
+        highest_weight = vector(highest_weight)
 
-        # setup root system
-        self.root_system = RootSystem(['A', d - 1])
+        #: The highest weight
+        self.highest_weight = highest_weight
 
-        #: The crystal.
-        self.crystal = crystals.Tableaux(
-            self.root_system, shape=self.partition)
+        #: The partition corresponding to the highest weight (tensored with a minimal number of determinants)
+        shift = max(-self.highest_weight[d - 1], 0)
+        self.partition = Partition(self.highest_weight + vector([shift] * d))
 
-        #: The tableaux labeling the basis vectors.
-        self.tableaux = [v.to_tableau() for v in self.crystal]
+        #: The Gelfand-Tsetlin pattern labeling the basis vectors.
+        self.patterns = GelfandTsetlinPatterns(top_row=highest_weight).list()
+        self.patterns = sorted(self.patterns, reverse=True)
+
+        #: The tableaux labeling the basis vectors (see `partition`)
+        self.tableaux = []
+        for p in self.patterns:
+            q = [[x + shift for x in row] for row in p]
+            t = GelfandTsetlinPattern(q).to_tableau()
+            self.tableaux.append(t)
 
         # implement properties of base class
         self.ambient_dim = d
+        self.root_system = RootSystem(['A', d - 1])
         ambient_space = self.root_system.ambient_space()
-        self._simple_roots = map(vector, ambient_space.simple_roots())
+        self._simple_roots = [
+            vector(ZZ, d, {
+                i: 1,
+                i + 1: -1
+            }) for i in range(d - 1)
+        ]
         self.negative_roots = map(vector, ambient_space.negative_roots())
-        self.weights = [vector(v.weight()) for v in self.crystal]
-        self.reduced_eqns = [(vector([1] * d), sum(self.partition))]
+        self.weights = [vector(p.weight()) for p in self.patterns]
+        self.reduced_eqns = [(vector([1] * d), sum(self.highest_weight))]
 
-        # precompute action of negative simple roots
+        # make each pattern a list of lists (since GelfandTsetlinPattern do not compare well)
+        self.patterns = [map(list, p) for p in self.patterns]
+
+        # precompute action of negative simple roots in the Gelfand-Tsetlin basis
+        # (see https://arxiv.org/pdf/math/0211289.pdf, Theorem 2.3, (2.7))
         self._negative_simple_root_actions = []
-        for i in range(len(self._simple_roots)):
+        for k in range(1, len(self._simple_roots) + 1):
             d = {}
-            for j, v in enumerate(self.crystal):
-                w = v.f(i + 1)
-                if w:
-                    k = self.crystal.list().index(w)
-                    d[(k, j)] = 1
+            for col, pattern in enumerate(self.patterns):
+                for i in range(1, k + 1):
+                    # build new pattern (clone the list of lists)
+                    new_pattern = list(map(list, pattern))
+                    new_pattern[self.d - k][i - 1] -= 1
+                    try:
+                        GelfandTsetlinPattern(new_pattern)
+                    except AssertionError:
+                        continue
+                    row = self.patterns.index(new_pattern)
+
+                    # compute prefactor
+                    def l(k, j):
+                        return pattern[self.d - k][j - 1] - j + 1
+
+                    numer = prod([l(k, i) - l(k - 1, j) for j in range(1, k)])
+                    denom = prod(
+                        [l(k, i) - l(k, j) for j in range(1, k + 1) if j != i])
+                    assert (row, col) not in d
+                    d[(row, col)] = QQ(numer) / QQ(denom)
+
             m = matrix(self.dimension, self.dimension, d, sparse=True)
             self._negative_simple_root_actions.append(m)
 
     def __repr__(self):
-        return 'WeylModule(%d, %r)' % (self.d, self.partition)
+        return 'WeylModule(%d, %r)' % (self.d, self.highest_weight)
 
     def negative_root_action(self, idx_negative_root, idx_weight_vector=None):
         # write alpha as sum of negative simple roots such that all partial sums are again negative roots
@@ -151,6 +190,18 @@ class WeylModule(Representation):
                     decomposition = [i] + decomposition
                     alpha = alpha + beta
         assert len(decomposition) > 0
+
+        # as a consequence, X_alpha is equal to the iterated commutator [[X_1, X_2], ...] where X_i correspond to the simple roots alpha_i in the decomposition
+        def X(alpha):
+            return matrix(
+                self.d,
+                self.d, {(list(alpha).index(1), list(alpha).index(-1)): 1},
+                sparse=True)
+
+        m = X(-self._simple_roots[decomposition[0]])
+        for i in decomposition[1:]:
+            m = m.commutator(X(-self._simple_roots[i]))
+        assert m == X(self.negative_roots[idx_negative_root])
 
         # compute iterated commutator
         m = self._negative_simple_root_actions[decomposition[0]]
@@ -170,6 +221,7 @@ class WeylModule(Representation):
         :type tableau: :class:`sage.Tableau`
         :rtype: :class:`sage.vector`
         """
+        assert self.tableaux, 'Cannot label weight vectors by tableaux (highest weight is not polynomial). Use Gelfand-Tsetlin pattern instead.'
         i = self.tableaux.index(Tableau(tableau))
         return vector(ZZ, self.dimension, {i: 1})
 
@@ -188,7 +240,7 @@ class ExternalTensorProduct(Representation):
     """Construct external tensor product of given representations.
 
     >>> external_tensor_product([2,3])
-    ExternalTensorProduct([WeylModule(2, [1]), WeylModule(3, [1])])
+    ExternalTensorProduct([WeylModule(2, (1, 0)), WeylModule(3, (1, 0, 0))])
 
     :param Rs: the representations. Integers :math:`d` are interpreted as fundamental representations of :math:`GL(d)`.
     :type Rs: list of :class:`Representation` or integers.
@@ -252,7 +304,7 @@ class ExternalTensorProduct(Representation):
         v = self.factors[k].negative_root_action(i, js[k])
 
         # build result
-        w = vector(ZZ, self.dimension)
+        w = vector(QQ, self.dimension)
         for jj in range(self.factors[k].dimension):
             idx = self._weight_table.index(js[:k] + (jj, ) + js[k + 1:])
             w[idx] += v[jj]
