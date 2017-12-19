@@ -1,16 +1,13 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>Installation &#8212; moment_polytopes</title>
-    
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
@@ -24,7 +21,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Quantum Marginal Problems" href="qmp.html" />
@@ -32,10 +29,11 @@
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
+  
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body role="document">
+  <body>
   
 
     <div class="document">
@@ -56,7 +54,7 @@ sage -pip install git+git://github.com/catch22/moment_polytopes
 </div>
 <div class="section" id="troubleshooting">
 <h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h2>
-<p>If on the second line you get an error message saying that &#8220;pip is configured with locations that require TLS/SSL, however the ssl module in Python is not available&#8221;, please run the following and retry:</p>
+<p>If on the second line you get an error message saying that “pip is configured with locations that require TLS/SSL, however the ssl module in Python is not available”, please run the following and retry:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>sage -i openssl
 sage -f python2
 </pre></div>
@@ -65,7 +63,7 @@ sage -f python2
 <div class="section" id="mathematica-integration">
 <h2>Mathematica Integration<a class="headerlink" href="#mathematica-integration" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="https://www.wolfram.com/mathematica/">Wolfram Mathematica</a> contains some clever heuristics for evaluating determinants of polynomial matrices, and we provide the <code class="docutils literal"><span class="pre">mathematica</span></code> algorithm in <a class="reference internal" href="reference.html#moment_polytopes.ressayre_tester" title="moment_polytopes.ressayre_tester"><code class="xref py py-func docutils literal"><span class="pre">moment_polytopes.ressayre_tester()</span></code></a> etc. to leverage its functionality.</p>
-<p>To use it, Mathematica needs to be installed and the <code class="docutils literal"><span class="pre">math</span></code> executable has to be available in the current <code class="docutils literal"><span class="pre">PATH</span></code>. Run <code class="docutils literal"><span class="pre">print</span> <span class="pre">mathematica._install_hints()</span></code> at the <code class="docutils literal"><span class="pre">sage</span></code> prompt for further information on how to set up SageMath&#8217;s Mathematica integration.</p>
+<p>To use it, Mathematica needs to be installed and the <code class="docutils literal"><span class="pre">math</span></code> executable has to be available in the current <code class="docutils literal"><span class="pre">PATH</span></code>. Run <code class="docutils literal"><span class="pre">print</span> <span class="pre">mathematica._install_hints()</span></code> at the <code class="docutils literal"><span class="pre">sage</span></code> prompt for further information on how to set up SageMath’s Mathematica integration.</p>
 </div>
 </div>
 
