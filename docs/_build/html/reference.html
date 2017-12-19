@@ -1,16 +1,13 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>Reference &#8212; moment_polytopes</title>
-    
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
@@ -24,7 +21,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Changelog" href="changes.html" />
@@ -32,10 +29,11 @@
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
+  
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body role="document">
+  <body>
   
 
     <div class="document">
@@ -63,7 +61,7 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>R</strong> (<a class="reference internal" href="#moment_polytopes.Representation" title="moment_polytopes.Representation"><code class="xref py py-class docutils literal"><span class="pre">Representation</span></code></a>) &#8211; the representation.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>R</strong> (<a class="reference internal" href="#moment_polytopes.Representation" title="moment_polytopes.Representation"><code class="xref py py-class docutils literal"><span class="pre">Representation</span></code></a>) – the representation.</td>
 </tr>
 </tbody>
 </table>
@@ -76,8 +74,8 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>Ts</strong> &#8211; quadratic matrices <span class="math">\(T_j\)</span>, indexed by weight vector index <span class="math">\(j\)</span>.</li>
-<li><strong>d</strong> &#8211; size of the matrices <span class="math">\(T_j\)</span></li>
+<li><strong>Ts</strong> – quadratic matrices <span class="math">\(T_j\)</span>, indexed by weight vector index <span class="math">\(j\)</span>.</li>
+<li><strong>d</strong> – size of the matrices <span class="math">\(T_j\)</span></li>
 </ul>
 </td>
 </tr>
@@ -93,7 +91,7 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>ieq</strong> &#8211; the inequality <span class="math">\((H,c)\)</span> to be tested.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>ieq</strong> – the inequality <span class="math">\((H,c)\)</span> to be tested.</td>
 </tr>
 </tbody>
 </table>
@@ -123,9 +121,9 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>R</strong> (<a class="reference internal" href="#moment_polytopes.Representation" title="moment_polytopes.Representation"><code class="xref py py-class docutils literal"><span class="pre">Representation</span></code></a>) &#8211; the representation.</li>
-<li><strong>algorithm</strong> &#8211; <code class="docutils literal"><span class="pre">None</span></code>, <code class="docutils literal"><span class="pre">'sage'</span></code>, <code class="docutils literal"><span class="pre">'mathematica'</span></code>, or <code class="docutils literal"><span class="pre">'probabilistic'</span></code>.</li>
-<li><strong>failure_probability</strong> &#8211; <code class="docutils literal"><span class="pre">None</span></code>, or desired probability of failure. This only affects the correctness when using the <code class="docutils literal"><span class="pre">'probabilistic'</span></code> algorithm.</li>
+<li><strong>R</strong> (<a class="reference internal" href="#moment_polytopes.Representation" title="moment_polytopes.Representation"><code class="xref py py-class docutils literal"><span class="pre">Representation</span></code></a>) – the representation.</li>
+<li><strong>algorithm</strong> – <code class="docutils literal"><span class="pre">None</span></code>, <code class="docutils literal"><span class="pre">'sage'</span></code>, <code class="docutils literal"><span class="pre">'mathematica'</span></code>, or <code class="docutils literal"><span class="pre">'probabilistic'</span></code>.</li>
+<li><strong>failure_probability</strong> – <code class="docutils literal"><span class="pre">None</span></code>, or desired probability of failure. This only affects the correctness when using the <code class="docutils literal"><span class="pre">'probabilistic'</span></code> algorithm.</li>
 </ul>
 </td>
 </tr>
@@ -146,8 +144,8 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>R</strong> (<a class="reference internal" href="#moment_polytopes.Representation" title="moment_polytopes.Representation"><code class="xref py py-class docutils literal"><span class="pre">Representation</span></code></a>) &#8211; the representation.</li>
-<li><strong>ieq</strong> &#8211; the inequality <span class="math">\((H,c)\)</span> to be tested.</li>
+<li><strong>R</strong> (<a class="reference internal" href="#moment_polytopes.Representation" title="moment_polytopes.Representation"><code class="xref py py-class docutils literal"><span class="pre">Representation</span></code></a>) – the representation.</li>
+<li><strong>ieq</strong> – the inequality <span class="math">\((H,c)\)</span> to be tested.</li>
 </ul>
 </td>
 </tr>
@@ -164,8 +162,8 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>R</strong> (<a class="reference internal" href="#moment_polytopes.Representation" title="moment_polytopes.Representation"><code class="xref py py-class docutils literal"><span class="pre">Representation</span></code></a>) &#8211; the representation.</li>
-<li><strong>ieq</strong> &#8211; the element <span class="math">\((H,c)\)</span>.</li>
+<li><strong>R</strong> (<a class="reference internal" href="#moment_polytopes.Representation" title="moment_polytopes.Representation"><code class="xref py py-class docutils literal"><span class="pre">Representation</span></code></a>) – the representation.</li>
+<li><strong>ieq</strong> – the element <span class="math">\((H,c)\)</span>.</li>
 </ul>
 </td>
 </tr>
@@ -182,8 +180,8 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>R</strong> (<a class="reference internal" href="#moment_polytopes.Representation" title="moment_polytopes.Representation"><code class="xref py py-class docutils literal"><span class="pre">Representation</span></code></a>) &#8211; the representation.</li>
-<li><strong>H</strong> (<code class="xref py py-class docutils literal"><span class="pre">sage.vector</span></code>) &#8211; the normal vector.</li>
+<li><strong>R</strong> (<a class="reference internal" href="#moment_polytopes.Representation" title="moment_polytopes.Representation"><code class="xref py py-class docutils literal"><span class="pre">Representation</span></code></a>) – the representation.</li>
+<li><strong>H</strong> (<code class="xref py py-class docutils literal"><span class="pre">sage.vector</span></code>) – the normal vector.</li>
 </ul>
 </td>
 </tr>
@@ -254,8 +252,8 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>idx_negative_root</strong> &#8211; index of the negative root.</li>
-<li><strong>idx_weight_vector</strong> &#8211; index of the weight vector, or <code class="docutils literal"><span class="pre">None</span></code>. If <code class="docutils literal"><span class="pre">None</span></code> then the matrix representation of the lowering operator is returned.</li>
+<li><strong>idx_negative_root</strong> – index of the negative root.</li>
+<li><strong>idx_weight_vector</strong> – index of the weight vector, or <code class="docutils literal"><span class="pre">None</span></code>. If <code class="docutils literal"><span class="pre">None</span></code> then the matrix representation of the lowering operator is returned.</li>
 </ul>
 </td>
 </tr>
@@ -264,6 +262,12 @@
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="moment_polytopes.Representation.positive_roots">
+<code class="descname">positive_roots</code><a class="headerlink" href="#moment_polytopes.Representation.positive_roots" title="Permalink to this definition">¶</a></dt>
+<dd><p>List of positive roots of the corresponding Lie group.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -288,7 +292,7 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>idx_weight_vector</strong> &#8211; index of the weight vector (indexes the <a class="reference internal" href="#moment_polytopes.Representation.weights" title="moment_polytopes.Representation.weights"><code class="xref py py-attr docutils literal"><span class="pre">weights</span></code></a> list).</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>idx_weight_vector</strong> – index of the weight vector (indexes the <a class="reference internal" href="#moment_polytopes.Representation.weights" title="moment_polytopes.Representation.weights"><code class="xref py py-attr docutils literal"><span class="pre">weights</span></code></a> list).</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">sage.vector</span></code></td>
 </tr>
@@ -300,10 +304,10 @@
 
 <dl class="function">
 <dt id="moment_polytopes.weyl_module">
-<code class="descclassname">moment_polytopes.</code><code class="descname">weyl_module</code><span class="sig-paren">(</span><em>d</em>, <em>partition</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.weyl_module" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return polynomial irreducible representation of <span class="math">\(GL(d)\)</span> with given highest weight.</p>
+<code class="descclassname">moment_polytopes.</code><code class="descname">weyl_module</code><span class="sig-paren">(</span><em>d</em>, <em>highest_weight</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.weyl_module" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return rational irreducible representation of <span class="math">\(GL(d)\)</span> with given highest weight.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">weyl_module</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
-<span class="go">WeylModule(4, [2, 1])</span>
+<span class="go">WeylModule(4, (2, 1, 0, 0))</span>
 </pre></div>
 </div>
 <table class="docutils field-list" frame="void" rules="none">
@@ -311,8 +315,8 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>d</strong> &#8211; the rank of the Lie group <span class="math">\(GL(d)\)</span>.</li>
-<li><strong>partition</strong> (<code class="xref py py-class docutils literal"><span class="pre">sage.Partition</span></code>) &#8211; the partition defining the highest weight. Should have no more than <code class="docutils literal"><span class="pre">d</span></code> parts.</li>
+<li><strong>d</strong> – the rank of the Lie group <span class="math">\(GL(d)\)</span>.</li>
+<li><strong>highest_weight</strong> (<cite>list</cite>) – the highest weight. Should have no more than <code class="docutils literal"><span class="pre">d</span></code> parts. Will be padded by 0 if has fewer than <code class="docutils literal"><span class="pre">d</span></code> parts.</li>
 </ul>
 </td>
 </tr>
@@ -328,14 +332,14 @@
 <code class="descclassname">moment_polytopes.</code><code class="descname">external_tensor_product</code><span class="sig-paren">(</span><em>Rs</em><span class="sig-paren">)</span><a class="headerlink" href="#moment_polytopes.external_tensor_product" title="Permalink to this definition">¶</a></dt>
 <dd><p>Construct external tensor product of given representations.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">external_tensor_product</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
-<span class="go">ExternalTensorProduct([WeylModule(2, [1]), WeylModule(3, [1])])</span>
+<span class="go">ExternalTensorProduct([WeylModule(2, (1, 0)), WeylModule(3, (1, 0, 0))])</span>
 </pre></div>
 </div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>Rs</strong> (list of <a class="reference internal" href="#moment_polytopes.Representation" title="moment_polytopes.Representation"><code class="xref py py-class docutils literal"><span class="pre">Representation</span></code></a> or integers.) &#8211; the representations. Integers <span class="math">\(d\)</span> are interpreted as fundamental representations of <span class="math">\(GL(d)\)</span>.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>Rs</strong> (list of <a class="reference internal" href="#moment_polytopes.Representation" title="moment_polytopes.Representation"><code class="xref py py-class docutils literal"><span class="pre">Representation</span></code></a> or integers.) – the representations. Integers <span class="math">\(d\)</span> are interpreted as fundamental representations of <span class="math">\(GL(d)\)</span>.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#moment_polytopes.Representation" title="moment_polytopes.Representation"><code class="xref py py-class docutils literal"><span class="pre">Representation</span></code></a></td>
 </tr>
@@ -351,7 +355,7 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>root_system</strong> (<code class="xref py py-class docutils literal"><span class="pre">sage.RootSystem</span></code>) &#8211; the root system.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>root_system</strong> (<code class="xref py py-class docutils literal"><span class="pre">sage.RootSystem</span></code>) – the root system.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#moment_polytopes.HRepr" title="moment_polytopes.HRepr"><code class="xref py py-class docutils literal"><span class="pre">HRepr</span></code></a></td>
 </tr>
@@ -368,8 +372,8 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>root_system</strong> (<code class="xref py py-class docutils literal"><span class="pre">sage.RootSystem</span></code>) &#8211; root system.</li>
-<li><strong>H</strong> (<code class="xref py py-class docutils literal"><span class="pre">sage.vector</span></code>) &#8211; vector to be rescaled. Should be an element of the dual root lattice (in ambient coordinates).</li>
+<li><strong>root_system</strong> (<code class="xref py py-class docutils literal"><span class="pre">sage.RootSystem</span></code>) – root system.</li>
+<li><strong>H</strong> (<code class="xref py py-class docutils literal"><span class="pre">sage.vector</span></code>) – vector to be rescaled. Should be an element of the dual root lattice (in ambient coordinates).</li>
 </ul>
 </td>
 </tr>
@@ -389,8 +393,8 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>root_system</strong> (<code class="xref py py-class docutils literal"><span class="pre">sage.RootSystem</span></code>) &#8211; root system.</li>
-<li><strong>H</strong> (<code class="xref py py-class docutils literal"><span class="pre">sage.vector</span></code>) &#8211; vector to be rescaled. Should be an element of the dual root lattice (in ambient coordinates).</li>
+<li><strong>root_system</strong> (<code class="xref py py-class docutils literal"><span class="pre">sage.RootSystem</span></code>) – root system.</li>
+<li><strong>H</strong> (<code class="xref py py-class docutils literal"><span class="pre">sage.vector</span></code>) – vector to be rescaled. Should be an element of the dual root lattice (in ambient coordinates).</li>
 </ul>
 </td>
 </tr>
@@ -420,8 +424,8 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>dims</strong> &#8211; dimensions <span class="math">\(d_1,\dots,d_n\)</span> of the tensor factors.</li>
-<li><strong>irred</strong> &#8211; if <code class="docutils literal"><span class="pre">True</span></code> then an irredunant H-representation is returned.</li>
+<li><strong>dims</strong> – dimensions <span class="math">\(d_1,\dots,d_n\)</span> of the tensor factors.</li>
+<li><strong>irred</strong> – if <code class="docutils literal"><span class="pre">True</span></code> then an irredunant H-representation is returned.</li>
 </ul>
 </td>
 </tr>
@@ -447,8 +451,8 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>dims</strong> &#8211; dimensions <span class="math">\(d_1,\dots,d_n\)</span> of the tensor factors.</li>
-<li><strong>irred</strong> &#8211; if <code class="docutils literal"><span class="pre">True</span></code> then an irredunant H-representation is returned.</li>
+<li><strong>dims</strong> – dimensions <span class="math">\(d_1,\dots,d_n\)</span> of the tensor factors.</li>
+<li><strong>irred</strong> – if <code class="docutils literal"><span class="pre">True</span></code> then an irredunant H-representation is returned.</li>
 </ul>
 </td>
 </tr>
@@ -474,11 +478,11 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>dims</strong> &#8211; dimensions <span class="math">\(d_1,\dots,d_n\)</span> of the tensor factors.</li>
-<li><strong>show_hrepr</strong> &#8211; show H-representation.</li>
-<li><strong>show_vrepr</strong> &#8211; show V-representation.</li>
-<li><strong>include_perms</strong> &#8211; if <code class="docutils literal"><span class="pre">True</span></code>, include permutations of the <span class="math">\(n\)</span> subsystems.</li>
-<li><strong>subsystem_labels</strong> &#8211; custom subsystem labels.</li>
+<li><strong>dims</strong> – dimensions <span class="math">\(d_1,\dots,d_n\)</span> of the tensor factors.</li>
+<li><strong>show_hrepr</strong> – show H-representation.</li>
+<li><strong>show_vrepr</strong> – show V-representation.</li>
+<li><strong>include_perms</strong> – if <code class="docutils literal"><span class="pre">True</span></code>, include permutations of the <span class="math">\(n\)</span> subsystems.</li>
+<li><strong>subsystem_labels</strong> – custom subsystem labels.</li>
 </ul>
 </td>
 </tr>
@@ -496,9 +500,9 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>a</strong> &#8211; dimension of first tensor factor.</li>
-<li><strong>b</strong> &#8211; dimension of second tensor factor.</li>
-<li><strong>include_perms</strong> &#8211; if <code class="docutils literal"><span class="pre">True</span></code>, include permutations of the two subsystems.</li>
+<li><strong>a</strong> – dimension of first tensor factor.</li>
+<li><strong>b</strong> – dimension of second tensor factor.</li>
+<li><strong>include_perms</strong> – if <code class="docutils literal"><span class="pre">True</span></code>, include permutations of the two subsystems.</li>
 </ul>
 </td>
 </tr>
@@ -518,10 +522,10 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>a</strong> &#8211; dimension of first tensor factor.</li>
-<li><strong>b</strong> &#8211; dimension of second tensor factor.</li>
-<li><strong>c</strong> &#8211; dimension of third tensor factor.</li>
-<li><strong>include_perms</strong> &#8211; if <code class="docutils literal"><span class="pre">True</span></code>, include permutations of the three subsystems.</li>
+<li><strong>a</strong> – dimension of first tensor factor.</li>
+<li><strong>b</strong> – dimension of second tensor factor.</li>
+<li><strong>c</strong> – dimension of third tensor factor.</li>
+<li><strong>include_perms</strong> – if <code class="docutils literal"><span class="pre">True</span></code>, include permutations of the three subsystems.</li>
 </ul>
 </td>
 </tr>
@@ -541,8 +545,8 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>dims</strong> &#8211; dimensions <span class="math">\(d_1,\dots,d_n\)</span> of the tensor factors.</li>
-<li><strong>include_perms</strong> &#8211; if <code class="docutils literal"><span class="pre">True</span></code>, include permutations of the <span class="math">\(n\)</span> subsystems.</li>
+<li><strong>dims</strong> – dimensions <span class="math">\(d_1,\dots,d_n\)</span> of the tensor factors.</li>
+<li><strong>include_perms</strong> – if <code class="docutils literal"><span class="pre">True</span></code>, include permutations of the <span class="math">\(n\)</span> subsystems.</li>
 </ul>
 </td>
 </tr>
@@ -562,8 +566,8 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>dims</strong> &#8211; dimensions <span class="math">\(d_1,\dots,d_n\)</span> of the tensor factors.</li>
-<li><strong>include_perms</strong> &#8211; if <code class="docutils literal"><span class="pre">True</span></code>, include permutations of the <span class="math">\(n\)</span> subsystems.</li>
+<li><strong>dims</strong> – dimensions <span class="math">\(d_1,\dots,d_n\)</span> of the tensor factors.</li>
+<li><strong>include_perms</strong> – if <code class="docutils literal"><span class="pre">True</span></code>, include permutations of the <span class="math">\(n\)</span> subsystems.</li>
 </ul>
 </td>
 </tr>
@@ -583,8 +587,8 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>dims</strong> &#8211; dimensions <span class="math">\(d_1,\dots,d_n\)</span> of the tensor factors.</li>
-<li><strong>include_perms</strong> &#8211; if <code class="docutils literal"><span class="pre">True</span></code>, include permutations of the <span class="math">\(n\)</span> subsystems.</li>
+<li><strong>dims</strong> – dimensions <span class="math">\(d_1,\dots,d_n\)</span> of the tensor factors.</li>
+<li><strong>include_perms</strong> – if <code class="docutils literal"><span class="pre">True</span></code>, include permutations of the <span class="math">\(n\)</span> subsystems.</li>
 </ul>
 </td>
 </tr>
@@ -603,8 +607,8 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>dims</strong> &#8211; the dimensions <span class="math">\(d_1,\dots,d_n\)</span>.</li>
-<li><strong>ieq</strong> &#8211; the inequality <span class="math">\((H,c)\)</span> defining the facet.</li>
+<li><strong>dims</strong> – the dimensions <span class="math">\(d_1,\dots,d_n\)</span>.</li>
+<li><strong>ieq</strong> – the inequality <span class="math">\((H,c)\)</span> defining the facet.</li>
 </ul>
 </td>
 </tr>
@@ -621,8 +625,8 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>dims</strong> &#8211; the dimensions <span class="math">\(d_1,\dots,d_n\)</span>.</li>
-<li><strong>ieqs</strong> &#8211; list of inequalities <span class="math">\((H,c)\)</span>.</li>
+<li><strong>dims</strong> – the dimensions <span class="math">\(d_1,\dots,d_n\)</span>.</li>
+<li><strong>ieqs</strong> – list of inequalities <span class="math">\((H,c)\)</span>.</li>
 </ul>
 </td>
 </tr>
@@ -639,8 +643,8 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>dims</strong> &#8211; the dimensions <span class="math">\(d_1,\dots,d_n\)</span>.</li>
-<li><strong>vertices</strong> &#8211; list of vertices.</li>
+<li><strong>dims</strong> – the dimensions <span class="math">\(d_1,\dots,d_n\)</span>.</li>
+<li><strong>vertices</strong> – list of vertices.</li>
 </ul>
 </td>
 </tr>
@@ -666,13 +670,13 @@ Inequalities and equations are sorted lexicographically.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>ieqs</strong> &#8211; inequalities.</li>
-<li><strong>eqns</strong> &#8211; equations.</li>
-<li><strong>ambient_dim</strong> &#8211; ambient dimension. Needs to be specified only if both <code class="docutils literal"><span class="pre">ieqs</span></code> and <code class="docutils literal"><span class="pre">eqns</span></code> are empty.</li>
+<li><strong>ieqs</strong> – inequalities.</li>
+<li><strong>eqns</strong> – equations.</li>
+<li><strong>ambient_dim</strong> – ambient dimension. Needs to be specified only if both <code class="docutils literal"><span class="pre">ieqs</span></code> and <code class="docutils literal"><span class="pre">eqns</span></code> are empty.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><strong>ValueError</strong> &#8211; neither <code class="docutils literal"><span class="pre">ieqs</span></code>, <code class="docutils literal"><span class="pre">eqns</span></code>, nor <code class="docutils literal"><span class="pre">ambient_dim</span></code> were specified.</p>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><strong>ValueError</strong> – neither <code class="docutils literal"><span class="pre">ieqs</span></code>, <code class="docutils literal"><span class="pre">eqns</span></code>, nor <code class="docutils literal"><span class="pre">ambient_dim</span></code> were specified.</p>
 </td>
 </tr>
 </tbody>
@@ -714,7 +718,7 @@ Inequalities and equations are sorted lexicographically.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>rhs</strong> &#8211; the H-representation to intersect with.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>rhs</strong> – the H-representation to intersect with.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#moment_polytopes.HRepr" title="moment_polytopes.HRepr"><code class="xref py py-class docutils literal"><span class="pre">HRepr</span></code></a></td>
 </tr>
@@ -742,7 +746,7 @@ Inequalities and equations are sorted lexicographically.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>p</strong> &#8211; the <code class="xref py py-class docutils literal"><span class="pre">sage.Polyhedron</span></code> instance.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>p</strong> – the <code class="xref py py-class docutils literal"><span class="pre">sage.Polyhedron</span></code> instance.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#moment_polytopes.HRepr" title="moment_polytopes.HRepr"><code class="xref py py-class docutils literal"><span class="pre">HRepr</span></code></a></td>
 </tr>
@@ -798,7 +802,7 @@ This potentially expensive operation is implemented by calling <a class="referen
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list of <code class="xref py py-class docutils literal"><span class="pre">sage.vector</span></code></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><strong>ValueError</strong> &#8211; polytope is not bounded (use <a class="reference internal" href="#moment_polytopes.HRepr.vrepr" title="moment_polytopes.HRepr.vrepr"><code class="xref py py-func docutils literal"><span class="pre">vrepr()</span></code></a> to access V-representation)</td>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><strong>ValueError</strong> – polytope is not bounded (use <a class="reference internal" href="#moment_polytopes.HRepr.vrepr" title="moment_polytopes.HRepr.vrepr"><code class="xref py py-func docutils literal"><span class="pre">vrepr()</span></code></a> to access V-representation)</td>
 </tr>
 </tbody>
 </table>
@@ -832,13 +836,13 @@ Vertices, rays, and lines are sorted lexicographically.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>vertices</strong> (list of <code class="xref py py-class docutils literal"><span class="pre">sage.vector</span></code>) &#8211; vertices.</li>
-<li><strong>rays</strong> (list of <code class="xref py py-class docutils literal"><span class="pre">sage.vector</span></code>) &#8211; rays.</li>
-<li><strong>lines</strong> (list of <code class="xref py py-class docutils literal"><span class="pre">sage.vector</span></code>) &#8211; lines.</li>
+<li><strong>vertices</strong> (list of <code class="xref py py-class docutils literal"><span class="pre">sage.vector</span></code>) – vertices.</li>
+<li><strong>rays</strong> (list of <code class="xref py py-class docutils literal"><span class="pre">sage.vector</span></code>) – rays.</li>
+<li><strong>lines</strong> (list of <code class="xref py py-class docutils literal"><span class="pre">sage.vector</span></code>) – lines.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><strong>ValueError</strong> &#8211; neither <code class="docutils literal"><span class="pre">vertices</span></code>, <code class="docutils literal"><span class="pre">rays</span></code>, <code class="docutils literal"><span class="pre">lines</span></code>, nor <code class="docutils literal"><span class="pre">ambient_dim</span></code> were specified.</p>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><strong>ValueError</strong> – neither <code class="docutils literal"><span class="pre">vertices</span></code>, <code class="docutils literal"><span class="pre">rays</span></code>, <code class="docutils literal"><span class="pre">lines</span></code>, nor <code class="docutils literal"><span class="pre">ambient_dim</span></code> were specified.</p>
 </td>
 </tr>
 </tbody>
@@ -872,7 +876,7 @@ Vertices, rays, and lines are sorted lexicographically.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>p</strong> &#8211; the <code class="xref py py-class docutils literal"><span class="pre">sage.Polyhedron</span></code> instance.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>p</strong> – the <code class="xref py py-class docutils literal"><span class="pre">sage.Polyhedron</span></code> instance.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#moment_polytopes.VRepr" title="moment_polytopes.VRepr"><code class="xref py py-class docutils literal"><span class="pre">VRepr</span></code></a></td>
 </tr>
@@ -959,8 +963,8 @@ Vertices, rays, and lines are sorted lexicographically.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>a</strong> &#8211; number of rows</li>
-<li><strong>b</strong> &#8211; number of columns</li>
+<li><strong>a</strong> – number of rows</li>
+<li><strong>b</strong> – number of columns</li>
 </ul>
 </td>
 </tr>
@@ -983,7 +987,7 @@ This is the maximal-dimensional polytope defined by</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>T</strong> (<code class="xref py py-class docutils literal"><span class="pre">sage.StandardTableau</span></code>) &#8211; a rectangular standard Young tableaux</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>T</strong> (<code class="xref py py-class docutils literal"><span class="pre">sage.StandardTableau</span></code>) – a rectangular standard Young tableaux</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">sage.Polyhedron</span></code> or None, if the tableaux is not additive (i.e., does not correspond to a cubicle).</td>
 </tr>
@@ -1000,8 +1004,8 @@ This is the maximal-dimensional polytope defined by</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>a</strong> &#8211; number of rows</li>
-<li><strong>b</strong> &#8211; number of columns</li>
+<li><strong>a</strong> – number of rows</li>
+<li><strong>b</strong> – number of columns</li>
 </ul>
 </td>
 </tr>
@@ -1020,7 +1024,7 @@ This is the maximal-dimensional polytope defined by</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>v</strong> &#8211; vector to test.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>v</strong> – vector to test.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">bool.</td>
 </tr>
@@ -1043,11 +1047,11 @@ This is the maximal-dimensional polytope defined by</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>dims</strong> &#8211; dimensions <span class="math">\(d_1,\dots,d_n\)</span> of local unitary group.</li>
-<li><strong>V</strong> &#8211; vector of length <span class="math">\(\sum_i d_i\)</span> to test.</li>
-<li><strong>assert_dominant</strong> &#8211; verify that vector is dominant.</li>
-<li><strong>assert_primitive</strong> &#8211; verify that vector is primitive.</li>
-<li><strong>assert_traceless</strong> &#8211; verify that vector is traceless.</li>
+<li><strong>dims</strong> – dimensions <span class="math">\(d_1,\dots,d_n\)</span> of local unitary group.</li>
+<li><strong>V</strong> – vector of length <span class="math">\(\sum_i d_i\)</span> to test.</li>
+<li><strong>assert_dominant</strong> – verify that vector is dominant.</li>
+<li><strong>assert_primitive</strong> – verify that vector is primitive.</li>
+<li><strong>assert_traceless</strong> – verify that vector is traceless.</li>
 </ul>
 </td>
 </tr>
@@ -1064,11 +1068,11 @@ This is the maximal-dimensional polytope defined by</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>dims</strong> &#8211; dimensions <span class="math">\(d_1,\dots,d_n\)</span> of local unitary group.</li>
-<li><strong>ieq</strong> &#8211; inequality <span class="math">\((H,c)\)</span> to test. We require that <span class="math">\(c=0\)</span>.</li>
-<li><strong>assert_dominant</strong> &#8211; verify that vector is dominant.</li>
-<li><strong>assert_primitive</strong> &#8211; verify that vector is primitive.</li>
-<li><strong>assert_traceless</strong> &#8211; verify that vector is traceless.</li>
+<li><strong>dims</strong> – dimensions <span class="math">\(d_1,\dots,d_n\)</span> of local unitary group.</li>
+<li><strong>ieq</strong> – inequality <span class="math">\((H,c)\)</span> to test. We require that <span class="math">\(c=0\)</span>.</li>
+<li><strong>assert_dominant</strong> – verify that vector is dominant.</li>
+<li><strong>assert_primitive</strong> – verify that vector is primitive.</li>
+<li><strong>assert_traceless</strong> – verify that vector is traceless.</li>
 </ul>
 </td>
 </tr>
@@ -1085,8 +1089,8 @@ This is the maximal-dimensional polytope defined by</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>dims</strong> &#8211; dimensions <span class="math">\(d_1,\dots,d_n\)</span> of local unitary group.</li>
-<li><strong>algorithm</strong> &#8211; <code class="docutils literal"><span class="pre">None</span></code>, <code class="docutils literal"><span class="pre">'bipartite'</span></code>, or <code class="docutils literal"><span class="pre">'generic'</span></code>.</li>
+<li><strong>dims</strong> – dimensions <span class="math">\(d_1,\dots,d_n\)</span> of local unitary group.</li>
+<li><strong>algorithm</strong> – <code class="docutils literal"><span class="pre">None</span></code>, <code class="docutils literal"><span class="pre">'bipartite'</span></code>, or <code class="docutils literal"><span class="pre">'generic'</span></code>.</li>
 </ul>
 </td>
 </tr>
@@ -1107,8 +1111,8 @@ This is the maximal-dimensional polytope defined by</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>n</strong> &#8211; specifies the permutation group <span class="math">\(S_n\)</span>.</li>
-<li><strong>length</strong> &#8211; number of inversions.</li>
+<li><strong>n</strong> – specifies the permutation group <span class="math">\(S_n\)</span>.</li>
+<li><strong>length</strong> – number of inversions.</li>
 </ul>
 </td>
 </tr>
@@ -1132,8 +1136,8 @@ This is the maximal-dimensional polytope defined by</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>dims</strong> &#8211; dimensions <span class="math">\(d_1,\dots,d_n\)</span>.</li>
-<li><strong>total</strong> &#8211; total length</li>
+<li><strong>dims</strong> – dimensions <span class="math">\(d_1,\dots,d_n\)</span>.</li>
+<li><strong>total</strong> – total length</li>
 </ul>
 </td>
 </tr>
@@ -1155,8 +1159,8 @@ This is the maximal-dimensional polytope defined by</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>pi</strong> &#8211; the permutation <span class="math">\(pi\)</span>.</li>
-<li><strong>v</strong> &#8211; the dominant vector <span class="math">\(v\)</span>.</li>
+<li><strong>pi</strong> – the permutation <span class="math">\(pi\)</span>.</li>
+<li><strong>v</strong> – the dominant vector <span class="math">\(v\)</span>.</li>
 </ul>
 </td>
 </tr>
@@ -1178,8 +1182,8 @@ This is the maximal-dimensional polytope defined by</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>pi</strong> &#8211; the permutation <span class="math">\(pi\)</span>.</li>
-<li><strong>v</strong> &#8211; the dominant vector <span class="math">\(v\)</span>.</li>
+<li><strong>pi</strong> – the permutation <span class="math">\(pi\)</span>.</li>
+<li><strong>v</strong> – the dominant vector <span class="math">\(v\)</span>.</li>
 </ul>
 </td>
 </tr>
@@ -1199,8 +1203,8 @@ This is the maximal-dimensional polytope defined by</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>v</strong> &#8211; the dominant vector <span class="math">\(v\)</span>.</li>
-<li><strong>length</strong> &#8211; the desired length.</li>
+<li><strong>v</strong> – the dominant vector <span class="math">\(v\)</span>.</li>
+<li><strong>length</strong> – the desired length.</li>
 </ul>
 </td>
 </tr>
@@ -1220,8 +1224,8 @@ This is the maximal-dimensional polytope defined by</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>v</strong> &#8211; the dominant vector <span class="math">\(v\)</span>.</li>
-<li><strong>antilength</strong> &#8211; the desired antilength.</li>
+<li><strong>v</strong> – the dominant vector <span class="math">\(v\)</span>.</li>
+<li><strong>antilength</strong> – the desired antilength.</li>
 </ul>
 </td>
 </tr>
@@ -1246,8 +1250,8 @@ This is the maximal-dimensional polytope defined by</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>pi</strong> &#8211; the permutation <span class="math">\(\pi\)</span>.</li>
-<li><strong>v</strong> &#8211; the vector <span class="math">\(v\)</span>.</li>
+<li><strong>pi</strong> – the permutation <span class="math">\(\pi\)</span>.</li>
+<li><strong>v</strong> – the vector <span class="math">\(v\)</span>.</li>
 </ul>
 </td>
 </tr>
@@ -1266,7 +1270,7 @@ This is the maximal-dimensional polytope defined by</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>v</strong> &#8211; the vector.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>v</strong> – the vector.</td>
 </tr>
 </tbody>
 </table>
@@ -1284,7 +1288,7 @@ This is the maximal-dimensional polytope defined by</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>hs</strong> &#8211; a vector of the same length as <a class="reference internal" href="#moment_polytopes.StabilizerGroup.v" title="moment_polytopes.StabilizerGroup.v"><code class="xref py py-attr docutils literal"><span class="pre">v</span></code></a>.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>hs</strong> – a vector of the same length as <a class="reference internal" href="#moment_polytopes.StabilizerGroup.v" title="moment_polytopes.StabilizerGroup.v"><code class="xref py py-attr docutils literal"><span class="pre">v</span></code></a>.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2/library/functions.html#tuple" title="(in Python v2.7)">tuple</a></td>
 </tr>
@@ -1300,7 +1304,7 @@ This is the maximal-dimensional polytope defined by</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>hs_iterable</strong> &#8211; a collection of vectors</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>hs_iterable</strong> – a collection of vectors</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">set of tuples</td>
 </tr>
@@ -1337,9 +1341,9 @@ We use them to verify that our implementation is correct.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>n</strong> &#8211; the antisymmetric power.</li>
-<li><strong>d</strong> &#8211; the rank of the group.</li>
-<li><strong>bare</strong> &#8211; if <code class="docutils literal"><span class="pre">True</span></code> then the reduced Weyl chamber inequalities are omitted.</li>
+<li><strong>n</strong> – the antisymmetric power.</li>
+<li><strong>d</strong> – the rank of the group.</li>
+<li><strong>bare</strong> – if <code class="docutils literal"><span class="pre">True</span></code> then the reduced Weyl chamber inequalities are omitted.</li>
 </ul>
 </td>
 </tr>
@@ -1359,7 +1363,7 @@ We use them to verify that our implementation is correct.</p>
 <dl class="data">
 <dt id="moment_polytopes.third_party.KLYACHKO_GOOD_QMP_SCENARIOS">
 <code class="descclassname">moment_polytopes.third_party.</code><code class="descname">KLYACHKO_GOOD_QMP_SCENARIOS</code><em class="property"> = [(2, 2, 2, 2, 16), (3, 2, 6), (3, 3, 9), (4, 2, 8)]</em><a class="headerlink" href="#moment_polytopes.third_party.KLYACHKO_GOOD_QMP_SCENARIOS" title="Permalink to this definition">¶</a></dt>
-<dd><p>Scenarios <span class="math">\((d_1,\dots,d_n)\)</span>, corresponding to <span class="math">\(\times_i GL(d_i)\)</span>-representation on <span class="math">\(\bigotimes_i \mathbb C^{d_i}\)</span> for which Klyachko&#8217;s inequalities do not contain any mistake.</p>
+<dd><p>Scenarios <span class="math">\((d_1,\dots,d_n)\)</span>, corresponding to <span class="math">\(\times_i GL(d_i)\)</span>-representation on <span class="math">\(\bigotimes_i \mathbb C^{d_i}\)</span> for which Klyachko’s inequalities do not contain any mistake.</p>
 </dd></dl>
 
 <dl class="function">
@@ -1373,9 +1377,9 @@ Sub-scenarios of these scenarios are also supported (i.e., <span class="math">\(
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>dims</strong> &#8211; the dimensions <span class="math">\((d_1,\dots,d_n)\)</span>.</li>
-<li><strong>bare</strong> &#8211; if <code class="docutils literal"><span class="pre">True</span></code> then permutations, positivity, and Weyl chamber inequalities are omitted.</li>
-<li><strong>irred</strong> &#8211; if <code class="docutils literal"><span class="pre">True</span></code> then an irredunant H-representation is returned.</li>
+<li><strong>dims</strong> – the dimensions <span class="math">\((d_1,\dots,d_n)\)</span>.</li>
+<li><strong>bare</strong> – if <code class="docutils literal"><span class="pre">True</span></code> then permutations, positivity, and Weyl chamber inequalities are omitted.</li>
+<li><strong>irred</strong> – if <code class="docutils literal"><span class="pre">True</span></code> then an irredunant H-representation is returned.</li>
 </ul>
 </td>
 </tr>
