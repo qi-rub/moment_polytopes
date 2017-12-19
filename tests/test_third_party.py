@@ -64,11 +64,12 @@ def test_qmp_333():
     "dims",
     [
         (3, 2, 6),
-        pytest.mark.slow((4, 2, 8)),
-        pytest.mark.slow((3, 3, 9)),
+        pytest.param((4, 2, 8), marks=pytest.mark.slow),
+        pytest.param((3, 3, 9), marks=pytest.mark.slow),
         # there is a mistake in Klyachko's table:
-        pytest.mark.slow(pytest.mark.xfail((2, 2, 3, 12))),
-        pytest.mark.slow((2, 2, 2, 2, 16)),
+        pytest.param(
+            (2, 2, 3, 12), marks=[pytest.mark.slow, pytest.mark.xfail]),
+        pytest.param((2, 2, 2, 2, 16), marks=pytest.mark.slow),
     ])
 def test_klyachko_qmp_hrepr_bare(algorithm, dims):
     # retrieve inequalities according to Klyachko (w/o Weyl chamber and permutations)
@@ -85,10 +86,10 @@ def test_klyachko_qmp_hrepr_bare(algorithm, dims):
 
 @pytest.mark.parametrize("dims", [
     (3, 2, 6),
-    pytest.mark.slow((4, 2, 8)),
-    pytest.mark.slow((3, 3, 9)),
-    pytest.mark.slow((2, 2, 3, 12)),
-    pytest.mark.slow((2, 2, 2, 2, 16)),
+    pytest.param((4, 2, 8), marks=pytest.mark.slow),
+    pytest.param((3, 3, 9), marks=pytest.mark.slow),
+    pytest.param((2, 2, 3, 12), marks=pytest.mark.slow),
+    pytest.param((2, 2, 2, 2, 16), marks=pytest.mark.slow),
 ])
 def test_klyachko_qmp_hrepr_positivity_bug(dims):
     # retrieve QMP polytope according to Klyachko

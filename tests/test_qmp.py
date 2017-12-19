@@ -3,31 +3,32 @@ import pytest
 from sage.all import QQ, gcd, prod, vector
 from moment_polytopes import *
 
+ONE_HALF = QQ("1/2")
+
 
 def test_three_qubits(algorithm):
     # extremal edges (up to permutations)
     candidates = qmp.H_AB_dominant(2, 2, include_perms=False)
     assert candidates == {
-        ((0, 0), (QQ("1/2"), -QQ("1/2"))),
-        ((QQ("1/2"), -QQ("1/2")), (QQ("1/2"), -QQ("1/2"))),
+        ((0, 0), (ONE_HALF, -ONE_HALF)),
+        ((ONE_HALF, -ONE_HALF), (ONE_HALF, -ONE_HALF)),
     }
     assert len(qmp.H_AB_dominant(2, 2, include_perms=True)) == 2 + 1
 
     # candidates for dominant normal vectors
     candidates = sorted(qmp.H_ABC_dominant(2, 2, 2, include_perms=False))
     assert candidates == [
-        ((0, 0), (0, 0), (QQ("1/2"), -QQ("1/2"))),
-        ((0, 0), (QQ("1/2"), -QQ("1/2")), (QQ("1/2"), -QQ("1/2"))),
-        ((QQ("1/2"), -QQ("1/2")), (QQ("1/2"), -QQ("1/2")), (QQ("1/2"),
-                                                            -QQ("1/2"))),
+        ((0, 0), (0, 0), (ONE_HALF, -ONE_HALF)),
+        ((0, 0), (ONE_HALF, -ONE_HALF), (ONE_HALF, -ONE_HALF)),
+        ((ONE_HALF, -ONE_HALF), (ONE_HALF, -ONE_HALF), (ONE_HALF, -ONE_HALF)),
     ]
     assert len(qmp.H_ABC_dominant(2, 2, 2, include_perms=True)) == 3 + 3 + 1
 
     # candidates for corresponding z (easy to visualize for unit cube)
     R = external_tensor_product([2, 2, 2])
-    assert c_candidates(R, sum(candidates[0], ())) == {QQ("1/2"), -QQ("1/2")}
+    assert c_candidates(R, sum(candidates[0], ())) == {ONE_HALF, -ONE_HALF}
     assert c_candidates(R, sum(candidates[1], ())) == {0}
-    assert c_candidates(R, sum(candidates[2], ())) == {QQ("1/2"), -QQ("1/2")}
+    assert c_candidates(R, sum(candidates[2], ())) == {ONE_HALF, -ONE_HALF}
 
     # candidates for dominant admissible (H, z) (just the ones from above)
     candidates = qmp.H_dominant_admissible((2, 2, 2), include_perms=False)
@@ -36,10 +37,10 @@ def test_three_qubits(algorithm):
     # candidates for admissible (H, z)
     candidates = sorted(qmp.H_candidates((2, 2, 2), include_perms=False))
     assert candidates == [
-        (((-QQ("1/2"), QQ("1/2")), (-QQ("1/2"), QQ("1/2")),
-          (QQ("1/2"), -QQ("1/2"))), -QQ("1/2")),
-        (((-QQ("1/2"), QQ("1/2")), (0, 0), (0, 0)), -QQ("1/2")),
-        (((0, 0), (QQ("1/2"), -QQ("1/2")), (QQ("1/2"), -QQ("1/2"))), 0),
+        (((-ONE_HALF, ONE_HALF), (-ONE_HALF, ONE_HALF), (ONE_HALF, -ONE_HALF)),
+         -ONE_HALF),
+        (((-ONE_HALF, ONE_HALF), (0, 0), (0, 0)), -ONE_HALF),
+        (((0, 0), (ONE_HALF, -ONE_HALF), (ONE_HALF, -ONE_HALF)), 0),
     ]
 
     # polytope
@@ -47,10 +48,10 @@ def test_three_qubits(algorithm):
     vs = hrepr.vertices()
     assert len(hrepr.ieqs) == 6
     assert sorted(map(tuple, vs)) == [
-        (QQ("1/2"), QQ("1/2"), QQ("1/2"), QQ("1/2"), QQ("1/2"), QQ("1/2")),
-        (QQ("1/2"), QQ("1/2"), QQ("1/2"), QQ("1/2"), 1, 0),
-        (QQ("1/2"), QQ("1/2"), 1, 0, QQ("1/2"), QQ("1/2")),
-        (1, 0, QQ("1/2"), QQ("1/2"), QQ("1/2"), QQ("1/2")),
+        (ONE_HALF, ONE_HALF, ONE_HALF, ONE_HALF, ONE_HALF, ONE_HALF),
+        (ONE_HALF, ONE_HALF, ONE_HALF, ONE_HALF, 1, 0),
+        (ONE_HALF, ONE_HALF, 1, 0, ONE_HALF, ONE_HALF),
+        (1, 0, ONE_HALF, ONE_HALF, ONE_HALF, ONE_HALF),
         (1, 0, 1, 0, 1, 0),
     ]
 
@@ -168,8 +169,8 @@ def test_no_duplicates(dims):
     (2, 3, 6),
     (2, 4, 8),
     (3, 3, 9),
-    pytest.mark.slow((2, 2, 3, 12)),
-    pytest.mark.slow((2, 2, 2, 2, 16)),
+    pytest.param((2, 2, 3, 12), marks=pytest.mark.slow),
+    pytest.param((2, 2, 2, 2, 16), marks=pytest.mark.slow),
 ])
 def test_H_candidates_traceless_primitive_extremal_edges(dims):
     candidates = qmp.H_candidates(dims, include_perms=False)
@@ -214,10 +215,10 @@ def test_H_candidates_traceless_primitive_extremal_edges(dims):
     (2, 3, 6),
     (2, 4, 8),
     (3, 3, 3),
-    pytest.mark.slow((3, 3, 9)),
-    pytest.mark.slow((4, 4, 4)),
-    pytest.mark.slow((2, 2, 3, 12)),
-    pytest.mark.slow((2, 2, 2, 2, 16)),
+    pytest.param((3, 3, 9), marks=pytest.mark.slow),
+    pytest.param((4, 4, 4), marks=pytest.mark.slow),
+    pytest.param((2, 2, 3, 12), marks=pytest.mark.slow),
+    pytest.param((2, 2, 2, 2, 16), marks=pytest.mark.slow),
 ])
 def test_H_candidates_numerological(dims):
     # check that the "numerological condition" dim n_-(H < 0) == dim M(H < z) holds for all candidates (H, z)
@@ -235,8 +236,8 @@ def test_H_candidates_numerological(dims):
     ((3, 3, 3), 25),
     ((4, 4, 4), 323),
     ((2, 2, 4), 9),
-    pytest.mark.slow(((2, 2, 3, 12), 1330)),
-    pytest.mark.slow(((2, 2, 2, 2, 16), 535)),
+    pytest.param((2, 2, 3, 12), 1330, marks=pytest.mark.slow),
+    pytest.param((2, 2, 2, 2, 16), 535, marks=pytest.mark.slow),
 ])
 def test_H_ressayre(dims, count_wo_perms, algorithm):
     ressayre_wo_perms = qmp.H_ressayre(
@@ -250,18 +251,18 @@ def test_H_ressayre(dims, count_wo_perms, algorithm):
         ((2, 2, 2), 6, 2),
         ((3, 3, 3), 45, 10),
         ((4, 4, 4), 270, 50),
-        ((2, 2, 4), 13,
-         9),  # Klyachko: 7 + (1 + 1 + 3 Weyl) + (1 positivity) = 13
-        ((2, 3, 6), 50, 50),  # Klyachko:   41 + (1 + 2 + 5) + 1 = 50
-        ((2, 4, 8), 246, 246),  # Klyachko:  234 + (1 + 3 + 7) + 1 = 246
-        pytest.mark.slow(
-            ((3, 3, 9), 400, 208)),  # Klyachko:  387 + (2 + 2 + 8) + 1 = 400
-        pytest.mark.slow(
-            ((2, 2, 3, 12), 599, 322)
-        ),  # Klyachko:  442 + (1 + 1 + 2 + 11) + 1 = 457 -- BUT HIS INEQUALITIES ARE NOT CORRECT AS PRINTED
-        pytest.mark.slow(
-            ((2, 2, 2, 2, 16), 825,
-             67)),  # Klyachko:  805 + (1 + 1 + 1 + 1 + 15) + 1 = 825
+        # Klyachko: 7 + (1 + 1 + 3 Weyl) + (1 positivity) = 13
+        ((2, 2, 4), 13, 9),
+        # Klyachko:   41 + (1 + 2 + 5) + 1 = 50
+        ((2, 3, 6), 50, 50),
+        # Klyachko:  234 + (1 + 3 + 7) + 1 = 246
+        ((2, 4, 8), 246, 246),
+        # Klyachko:  387 + (2 + 2 + 8) + 1 = 400
+        pytest.param((3, 3, 9), 400, 208, marks=pytest.mark.slow),
+        # Klyachko:  442 + (1 + 1 + 2 + 11) + 1 = 457 -- BUT HIS INEQUALITIES ARE NOT CORRECT AS PRINTED
+        pytest.param((2, 2, 3, 12), 599, 322, marks=pytest.mark.slow),
+        # Klyachko:  805 + (1 + 1 + 1 + 1 + 15) + 1 = 825
+        pytest.param((2, 2, 2, 2, 16), 825, 67, marks=pytest.mark.slow),
     ])
 def test_qmp_hrepr(dims, num_facets, num_facets_wo_perms, algorithm):
     hrepr = qmp.hrepr(dims, algorithm=algorithm)
@@ -277,10 +278,11 @@ def test_qmp_hrepr(dims, num_facets, num_facets_wo_perms, algorithm):
         ((4, 4, 4), 328, 65),
         ((2, 2, 4), 10, 8),
         ((2, 3, 6), 56, 56),
-        pytest.mark.slow(((2, 4, 8), 248, 248)),  # lrs takes too long?!
-        pytest.mark.slow(((3, 3, 9), 561, 297)),  # lrs takes too long?!
-        pytest.mark.slow(((2, 2, 3, 12), 0, 0)),  # lrs takes too long?!
-        pytest.mark.slow(((2, 2, 2, 2, 16), 0, 0)),  # lrs takes too long?!
+        # lrs takes too long?!
+        pytest.param((2, 4, 8), 248, 248, marks=pytest.mark.slow),
+        pytest.param((3, 3, 9), 561, 297, marks=pytest.mark.slow),
+        pytest.param((2, 2, 3, 12), 0, 0, marks=pytest.mark.slow),
+        pytest.param((2, 2, 2, 2, 16), 0, 0, marks=pytest.mark.slow),
     ])
 def test_qmp_vrepr(dims, num_vertices, num_vertices_wo_perms, algorithm):
     vrepr = qmp.vrepr(dims, algorithm=algorithm)
@@ -307,9 +309,9 @@ def test_basic_scenarios(dims, expected_fn, algorithm):
     (2, 2, 4),
     (2, 3, 6),
     (2, 4, 8),
-    pytest.mark.slow((3, 3, 9)),
-    pytest.mark.slow(pytest.mark.xfail((2, 2, 3, 12))),
-    pytest.mark.slow((2, 2, 2, 2, 16)),
+    pytest.param((3, 3, 9), marks=pytest.mark.slow),
+    pytest.param((2, 2, 3, 12), marks=[pytest.mark.slow, pytest.mark.xfail]),
+    pytest.param((2, 2, 2, 2, 16), marks=pytest.mark.slow),
 ])
 def test_vs_klyachko(dims, algorithm):
     # fetch irredundant H-representations
@@ -340,10 +342,10 @@ def test_vs_klyachko(dims, algorithm):
         (3, 3, 3),
         (4, 4, 4),
         # it takes a lot of time to verify some of these determinants using Sage:
-        pytest.mark.slow((2, 2, 3, 12)),
-        pytest.mark.slow((2, 4, 8)),
-        pytest.mark.slow((3, 3, 9)),
-        pytest.mark.slow((2, 2, 2, 2, 16)),
+        pytest.param((2, 2, 3, 12), marks=pytest.mark.slow),
+        pytest.param((2, 4, 8), marks=pytest.mark.slow),
+        pytest.param((3, 3, 9), marks=pytest.mark.slow),
+        pytest.param((2, 2, 2, 2, 16), marks=pytest.mark.slow),
     ])
 def test_compare_against_sage(dims, algorithm):
     if algorithm and algorithm != 'sage':
