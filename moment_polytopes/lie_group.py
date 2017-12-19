@@ -48,6 +48,11 @@ class Representation(object):
         return len(self.weights)
 
     @property
+    def positive_roots(self):
+        """List of positive roots of the corresponding Lie group."""
+        return [-alpha for alpha in self.negative_roots]
+
+    @property
     def dimension_affine_hull_weights(self):
         """The dimension of the affine subspace spanned by the weights."""
         # compute once and cache for future invocations
