@@ -29,11 +29,17 @@ def test_GL4_positive_weyl_chamber():
     assert pwc_hrepr_irred == pwc_hrepr_expected
 
 
-def test_GL3_fundamental():
+def test_malformed_highest_weights():
     # too many parts
     with pytest.raises(AssertionError):
         R = weyl_module(3, [4, 3, 2, 1])
 
+    # cannot pad by zero
+    with pytest.raises(AssertionError):
+        R = weyl_module(3, [4, -1])
+
+
+def test_GL3_fundamental():
     # fundamental representation
     R = weyl_module(3, [1])
 
