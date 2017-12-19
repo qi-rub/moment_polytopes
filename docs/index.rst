@@ -50,8 +50,11 @@ If you use this software, please consider citing our article:
   @article{moment_polytopes,
     author  = {Vergne, M. and Walter, M.},
     title   = {Inequalities for moment cones of finite-dimensional representations},
-    year    = {2014},
-    journal = {to appear in Journal of Symplectic Geometry},
+    journal = {Journal of Symplectic Geometry},
+    year    = {2017},
+    volume  = {15},
+    number  = {4},
+    pages   = {1209--1250},
     eprint  = {1410.8144},
     note    = {Software available at \url{https://catch22.github.io/moment_polytopes/}.},
   }
