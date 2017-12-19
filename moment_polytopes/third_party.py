@@ -81,8 +81,8 @@ KLYACHKO_FERMI_SCENARIOS = sorted(KLYACHKO_FERMI_DATA.keys())
 def _parse_fermi_ieq(d, s, split_at):
     """Parse a fermionic inequality in Klyachko's format."""
     H = [0] * d
-    s = s.rstrip(" ,.").replace(u"−", "-").replace(u"λ", " A").replace(u"-A",
-                                                                       "- A")
+    s = s.rstrip(" ,.").replace(u"−", "-").replace(u"λ", " A").replace(
+        u"-A", "- A")
     lhs, rhs = map(lambda s: str(s).strip(), s.split(split_at))
     if lhs[0] not in ["+", "-"]:
         lhs = "+ " + lhs
@@ -927,13 +927,14 @@ def _parse_mixed_ieq(dims, s, qubit_coords=[]):
                 todo = todo[3:]
             else:
                 idx = int(todo[3])
-                v[sum(dims[:party]) +
-                  idx - 1] = overall_factor * overall_sign * sign * coeff
+                v[sum(dims[:party]) + idx -
+                  1] = overall_factor * overall_sign * sign * coeff
                 todo = todo[4:]
         return v
 
     s = s.rstrip(" ,.").replace(u"−", "-").replace(u"λ", " A").replace(
-        u"µ", " B").replace(u"ν", " C").replace(u"ρ", " D").replace(u"τ", " E")
+        u"µ", " B").replace(u"ν", " C").replace(u"ρ", " D").replace(
+            u"τ", " E")
     lhs, rhs = map(lambda s: str(s).strip(), s.split(u"≤"))
     p("+ " + lhs, -1)
     p("+ " + rhs, 1)
@@ -1049,8 +1050,8 @@ def higuchi_hrepr(num_qubits=3):
     # polygonal inequalities
     ieqs = []
     for k in range(num_qubits):
-        H, z = (-1, 0) * k + (1, 0) + (-1, 0) * (num_qubits - k - 1
-                                                 ), 2 - num_qubits
+        H, z = (-1, 0) * k + (1, 0) + (-1, 0) * (
+            num_qubits - k - 1), 2 - num_qubits
         ieqs.append((H, z))
 
     # positivity

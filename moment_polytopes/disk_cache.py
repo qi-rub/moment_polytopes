@@ -10,8 +10,8 @@ __all__ = ['DISK_CACHE_DIR', 'disk_cache']
 logger = logging.getLogger(__name__)
 
 #:Cache directory used by the :func:`disk_cache` decorator.
-DISK_CACHE_DIR = os.path.expanduser('~/.cache/%s-%s' %
-                                    (package_name, package_version))
+DISK_CACHE_DIR = os.path.expanduser('~/.cache/%s-%s' % (package_name,
+                                                        package_version))
 logger.debug('Using directory %s', DISK_CACHE_DIR)
 
 #:Globally disable disk cache.

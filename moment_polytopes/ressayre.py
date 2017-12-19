@@ -1,7 +1,7 @@
 from __future__ import absolute_import, print_function
 import logging
 from collections import defaultdict
-from sage.all import vector, matrix, ceil, log, random_vector, ZZ, PolynomialRing, mathematica
+from sage.all import vector, matrix, ceil, log, random_vector, ZZ, QQ, PolynomialRing, mathematica
 from .utils import dim_affine_hull
 
 __all__ = [
@@ -55,8 +55,8 @@ class RessayreTester(object):
 
         # weight blocks mismatch?
         if sorted(n_neg.keys()) != sorted(M_neg.keys()):
-            logger.debug("H-weights do not match: %r != %r",
-                         n_neg.keys(), M_neg.keys())
+            logger.debug("H-weights do not match: %r != %r", n_neg.keys(),
+                         M_neg.keys())
             return False
         for weight in n_neg:
             if len(n_neg[weight]) != len(M_neg[weight]):
@@ -94,8 +94,8 @@ class RessayreTester(object):
             # compute determinant
             logger.debug(
                 'processing H-weight block %d -> %d: size %dx%d with %d variables',
-                weight, weight + c,
-                len(n_neg_block), len(n_neg_block), len(M_null))
+                weight, weight + c, len(n_neg_block), len(n_neg_block),
+                len(M_null))
 
             # compute determinant of polynomial matrix
             det = self.det(Ts, len(n_neg_block))
@@ -149,7 +149,7 @@ class ProbabilisticRessayreTester(RessayreTester):
 
             # return if non-zero (otherwise keep trying)
             det = T.determinant()
-            assert det in ZZ, 'Assuming that integer determinants are computed exactly.'
+            assert det in QQ, 'Assuming that integer determinants are computed exactly.'
             if det:
                 return det
         return 0

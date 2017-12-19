@@ -151,8 +151,8 @@ def H_candidates(dims, include_perms=True):
         # compute desired antilength
 
         H_dominant = vector(sum(hs_dominant, ()))
-        antilength_desired = sum(1 for omega in R.weights
-                                 if omega.dot_product(H_dominant) < z)
+        antilength_desired = sum(
+            1 for omega in R.weights if omega.dot_product(H_dominant) < z)
         if antilength_desired > antilength_max:
             continue
 
@@ -377,8 +377,8 @@ class PrettyPrinter(object):
                 'H_%s' % s for (_, s) in zip(self.dims, self.subsystem_labels)
             ] + ['z', 'Remarks']
             lines += [
-                '', 'Facets', '------', '', _tabulate(
-                    self._facets_table(), headers=headers)
+                '', 'Facets', '------', '',
+                _tabulate(self._facets_table(), headers=headers)
             ]
             lines += [
                 '',
@@ -392,8 +392,8 @@ class PrettyPrinter(object):
                 'V_%s' % s for (_, s) in zip(self.dims, self.subsystem_labels)
             ]
             lines += [
-                '', 'Vertices', '--------', '', _tabulate(
-                    self._vertices_table(), headers=headers)
+                '', 'Vertices', '--------', '',
+                _tabulate(self._vertices_table(), headers=headers)
             ]
 
         lines += ['', 'All data is up to permutations of subsystems.']

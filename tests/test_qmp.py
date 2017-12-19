@@ -18,8 +18,8 @@ def test_three_qubits(algorithm):
     assert candidates == [
         ((0, 0), (0, 0), (QQ("1/2"), -QQ("1/2"))),
         ((0, 0), (QQ("1/2"), -QQ("1/2")), (QQ("1/2"), -QQ("1/2"))),
-        ((QQ("1/2"), -QQ("1/2")), (QQ("1/2"), -QQ("1/2")),
-         (QQ("1/2"), -QQ("1/2"))),
+        ((QQ("1/2"), -QQ("1/2")), (QQ("1/2"), -QQ("1/2")), (QQ("1/2"),
+                                                            -QQ("1/2"))),
     ]
     assert len(qmp.H_ABC_dominant(2, 2, 2, include_perms=True)) == 3 + 3 + 1
 
@@ -178,9 +178,9 @@ def test_H_candidates_traceless_primitive_extremal_edges(dims):
     if dims[-1] == prod(dims[:-1]):
         # positivity constraint (in normal form)
         stab = StabilizerGroup(dims)
-        hs_positivity = [(0, ) * d
-                         for d in dims[:-1]] + [(-1, ) * (dims[-1] - 1) +
-                                                (dims[-1] - 1, )]
+        hs_positivity = [(0, ) * d for d in dims[:-1]] + [(-1, ) *
+                                                          (dims[-1] - 1) +
+                                                          (dims[-1] - 1, )]
         hs_positivity = stab.normal_form(hs_positivity)
         H_positivity = (hs_positivity, -1)
         assert H_positivity in candidates, 'Forgot positivity constraint?'
@@ -224,8 +224,8 @@ def test_H_candidates_numerological(dims):
     R = external_tensor_product(dims)
     for (hs, z) in qmp.H_candidates(dims, include_perms=False):
         H = vector(sum(hs, ()))
-        dim_n_neg = sum(1 for alpha in R.negative_roots
-                        if alpha.dot_product(H) < 0)
+        dim_n_neg = sum(
+            1 for alpha in R.negative_roots if alpha.dot_product(H) < 0)
         dim_M_neg = sum(1 for omega in R.weights if omega.dot_product(H) < z)
         assert dim_n_neg == dim_M_neg
 
@@ -254,8 +254,8 @@ def test_H_ressayre(dims, count_wo_perms, algorithm):
          9),  # Klyachko: 7 + (1 + 1 + 3 Weyl) + (1 positivity) = 13
         ((2, 3, 6), 50, 50),  # Klyachko:   41 + (1 + 2 + 5) + 1 = 50
         ((2, 4, 8), 246, 246),  # Klyachko:  234 + (1 + 3 + 7) + 1 = 246
-        pytest.mark.slow(((3, 3, 9), 400,
-                          208)),  # Klyachko:  387 + (2 + 2 + 8) + 1 = 400
+        pytest.mark.slow(
+            ((3, 3, 9), 400, 208)),  # Klyachko:  387 + (2 + 2 + 8) + 1 = 400
         pytest.mark.slow(
             ((2, 2, 3, 12), 599, 322)
         ),  # Klyachko:  442 + (1 + 1 + 2 + 11) + 1 = 457 -- BUT HIS INEQUALITIES ARE NOT CORRECT AS PRINTED
@@ -286,8 +286,8 @@ def test_qmp_vrepr(dims, num_vertices, num_vertices_wo_perms, algorithm):
     vrepr = qmp.vrepr(dims, algorithm=algorithm)
     assert not vrepr.rays and not vrepr.lines
     assert len(vrepr.vertices) == num_vertices
-    assert len(
-        qmp.vertices_wo_perms(dims, vrepr.vertices)) == num_vertices_wo_perms
+    assert len(qmp.vertices_wo_perms(dims,
+                                     vrepr.vertices)) == num_vertices_wo_perms
 
 
 @pytest.mark.parametrize("dims, expected_fn", [

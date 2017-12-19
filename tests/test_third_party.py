@@ -78,8 +78,8 @@ def test_klyachko_qmp_hrepr_bare(algorithm, dims):
     R = external_tensor_product(dims)
     T = ressayre_tester(R, algorithm=algorithm)
     for i, ieq in enumerate(bare_hrepr.ieqs):
-        logger.debug("testing inequality %d/%d...", i + 1,
-                     len(bare_hrepr.ieqs))
+        logger.debug("testing inequality %d/%d...", i + 1, len(
+            bare_hrepr.ieqs))
         assert T.is_ressayre(ieq)
 
 
@@ -126,8 +126,8 @@ def test_klyachko_qmp_22312_wrong():
     def proj((H, c)):
         return list(H[:2]) + list(H[3:8]), c
 
-    bravyi_correct = third_party.klyachko_qmp_hrepr(
-        [3, 2, 6]).map(proj).irred()
+    bravyi_correct = third_party.klyachko_qmp_hrepr([3, 2,
+                                                     6]).map(proj).irred()
 
     # attempt to get the same by loading the inequalities for 2x2x3x12 and slicing with ... x {1}
     dims = (2, 2, 3, 12)

@@ -74,9 +74,10 @@ def test_extremal_edges(dims, count):
 
 def test_extremal_edges_implementations():
     for dims in [(2, 2), (2, 3), (3, 2), (3, 3)]:
-        assert set(
-            map(tuple, extremal_edges(dims, algorithm='generic'))) == set(
-                map(tuple, extremal_edges(dims, algorithm='bipartite')))
+        assert set(map(tuple,
+                       extremal_edges(dims, algorithm='generic'))) == set(
+                           map(tuple,
+                               extremal_edges(dims, algorithm='bipartite')))
 
 
 @pytest.mark.parametrize(
@@ -165,20 +166,32 @@ def P(*pi):
     (3, 2, {P(2, 3, 1), P(3, 1, 2)}),
     (3, 3, {P(3, 2, 1)}),
     (4, 0, {P(1, 2, 3, 4)}),
-    (4, 1, {P(2, 1, 3, 4), P(1, 3, 2, 4), P(1, 2, 4, 3)}),
+    (4, 1, {P(2, 1, 3, 4), P(1, 3, 2, 4),
+            P(1, 2, 4, 3)}),
     (4, 2, {
-        P(2, 3, 1, 4), P(2, 1, 4, 3), P(1, 3, 4, 2), P(3, 1, 2, 4),
+        P(2, 3, 1, 4),
+        P(2, 1, 4, 3),
+        P(1, 3, 4, 2),
+        P(3, 1, 2, 4),
         P(1, 4, 2, 3)
     }),
     (4, 3, {
-        P(4, 1, 2, 3), P(3, 1, 4, 2), P(1, 4, 3, 2), P(2, 3, 4, 1),
-        P(3, 2, 1, 4), P(2, 4, 1, 3)
+        P(4, 1, 2, 3),
+        P(3, 1, 4, 2),
+        P(1, 4, 3, 2),
+        P(2, 3, 4, 1),
+        P(3, 2, 1, 4),
+        P(2, 4, 1, 3)
     }),
     (4, 4, {
-        P(3, 2, 4, 1), P(4, 1, 3, 2), P(4, 2, 1, 3), P(3, 4, 1, 2),
+        P(3, 2, 4, 1),
+        P(4, 1, 3, 2),
+        P(4, 2, 1, 3),
+        P(3, 4, 1, 2),
         P(2, 4, 3, 1)
     }),
-    (4, 5, {P(3, 4, 2, 1), P(4, 2, 3, 1), P(4, 3, 1, 2)}),
+    (4, 5, {P(3, 4, 2, 1), P(4, 2, 3, 1),
+            P(4, 3, 1, 2)}),
     (4, 6, {P(4, 3, 2, 1)}),
 ])
 def test_perms_of_length(n, length, perms):
@@ -194,12 +207,12 @@ def test_perms_of_length(n, length, perms):
     ((2, 2, 2), 4, set()),
     ((2, 2, 2, 2), -1, set()),
     ((2, 2, 2, 2), 0, {(0, 0, 0, 0)}),
-    ((2, 2, 2, 2), 1,
-     {(1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)}),
+    ((2, 2, 2, 2), 1, {(1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0),
+                       (0, 0, 0, 1)}),
     ((2, 2, 2, 2), 2, {(1, 1, 0, 0), (1, 0, 1, 0), (1, 0, 0, 1), (0, 1, 1, 0),
                        (0, 1, 0, 1), (0, 0, 1, 1)}),
-    ((2, 2, 2, 2), 3,
-     {(1, 1, 1, 0), (1, 1, 0, 1), (1, 0, 1, 1), (0, 1, 1, 1)}),
+    ((2, 2, 2, 2), 3, {(1, 1, 1, 0), (1, 1, 0, 1), (1, 0, 1, 1),
+                       (0, 1, 1, 1)}),
     ((2, 2, 2, 2), 4, {(1, 1, 1, 1)}),
     ((2, 2, 2, 2), 5, set()),
 ])
@@ -212,8 +225,10 @@ def test_length_tuples(dims, total, tuples):
     [
         # regular element
         ([3, 2, 1], 0, {P(1, 2, 3)}, {P(1, 2, 3)}),
-        ([3, 2, 1], 1, {P(2, 1, 3), P(1, 3, 2)}, {P(2, 1, 3), P(1, 3, 2)}),
-        ([3, 2, 1], 2, {P(2, 3, 1), P(3, 1, 2)}, {P(2, 3, 1), P(3, 1, 2)}),
+        ([3, 2, 1], 1, {P(2, 1, 3), P(1, 3, 2)}, {P(2, 1, 3),
+                                                  P(1, 3, 2)}),
+        ([3, 2, 1], 2, {P(2, 3, 1), P(3, 1, 2)}, {P(2, 3, 1),
+                                                  P(3, 1, 2)}),
         ([3, 2, 1], 3, {P(3, 2, 1)}, {P(3, 2, 1)}),
         # one degeneracy
         ([2, 2, 1], 0, {P(1, 2, 3)}, set()),
@@ -290,8 +305,8 @@ def test_perm_action():
     for pi in Permutations(4):
         for tau in Permutations(4):
             pi_tau = pi.left_action_product(tau)
-            assert perm_action(pi, perm_action(tau, H)) == perm_action(pi_tau,
-                                                                       H)
+            assert perm_action(pi, perm_action(tau, H)) == perm_action(
+                pi_tau, H)
 
 
 def test_stabilizer_group():
@@ -316,7 +331,11 @@ def test_stabilizer_group():
     assert stab.blocks == [[0, 1, 2]]
     assert stab.normal_form("BCA") == tuple("ABC")
     assert stab.orbit({"BCA"}) == {
-        tuple("ABC"), tuple("ACB"), tuple("BAC"), tuple("BCA"), tuple("CAB"),
+        tuple("ABC"),
+        tuple("ACB"),
+        tuple("BAC"),
+        tuple("BCA"),
+        tuple("CAB"),
         tuple("CBA")
     }
     assert stab.orbit({"XYX"}) == {tuple("YXX"), tuple("XYX"), tuple("XXY")}

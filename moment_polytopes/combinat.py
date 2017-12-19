@@ -279,8 +279,8 @@ def _extremal_edges_generic(dims, include_perms=True):
             v = [0] * dims[i]
             v[j] = 1
             v[j + 1] = -1
-            ieqs.append([0] + [0] * sum(dims[:i]) + v + [0] * sum(dims[i +
-                                                                       1:]))
+            ieqs.append(
+                [0] + [0] * sum(dims[:i]) + v + [0] * sum(dims[i + 1:]))
     # choose all possible subsets of equations
     num_eqns = sum(d - 1 for d in dims) - 1
     subsets = Subsets(restricted_roots, num_eqns)
@@ -291,8 +291,8 @@ def _extremal_edges_generic(dims, include_perms=True):
         # trace equations
         eqns = []
         for i in range(len(dims)):
-            eqns.append([-1] + [0] * sum(dims[:i]) + [1] * dims[i] + [0] * sum(
-                dims[i + 1:]))
+            eqns.append([-1] + [0] * sum(dims[:i]) + [1] * dims[i] +
+                        [0] * sum(dims[i + 1:]))
 
         # add orthogonality constraints
         for root in roots:
@@ -402,8 +402,8 @@ def is_shuffle(pi, v):
     :rtype: bool
     """
     assert is_dominant(v)
-    return all(pi[n] < pi[n + 1] for n in range(len(v) - 1)
-               if v[n] == v[n + 1])
+    return all(
+        pi[n] < pi[n + 1] for n in range(len(v) - 1) if v[n] == v[n + 1])
 
 
 def is_antishuffle(pi, v):
@@ -418,8 +418,8 @@ def is_antishuffle(pi, v):
     :rtype: bool
     """
     assert is_dominant(v)
-    return all(pi[n] > pi[n + 1] for n in range(len(v) - 1)
-               if v[n] == v[n + 1])
+    return all(
+        pi[n] > pi[n + 1] for n in range(len(v) - 1) if v[n] == v[n + 1])
 
 
 def shuffles(v, length):

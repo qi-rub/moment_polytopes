@@ -11,8 +11,8 @@ class LrsError(Exception):
     """An error that occurred while invoking ``lrslib``."""
 
     def __init__(self, cmd, message):
-        super(Exception, self).__init__('Error while invoking "%s": %s' %
-                                        (cmd, message))
+        super(Exception,
+              self).__init__('Error while invoking "%s": %s' % (cmd, message))
         #: Command that was invoked.
         self.cmd = cmd
 
@@ -100,7 +100,8 @@ class HRepr(object):
         # determine ambient dimension
         if not (ambient_dim or (ieqs or eqns)):
             raise ValueError(
-                'Need to specify ambient dimension if ieqs and eqns are empty.')
+                'Need to specify ambient dimension if ieqs and eqns are empty.'
+            )
         if not ambient_dim:
             H, _ = next(iter(self.ieqs if self.ieqs else self.eqns))
             ambient_dim = len(H)
@@ -212,12 +213,13 @@ class HRepr(object):
             lines += [
                 'linearity %d %s' %
                 (len(self.eqns),
-                 ' '.join(map(str, range(1, len(self.eqns) + 1))))
+                 ' '.join(map(str, range(1,
+                                         len(self.eqns) + 1))))
             ]
         lines += ['begin']
         lines += [
-            '%d %d rational' %
-            (len(self.eqns) + len(self.ieqs), 1 + self.ambient_dim)
+            '%d %d rational' % (len(self.eqns) + len(self.ieqs),
+                                1 + self.ambient_dim)
         ]
         lines += [
             str(-c) + ' ' + ' '.join(map(str, H)) for (H, c) in self.eqns
@@ -249,8 +251,8 @@ class HRepr(object):
         # split into lines and ignore comments
         lines = [
             line.strip() for line in s.splitlines()
-            if line.strip() and (line.startswith('*****') or
-                                 not line.startswith('*'))
+            if line.strip() and (
+                line.startswith('*****') or not line.startswith('*'))
         ]
 
         # parse header
@@ -324,8 +326,8 @@ class VRepr(object):
         if not ambient_dim:
             V = next(
                 iter(
-                    self.vertices if self.vertices else (self.rays if self.rays
-                                                         else self.lines)))
+                    self.vertices if self.vertices else (
+                        self.rays if self.rays else self.lines)))
             ambient_dim = len(V)
         #: The ambient dimension.
         self.ambient_dim = ambient_dim
@@ -379,7 +381,8 @@ class VRepr(object):
             lines += [
                 'linearity %d %s' %
                 (len(self.lines),
-                 ' '.join(map(str, range(1, len(self.lines) + 1))))
+                 ' '.join(map(str, range(1,
+                                         len(self.lines) + 1))))
             ]
         lines += ['begin']
         lines += [
@@ -407,8 +410,8 @@ class VRepr(object):
         """Construct V-representation from `lrs` output."""
         lines = [
             line.strip() for line in s.splitlines()
-            if line.strip() and (line.startswith('*****') or
-                                 not line.startswith('*'))
+            if line.strip() and (
+                line.startswith('*****') or not line.startswith('*'))
         ]
 
         # parse header

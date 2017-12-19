@@ -12,7 +12,8 @@ def pytest_addoption(parser):
     parser.addoption(
         "--algorithms",
         "--algorithm",
-        help="select algorithm(s) used to test Ressayre elements (separate by commas)"
+        help=
+        "select algorithm(s) used to test Ressayre elements (separate by commas)"
     )
 
     # --slow option to run tests that take a long time
