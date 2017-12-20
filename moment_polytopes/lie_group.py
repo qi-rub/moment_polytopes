@@ -1,5 +1,5 @@
 from __future__ import absolute_import, print_function
-from sage.all import Integer, vector, gcd, ZZ, QQ, RootSystem, Partition, SemistandardTableaux, matrix, copy, Tableau, cartesian_product, GelfandTsetlinPatterns, GelfandTsetlinPattern, prod
+from sage.all import Integer, vector, gcd, ZZ, QQ, RootSystem, Partition, SemistandardTableaux, matrix, copy, Tableau, cartesian_product, GelfandTsetlinPatterns, GelfandTsetlinPattern, prod, factorial
 from . import HRepr
 from .utils import dim_affine_hull
 
@@ -95,6 +95,11 @@ class WeylModule(Representation):
 
     >>> weyl_module(4, [2, 1])
     WeylModule(4, (2, 1, 0, 0))
+
+    We work with an orthogonal basis labeled by Gelfand-Tsetlin pattern that has the properties that
+    1. The highest weight is a unit vector.
+    2. Actions of positive and negative root operators are adjoint of each other.
+    3. The matrix elements of the positive and negative root operators (as well as of the torus generators) are integral.
 
     :param d: the rank of the Lie group :math:`GL(d)`.
     :param highest_weight: the highest weight. Should have no more than ``d`` parts. Will be padded by 0 if has fewer than ``d`` parts.
@@ -219,6 +224,28 @@ class WeylModule(Representation):
         else:
             return m
 
+    def tableau_norm_squared(self, tableau):
+        """Return norm squared of weight vector for given tableau.
+
+        :param tableau: the semistandard tableau labeling the basis vector.
+        :type tableau: :class:`sage.Tableau`
+        :rtype: `int`
+        """
+        pattern = self.patterns[self.tableaux.index(Tableau(tableau))]
+
+        def l(k, i):
+            return pattern[self.d - k][i - 1] - i + 1
+
+        return prod(
+            prod(
+                QQ((factorial(l(k, i) - l(k - 1, j)),
+                    factorial(l(k - 1, i) - l(k - 1, j))))
+                for i in range(1, k) for j in range(i, k)) * prod(
+                    QQ((factorial(l(k, i) - l(k, j) - 1),
+                        factorial(l(k - 1, i) - l(k, j) - 1)))
+                    for i in range(1, k + 1) for j in range(i + 1, k + 1))
+            for k in range(2, self.d + 1))
+
     def tableau_vector(self, tableau):
         """Return basis vector for given tableau.
 
@@ -226,7 +253,6 @@ class WeylModule(Representation):
         :type tableau: :class:`sage.Tableau`
         :rtype: :class:`sage.vector`
         """
-        assert self.tableaux, 'Cannot label weight vectors by tableaux (highest weight is not polynomial). Use Gelfand-Tsetlin pattern instead.'
         i = self.tableaux.index(Tableau(tableau))
         return vector(ZZ, self.dimension, {i: 1})
 

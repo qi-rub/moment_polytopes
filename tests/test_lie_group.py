@@ -56,6 +56,11 @@ def test_GL3_fundamental():
         (vector([1, 1, 1]), 1),
     ]
 
+    # norms squared
+    assert R.tableau_norm_squared([[1]]) == 1
+    assert R.tableau_norm_squared([[2]]) == 1
+    assert R.tableau_norm_squared([[3]]) == 4
+
     # negative root action
     V = vector
     assert R.negative_roots == map(vector, [
@@ -91,11 +96,16 @@ def test_GL12_weyl_module_21():
         (V([1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]), 3),
     ]
 
+    # norms squared
+    assert R.tableau_norm_squared([[1, 1], [2]]) == 1
+    assert R.tableau_norm_squared([[1, 1], [8]]) == 720**2
+    assert R.tableau_norm_squared([[1, 2], [2]]) == 1
+
     # check eqns. (3.21) in my thesis -- NB: we are using zero-based indexing here!
     alpha = R.negative_roots.index(V([0, -1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0]))
     v = R.tableau_vector([[1, 1], [2]])
-    w = R.tableau_vector([[1, 1], [8]]) / QQ(720)
-    assert R.negative_root_action(alpha) * v == w
+    w = R.tableau_vector([[1, 1], [8]])
+    assert R.negative_root_action(alpha) * v == w / QQ(720)
 
     alpha = R.negative_roots.index(V([-1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]))
     v = R.tableau_vector([[1, 1], [2]])
@@ -175,11 +185,20 @@ def test_GL5_adjoint():
         (V([1, 1, 1, 1, 1]), 0),
     ]
 
+    # norms squared
+    assert R.tableau_norm_squared([[1, 1], [2], [4], [5]]) == 1
+    assert R.tableau_norm_squared([[1, 4], [2], [4], [5]]) == 8**2
+
+    assert R.tableau_norm_squared([[1, 1], [2], [3], [5]]) == 1
+    assert R.tableau_norm_squared([[1, 2], [3], [4], [5]]) == 2  # !
+    assert R.tableau_norm_squared([[1, 3], [2], [4], [5]]) == 6  # !
+    assert R.tableau_norm_squared([[1, 4], [2], [3], [5]]) == 48  # !
+
     # negative root action
     alpha = R.negative_roots.index(V([-1, 0, 0, 1, 0]))  # alpha_{4,1}
     v = R.tableau_vector([[1, 1], [2], [4], [5]])  # |1><3|
-    w = R.tableau_vector([[1, 4], [2], [4], [5]]) / QQ(8)  # |4><3|
-    assert R.negative_root_action(alpha) * v == w
+    w = R.tableau_vector([[1, 4], [2], [4], [5]])  # |4><3|
+    assert R.negative_root_action(alpha) * v == w / QQ(8)
 
     v = R.tableau_vector([[1, 1], [2], [3], [5]])  # |1><4|
     w = R.tableau_vector(
