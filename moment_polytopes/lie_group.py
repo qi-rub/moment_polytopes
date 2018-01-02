@@ -1,5 +1,5 @@
 from __future__ import absolute_import, print_function
-from sage.all import Integer, vector, gcd, ZZ, QQ, RootSystem, Partition, SemistandardTableaux, matrix, copy, Tableau, cartesian_product, GelfandTsetlinPatterns, GelfandTsetlinPattern, prod, factorial
+from sage.all import Integer, vector, gcd, ZZ, QQ, RootSystem, Partition, SemistandardTableaux, matrix, copy, Tableau, cartesian_product, GelfandTsetlinPatterns, GelfandTsetlinPattern, prod, factorial, diagonal_matrix
 from . import HRepr
 from .utils import dim_affine_hull
 
@@ -158,12 +158,35 @@ class WeylModule(Representation):
         # make each pattern a list of lists (since GelfandTsetlinPattern do not compare well)
         self.patterns = [map(list, p) for p in self.patterns]
 
-        # precompute action of negative simple roots in the Gelfand-Tsetlin basis
+        # compute norm square of (unnormalized) Gelfand-Tsetlin basis vectors
+        self._norm_squares = []
+        for pattern in self.patterns:
+
+            def l(k, j):
+                return pattern[self.d - k][j - 1] - j + 1
+
+            ns = prod(
+                prod(
+                    QQ((factorial(l(k, i) - l(k - 1, j)),
+                        factorial(l(k - 1, i) - l(k - 1, j))))
+                    for i in range(1, k) for j in range(i, k)) * prod(
+                        QQ((factorial(l(k, i) - l(k, j) - 1),
+                            factorial(l(k - 1, i) - l(k, j) - 1)))
+                        for i in range(1, k + 1) for j in range(i + 1, k + 1))
+                for k in range(2, self.d + 1))
+            self._norm_squares.append(ns)
+
+        # precompute action of negative simple roots in the (unnormalized) Gelfand-Tsetlin basis
         # (see https://arxiv.org/pdf/math/0211289.pdf, Theorem 2.3, (2.7))
         self._negative_simple_root_actions = []
         for k in range(1, len(self._simple_roots) + 1):
+            # E_{k+1,k}
             d = {}
             for col, pattern in enumerate(self.patterns):
+
+                def l(k, j):
+                    return pattern[self.d - k][j - 1] - j + 1
+
                 for i in range(1, k + 1):
                     # build new pattern (clone the list of lists)
                     new_pattern = list(map(list, pattern))
@@ -175,9 +198,6 @@ class WeylModule(Representation):
                     row = self.patterns.index(new_pattern)
 
                     # compute prefactor
-                    def l(k, j):
-                        return pattern[self.d - k][j - 1] - j + 1
-
                     numer = prod([l(k, i) - l(k - 1, j) for j in range(1, k)])
                     denom = prod(
                         [l(k, i) - l(k, j) for j in range(1, k + 1) if j != i])
@@ -224,6 +244,24 @@ class WeylModule(Representation):
         else:
             return m
 
+    def positive_root_action(self, idx_positive_root, idx_weight_vector=None):
+        # https://arxiv.org/pdf/math/0211289.pdf, p. 10
+        m = self.negative_root_action(idx_positive_root)
+
+        # not an orthonormal basis
+        D = diagonal_matrix(self._norm_squares)
+        D_inv = diagonal_matrix([1 / ns for ns in self._norm_squares])
+        m = D_inv * m.transpose() * D
+
+        if idx_weight_vector is not None:
+            return m.column(idx_weight_vector)
+        else:
+            return m
+
+    def torus_action(self, idx_positive_root):
+        alpha = self.positive_roots[idx_positive_root]
+        return diagonal_matrix(map(alpha.dot_product, self.weights))
+
     def tableau_norm_squared(self, tableau):
         """Return norm squared of weight vector for given tableau.
 
@@ -231,20 +269,8 @@ class WeylModule(Representation):
         :type tableau: :class:`sage.Tableau`
         :rtype: `int`
         """
-        pattern = self.patterns[self.tableaux.index(Tableau(tableau))]
-
-        def l(k, i):
-            return pattern[self.d - k][i - 1] - i + 1
-
-        return prod(
-            prod(
-                QQ((factorial(l(k, i) - l(k - 1, j)),
-                    factorial(l(k - 1, i) - l(k - 1, j))))
-                for i in range(1, k) for j in range(i, k)) * prod(
-                    QQ((factorial(l(k, i) - l(k, j) - 1),
-                        factorial(l(k - 1, i) - l(k, j) - 1)))
-                    for i in range(1, k + 1) for j in range(i + 1, k + 1))
-            for k in range(2, self.d + 1))
+        idx = self.tableaux.index(Tableau(tableau))
+        return self._norm_squares[idx]
 
     def tableau_vector(self, tableau):
         """Return basis vector for given tableau.

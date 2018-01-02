@@ -250,3 +250,68 @@ def test_external_tensor_product():
         [0, 0, 0, 0, 0, 0],
         [0, 0, 0, QQ('1/2'), 0, 0],
     ])
+
+
+@pytest.mark.parametrize("d, highest_weight", [
+    (3, (1, 0)),
+    (3, (1, 0, -1)),
+    (4, (2, 1, 0, 0)),
+    (4, (4, 2, 2, 1)),
+    (5, (-2, -2, -2, -2, -2)),
+])
+def test_weyl_module_relations(d, highest_weight):
+    R = weyl_module(d, highest_weight)
+    V = vector
+
+    # verify that the H_beta, E_beta, F_beta are eigenvectors of the H_alpha
+    for i, alpha in enumerate(R.positive_roots):
+        H_alpha = R.torus_action(i)
+        for j, beta in enumerate(R.positive_roots):
+            # [H_alpha, H_beta] = 0
+            H_beta = R.torus_action(j)
+            assert H_alpha.commutator(H_beta) == 0
+
+            # [H_alpha, E_beta] = (alpha,beta) E_beta
+            c = alpha.dot_product(beta)
+            E_beta = R.positive_root_action(j)
+            assert H_alpha.commutator(E_beta) == c * E_beta
+
+            # [H_alpha, E_-beta] = -(alpha,beta) E_-beta
+            F_beta = R.negative_root_action(j)
+            assert H_alpha.commutator(F_beta) == -c * F_beta
+
+    # commutators of E_alpha & E_betas
+    for i, alpha in enumerate(R.positive_roots):
+        E_alpha = R.positive_root_action(i)
+        F_alpha = R.negative_root_action(i)
+        H_alpha = R.torus_action(i)
+
+        # [E_alpha, E_-alpha] = H_alpha
+        assert E_alpha.commutator(F_alpha) == H_alpha
+
+        # check that [E_alpha, E_beta] proportional to E_{alpha+beta}
+        def check(beta, E_beta):
+            v = vector(E_alpha.commutator(E_beta))
+            gamma = alpha + beta
+            if gamma in R.positive_roots:
+                k = R.positive_roots.index(gamma)
+                w = vector(R.positive_root_action(k))
+                assert (v == 0 == w) or (v / w)
+            elif gamma in R.negative_roots:
+                k = R.negative_roots.index(gamma)
+                w = vector(R.negative_root_action(k))
+                assert (v == 0 == w) or (v / w)
+            else:
+                assert E_alpha.commutator(E_beta) == 0
+
+        for j, beta in enumerate(R.positive_roots):
+            if i == j:
+                continue
+
+            # [E_alpha, E_beta] proportional to E_{alpha+beta}
+            E_beta = R.positive_root_action(j)
+            check(beta, E_beta)
+
+            # [E_alpha, E_-beta] proportional to E_{alpha-beta}
+            F_beta = R.negative_root_action(j)
+            check(-beta, F_beta)
