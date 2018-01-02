@@ -56,5 +56,6 @@ If you use this software, please consider citing our article:
     number  = {4},
     pages   = {1209--1250},
     eprint  = {1410.8144},
+    doi     = {10.4310/JSG.2017.v15.n4.a8},
     note    = {Software available at \url{https://catch22.github.io/moment_polytopes/}.},
   }
