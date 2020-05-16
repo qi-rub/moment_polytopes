@@ -1,7 +1,7 @@
 from __future__ import absolute_import, print_function
 from sage.all import matrix
 
-__all__ = ['dim_affine_hull']
+__all__ = ["dim_affine_hull"]
 
 
 def dim_affine_hull(points):

@@ -5,7 +5,7 @@ from moment_polytopes import *
 
 
 def test_dual_root_primitive():
-    root_system = 'A1xA2'
+    root_system = "A1xA2"
 
     # evaluated on the simple roots, this is the vector (2, 1, 1)
     H = vector([1, -1, 1, 0, -1])
@@ -13,19 +13,17 @@ def test_dual_root_primitive():
 
     # evaluated on the simple roots, this is the vector (6, 0, 15)
     H = vector([3, -3, 5, 5, -10])
-    H_prim = vector([1, -1, QQ('5/3'), QQ('5/3'), QQ('-10/3')])
+    H_prim = vector([1, -1, QQ("5/3"), QQ("5/3"), QQ("-10/3")])
     assert not is_dual_root_primitive(root_system, H)
     assert dual_root_primitive(root_system, H) == H_prim
 
 
 def test_GL4_positive_weyl_chamber():
     # positive Weyl chamber
-    pwc_hrepr_irred = positive_weyl_chamber_hrepr('A3').irred()
-    pwc_hrepr_expected = HRepr(ieqs=[
-        ((1, -1, 0, 0), 0),
-        ((0, 1, -1, 0), 0),
-        ((0, 0, 1, -1), 0),
-    ])
+    pwc_hrepr_irred = positive_weyl_chamber_hrepr("A3").irred()
+    pwc_hrepr_expected = HRepr(
+        ieqs=[((1, -1, 0, 0), 0), ((0, 1, -1, 0), 0), ((0, 0, 1, -1), 0),]
+    )
     assert pwc_hrepr_irred == pwc_hrepr_expected
 
 
@@ -44,11 +42,7 @@ def test_GL3_fundamental():
     R = weyl_module(3, [1])
 
     # weights
-    assert R.weights == map(vector, [
-        [1, 0, 0],
-        [0, 1, 0],
-        [0, 0, 1],
-    ])
+    assert R.weights == map(vector, [[1, 0, 0], [0, 1, 0], [0, 0, 1],])
 
     # affine hull of weights
     assert R.dimension_affine_hull_weights == 2
@@ -63,26 +57,14 @@ def test_GL3_fundamental():
 
     # negative root action
     V = vector
-    assert R.negative_roots == map(vector, [
-        [-1, 1, 0],
-        [-1, 0, 1],
-        [0, -1, 1],
-    ])
-    assert R.negative_root_action(0) == matrix([
-        [0, 0, 0],
-        [1, 0, 0],
-        [0, 0, 0],
-    ])
-    assert R.negative_root_action(1) == matrix([
-        [0, 0, 0],
-        [0, 0, 0],
-        [QQ('1/2'), 0, 0],
-    ])
-    assert R.negative_root_action(2) == matrix([
-        [0, 0, 0],
-        [0, 0, 0],
-        [0, QQ('1/2'), 0],
-    ])
+    assert R.negative_roots == map(vector, [[-1, 1, 0], [-1, 0, 1], [0, -1, 1],])
+    assert R.negative_root_action(0) == matrix([[0, 0, 0], [1, 0, 0], [0, 0, 0],])
+    assert R.negative_root_action(1) == matrix(
+        [[0, 0, 0], [0, 0, 0], [QQ("1/2"), 0, 0],]
+    )
+    assert R.negative_root_action(2) == matrix(
+        [[0, 0, 0], [0, 0, 0], [0, QQ("1/2"), 0],]
+    )
 
 
 def test_GL12_weyl_module_21():
@@ -98,7 +80,7 @@ def test_GL12_weyl_module_21():
 
     # norms squared
     assert R.tableau_norm_squared([[1, 1], [2]]) == 1
-    assert R.tableau_norm_squared([[1, 1], [8]]) == 720**2
+    assert R.tableau_norm_squared([[1, 1], [8]]) == 720 ** 2
     assert R.tableau_norm_squared([[1, 2], [2]]) == 1
 
     # check eqns. (3.21) in my thesis -- NB: we are using zero-based indexing here!
@@ -176,7 +158,8 @@ def test_GL5_adjoint():
     # check weights
     got = map(tuple, R.weights)
     expected = [(0, 0, 0, 0, 0)] * (5 - 1) + map(
-        tuple, R.positive_roots + R.negative_roots)
+        tuple, R.positive_roots + R.negative_roots
+    )
     assert sorted(got) == sorted(expected)
 
     # affine hull of weights
@@ -187,7 +170,7 @@ def test_GL5_adjoint():
 
     # norms squared
     assert R.tableau_norm_squared([[1, 1], [2], [4], [5]]) == 1
-    assert R.tableau_norm_squared([[1, 4], [2], [4], [5]]) == 8**2
+    assert R.tableau_norm_squared([[1, 4], [2], [4], [5]]) == 8 ** 2
 
     assert R.tableau_norm_squared([[1, 1], [2], [3], [5]]) == 1
     assert R.tableau_norm_squared([[1, 2], [3], [4], [5]]) == 2  # !
@@ -201,10 +184,11 @@ def test_GL5_adjoint():
     assert R.negative_root_action(alpha) * v == w / QQ(8)
 
     v = R.tableau_vector([[1, 1], [2], [3], [5]])  # |1><4|
-    w = R.tableau_vector(
-        [[1, 2], [3], [4], [5]]) * QQ('1/2') + R.tableau_vector(
-            [[1, 3], [2], [4], [5]]) * QQ('-1/6') + R.tableau_vector(
-                [[1, 4], [2], [3], [5]]) * QQ('1/6')  # |4><4| - |1><1|
+    w = (
+        R.tableau_vector([[1, 2], [3], [4], [5]]) * QQ("1/2")
+        + R.tableau_vector([[1, 3], [2], [4], [5]]) * QQ("-1/6")
+        + R.tableau_vector([[1, 4], [2], [3], [5]]) * QQ("1/6")
+    )  # |4><4| - |1><1|
     assert R.negative_root_action(alpha) * v == w
 
 
@@ -213,7 +197,7 @@ def test_external_tensor_product():
     V = vector
 
     # root system
-    assert R.root_system == RootSystem('A1xA2')
+    assert R.root_system == RootSystem("A1xA2")
 
     # negative roots
     assert R.negative_roots == [
@@ -242,23 +226,28 @@ def test_external_tensor_product():
 
     # negative root action]
     alpha = R.negative_roots.index(V([0, 0, -1, 0, 1]))
-    assert R.negative_root_action(alpha) == matrix([
-        [0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0],
-        [QQ('1/2'), 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0],
-        [0, 0, 0, QQ('1/2'), 0, 0],
-    ])
+    assert R.negative_root_action(alpha) == matrix(
+        [
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [QQ("1/2"), 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, QQ("1/2"), 0, 0],
+        ]
+    )
 
 
-@pytest.mark.parametrize("d, highest_weight", [
-    (3, (1, 0)),
-    (3, (1, 0, -1)),
-    (4, (2, 1, 0, 0)),
-    (4, (4, 2, 2, 1)),
-    (5, (-2, -2, -2, -2, -2)),
-])
+@pytest.mark.parametrize(
+    "d, highest_weight",
+    [
+        (3, (1, 0)),
+        (3, (1, 0, -1)),
+        (4, (2, 1, 0, 0)),
+        (4, (4, 2, 2, 1)),
+        (5, (-2, -2, -2, -2, -2)),
+    ],
+)
 def test_weyl_module_relations(d, highest_weight):
     R = weyl_module(d, highest_weight)
     V = vector

@@ -1,26 +1,35 @@
 from __future__ import absolute_import, print_function
 import logging
 from collections import defaultdict
-from sage.all import gcd, vector, matrix, QQ, Polyhedron, cartesian_product, Permutation, Permutations
+from sage.all import (
+    gcd,
+    vector,
+    matrix,
+    QQ,
+    Polyhedron,
+    cartesian_product,
+    Permutation,
+    Permutations,
+)
 from . import dual_root_primitive
 from .disk_cache import disk_cache
 
 __all__ = [
-    'rect_tableaux',
-    'cubicle',
-    'cubicle_tableaux',
-    'is_dominant',
-    'is_extremal_edge',
-    'is_extremal_edge_ieq',
-    'extremal_edges',
-    'perms_of_length',
-    'length_tuples',
-    'is_shuffle',
-    'is_antishuffle',
-    'shuffles',
-    'antishuffles',
-    'perm_action',
-    'StabilizerGroup',
+    "rect_tableaux",
+    "cubicle",
+    "cubicle_tableaux",
+    "is_dominant",
+    "is_extremal_edge",
+    "is_extremal_edge_ieq",
+    "extremal_edges",
+    "perms_of_length",
+    "length_tuples",
+    "is_shuffle",
+    "is_antishuffle",
+    "shuffles",
+    "antishuffles",
+    "perm_action",
+    "StabilizerGroup",
 ]
 
 logger = logging.getLogger(__name__)
@@ -35,6 +44,7 @@ def rect_tableaux(a, b):
     :rtype: list of :class:`sage.StandardTableau`
     """
     from sage.all import StandardTableaux
+
     return map(list, StandardTableaux([b] * a))
 
 
@@ -54,7 +64,7 @@ def cubicle(T):
     """
     # assert rectangular shape
     a, b = len(T), len(T[0])
-    assert all(len(row) == b for row in T), 'T should be rectangular'
+    assert all(len(row) == b for row in T), "T should be rectangular"
 
     # set up constraints for a+b-dimensional polyhedron
     # - traces should be zero
@@ -64,10 +74,10 @@ def cubicle(T):
     ]
 
     # - ordering constraints imposed by Weyl chamber
-    ieqs = [[0] + [0] * i + [1, -1] + [0] * (a - 2 - i) + [0] * b
-            for i in range(a - 1)]
-    ieqs += [[0] + [0] * a + [0] * j + [1, -1] + [0] * (b - 2 - j)
-             for j in range(b - 1)]
+    ieqs = [[0] + [0] * i + [1, -1] + [0] * (a - 2 - i) + [0] * b for i in range(a - 1)]
+    ieqs += [
+        [0] + [0] * a + [0] * j + [1, -1] + [0] * (b - 2 - j) for j in range(b - 1)
+    ]
 
     # - ordering constraints imposed by cubicle
     for i in range(a):
@@ -88,7 +98,9 @@ def cubicle(T):
 
     # compute codimension
     codim = a + b - P.dim()
-    assert codim >= 2, 'Expect codimension to be at least two (because of the two trace constraints).'
+    assert (
+        codim >= 2
+    ), "Expect codimension to be at least two (because of the two trace constraints)."
     return P if codim == 2 else None
 
 
@@ -113,11 +125,9 @@ def is_dominant(v):
     return v == sorted(v, reverse=True)
 
 
-def is_extremal_edge(dims,
-                     V,
-                     assert_dominant=True,
-                     assert_primitive=True,
-                     assert_traceless=True):
+def is_extremal_edge(
+    dims, V, assert_dominant=True, assert_primitive=True, assert_traceless=True
+):
     """Determine whether given vector is an extremal edge. That is, verify whether :math:`V=(H_1,\dots,H_n)` is
 
     - dominant
@@ -134,19 +144,21 @@ def is_extremal_edge(dims,
     assert len(V) == sum(dims)
 
     # extract components and ensure that they are sorted and traceless
-    vs = [list(V[sum(dims[:i]):sum(dims[:i + 1])]) for i in range(len(dims))]
+    vs = [list(V[sum(dims[:i]) : sum(dims[: i + 1])]) for i in range(len(dims))]
     if assert_dominant:
-        assert all(is_dominant(v) for v in vs), 'Expected dominant.'
+        assert all(is_dominant(v) for v in vs), "Expected dominant."
     else:
         vs = [sorted(v, reverse=True) for v in vs]
     if assert_traceless:
-        assert all(sum(v) == 0 for v in vs), 'Expect trace to be zero.'
+        assert all(sum(v) == 0 for v in vs), "Expect trace to be zero."
 
     # check that V is primitive
     if assert_primitive:
         diffs = [x - y for v in vs for (x, y) in zip(v, v[1:])]
         c = gcd(diffs)
-        assert c == 1, 'Expect vector that is primitive in dual of root lattice, but gcd is %s' % c
+        assert c == 1, (
+            "Expect vector that is primitive in dual of root lattice, but gcd is %s" % c
+        )
 
     # build dictionary storing all indices with same sum of components
     indices_by_sum = defaultdict(list)
@@ -159,7 +171,7 @@ def is_extremal_edge(dims,
     eqns = []
     for i in range(len(dims)):
         before = sum(dims[:i])
-        after = sum(dims[i + 1:])
+        after = sum(dims[i + 1 :])
         eqn = vector([0] * before + [1] * dims[i] + [0] * after)
         eqns.append(eqn)
 
@@ -176,15 +188,15 @@ def is_extremal_edge(dims,
 
     # compute dimension of kernel
     codim = sum(dims) - matrix(eqns).rank()
-    assert codim >= 1, "Kernel should have dimension at least one (since the given vector is contained in it by construction)."
+    assert (
+        codim >= 1
+    ), "Kernel should have dimension at least one (since the given vector is contained in it by construction)."
     return codim == 1
 
 
-def is_extremal_edge_ieq(dims,
-                         ieq,
-                         assert_dominant=True,
-                         assert_primitive=True,
-                         assert_traceless=True):
+def is_extremal_edge_ieq(
+    dims, ieq, assert_dominant=True, assert_primitive=True, assert_traceless=True
+):
     """Check whether given inequality corresponds to an extremal edge (see :func:`is_extremal_edge`).
 
     :param dims: dimensions :math:`d_1,\dots,d_n` of local unitary group.
@@ -198,21 +210,22 @@ def is_extremal_edge_ieq(dims,
     assert c == 0
 
     # extract parts
-    hs = [list(H[sum(dims[:i]):sum(dims[:i + 1])]) for i in range(len(dims))]
+    hs = [list(H[sum(dims[:i]) : sum(dims[: i + 1])]) for i in range(len(dims))]
 
     # check that last component consists of negative partial sums
     h_last_expected = map(lambda xs: -sum(xs), cartesian_product(hs[:-1]))
-    h_last = H[sum(dims[:-1]):]
+    h_last = H[sum(dims[:-1]) :]
     assert sorted(h_last) == sorted(h_last_expected)  # return False
 
     # check if the first components form an extremal edge
-    V = H[:sum(dims[:-1])]
+    V = H[: sum(dims[:-1])]
     return is_extremal_edge(
         dims[:-1],
         V,
         assert_dominant=assert_dominant,
         assert_primitive=assert_primitive,
-        assert_traceless=assert_traceless)
+        assert_traceless=assert_traceless,
+    )
 
 
 @disk_cache
@@ -228,7 +241,7 @@ def _extremal_edges_bipartite(a, b, include_perms=True):
     Ts = rect_tableaux(a, b)
     for i, T in enumerate(Ts):
         if i % 100 == 0:
-            logger.debug('computing extremal edges (%s/%s)', i + 1, len(Ts))
+            logger.debug("computing extremal edges (%s/%s)", i + 1, len(Ts))
         P = cubicle(T)
         if P:
             edges |= {tuple(ray.vector()) for ray in P.rays()}
@@ -244,7 +257,7 @@ def _extremal_edges_bipartite(a, b, include_perms=True):
         edges = {sort(H) for H in edges}
 
     # make edges primitive in dual root lattice
-    root_system = [['A', a - 1], ['A', b - 1]]
+    root_system = [["A", a - 1], ["A", b - 1]]
     return map(lambda e: dual_root_primitive(root_system, e), edges)
 
 
@@ -279,24 +292,28 @@ def _extremal_edges_generic(dims, include_perms=True):
             v = [0] * dims[i]
             v[j] = 1
             v[j + 1] = -1
-            ieqs.append(
-                [0] + [0] * sum(dims[:i]) + v + [0] * sum(dims[i + 1:]))
+            ieqs.append([0] + [0] * sum(dims[:i]) + v + [0] * sum(dims[i + 1 :]))
     # choose all possible subsets of equations
     num_eqns = sum(d - 1 for d in dims) - 1
     subsets = Subsets(restricted_roots, num_eqns)
-    logger.debug('%s restricted roots => %s subsets each containing %s',
-                 len(restricted_roots), subsets.cardinality(), num_eqns)
+    logger.debug(
+        "%s restricted roots => %s subsets each containing %s",
+        len(restricted_roots),
+        subsets.cardinality(),
+        num_eqns,
+    )
     rays = set()
     for roots in subsets:
         # trace equations
         eqns = []
         for i in range(len(dims)):
-            eqns.append([-1] + [0] * sum(dims[:i]) + [1] * dims[i] +
-                        [0] * sum(dims[i + 1:]))
+            eqns.append(
+                [-1] + [0] * sum(dims[:i]) + [1] * dims[i] + [0] * sum(dims[i + 1 :])
+            )
 
         # add orthogonality constraints
         for root in roots:
-            eqns.append((0, ) + root)
+            eqns.append((0,) + root)
 
         # if the space of solutions is one-dimensional, we have found an extremal edge
         P = Polyhedron(ieqs=ieqs, eqns=eqns)
@@ -310,16 +327,14 @@ def _extremal_edges_generic(dims, include_perms=True):
         stab = StabilizerGroup(dims)
         ray_nfs = set()
         for ray in rays:
-            H = [
-                ray[sum(dims[:i]):sum(dims[:i + 1])] for i in range(len(dims))
-            ]
+            H = [ray[sum(dims[:i]) : sum(dims[: i + 1])] for i in range(len(dims))]
             ray_nf = sum(stab.normal_form(H), ())
             ray_nfs.add(ray_nf)
         rays = ray_nfs
 
     # post-process edges
     # make edges primitive in dual root lattice
-    root_system = [['A', d - 1] for d in dims]
+    root_system = [["A", d - 1] for d in dims]
     return map(lambda r: dual_root_primitive(root_system, r), rays)
 
 
@@ -332,14 +347,13 @@ def extremal_edges(dims, include_perms=True, algorithm=None):
     """
     # use optimized bipartite implementation (if possible)
     if algorithm is None:
-        algorithm = 'bipartite' if len(dims) == 2 else 'generic'
-    elif algorithm == 'bipartite':
+        algorithm = "bipartite" if len(dims) == 2 else "generic"
+    elif algorithm == "bipartite":
         assert len(dims) == 2
 
-    if algorithm == 'bipartite':
-        return _extremal_edges_bipartite(
-            dims[0], dims[1], include_perms=include_perms)
-    elif algorithm == 'generic':
+    if algorithm == "bipartite":
+        return _extremal_edges_bipartite(dims[0], dims[1], include_perms=include_perms)
+    elif algorithm == "generic":
         return _extremal_edges_generic(dims, include_perms=include_perms)
     raise Exception('Unknown algorithm "%s"' % algorithm)
 
@@ -365,7 +379,7 @@ def perms_of_length(n, length):
         for i in range(n):
             if n - (i + 1) <= l <= bin + n - (i + 1):
                 x = S[i]
-                gen(S[0:i] + S[i + 1:], l - n + (i + 1), [x] + suffix)
+                gen(S[0:i] + S[i + 1 :], l - n + (i + 1), [x] + suffix)
 
     gen(S=range(1, n + 1), l=length)
     return result
@@ -387,7 +401,7 @@ def length_tuples(dims, total):
     for most in cartesian_product(ranges):
         last = total - sum(most)
         if last >= 0 and last <= max_lengths[-1]:
-            yield tuple(most) + (last, )
+            yield tuple(most) + (last,)
 
 
 def is_shuffle(pi, v):
@@ -402,8 +416,7 @@ def is_shuffle(pi, v):
     :rtype: bool
     """
     assert is_dominant(v)
-    return all(
-        pi[n] < pi[n + 1] for n in range(len(v) - 1) if v[n] == v[n + 1])
+    return all(pi[n] < pi[n + 1] for n in range(len(v) - 1) if v[n] == v[n + 1])
 
 
 def is_antishuffle(pi, v):
@@ -418,8 +431,7 @@ def is_antishuffle(pi, v):
     :rtype: bool
     """
     assert is_dominant(v)
-    return all(
-        pi[n] > pi[n + 1] for n in range(len(v) - 1) if v[n] == v[n + 1])
+    return all(pi[n] > pi[n + 1] for n in range(len(v) - 1) if v[n] == v[n + 1])
 
 
 def shuffles(v, length):
@@ -449,7 +461,7 @@ def shuffles(v, length):
                     if x > suffix[0]:
                         continue
 
-                gen(S[0:i] + S[i + 1:], l - n + (i + 1), [x] + suffix)
+                gen(S[0:i] + S[i + 1 :], l - n + (i + 1), [x] + suffix)
 
     gen(S=range(1, len(v) + 1), l=length)
     return result

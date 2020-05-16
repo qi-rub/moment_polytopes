@@ -12,56 +12,62 @@ def test_rect_tableaux_22():
     assert [(1, 3), (2, 4)] in tableaux
 
 
-@pytest.mark.parametrize("a, b, count", [
-    (2, 2, 2),
-    (2, 3, 5),
-    (3, 2, 5),
-    (2, 4, 14),
-    (4, 2, 14),
-    (3, 3, 42),
-    (4, 3, 462),
-    (3, 4, 462),
-    (4, 4, 24024),
-])
+@pytest.mark.parametrize(
+    "a, b, count",
+    [
+        (2, 2, 2),
+        (2, 3, 5),
+        (3, 2, 5),
+        (2, 4, 14),
+        (4, 2, 14),
+        (3, 3, 42),
+        (4, 3, 462),
+        (3, 4, 462),
+        (4, 4, 24024),
+    ],
+)
 def test_rect_tableaux_count(a, b, count):
     assert len(rect_tableaux(a, b)) == count
 
 
-@pytest.mark.parametrize("a, b, count", [
-    (2, 2, 2),
-    (2, 3, 5),
-    (3, 2, 5),
-    (2, 4, 14),
-    (4, 2, 14),
-    (3, 3, 36),
-    (3, 4, 295),
-    (4, 3, 295),
-    (4, 4, 6660),
-])
+@pytest.mark.parametrize(
+    "a, b, count",
+    [
+        (2, 2, 2),
+        (2, 3, 5),
+        (3, 2, 5),
+        (2, 4, 14),
+        (4, 2, 14),
+        (3, 3, 36),
+        (3, 4, 295),
+        (4, 3, 295),
+        (4, 4, 6660),
+    ],
+)
 def test_cubicle_tableaux_counts(a, b, count):
     assert len(cubicle_tableaux(a, b)) == count
 
 
-@pytest.mark.parametrize("v, dominant", [
-    ((3, 2, 4), False),
-    ((4, 3, 2), True),
-])
+@pytest.mark.parametrize("v, dominant", [((3, 2, 4), False), ((4, 3, 2), True),])
 def test_is_dominant(v, dominant):
     assert is_dominant(v) == dominant
 
 
-@pytest.mark.parametrize("dims, count", [
-    ((2, 2), 3),
-    ((2, 3), 6),
-    ((3, 2), 6),
-    ((2, 4), 11),
-    ((4, 2), 11),
-    ((3, 3), 17),
-    ((3, 4), 56),
-    ((4, 3), 56),
-    ((4, 4), 457),
-    ((2, 2, 3), 39),
-])
+@pytest.mark.parametrize(
+    "dims, count",
+    [
+        ((2, 2), 3),
+        ((2, 3), 6),
+        ((3, 2), 6),
+        ((2, 4), 11),
+        ((4, 2), 11),
+        ((3, 3), 17),
+        ((3, 4), 56),
+        ((4, 3), 56),
+        ((4, 4), 457),
+        ((2, 2, 3), 39),
+    ],
+)
 def test_extremal_edges(dims, count):
     # count
     edges = extremal_edges(dims, include_perms=True)
@@ -74,10 +80,9 @@ def test_extremal_edges(dims, count):
 
 def test_extremal_edges_implementations():
     for dims in [(2, 2), (2, 3), (3, 2), (3, 3)]:
-        assert set(map(tuple,
-                       extremal_edges(dims, algorithm='generic'))) == set(
-                           map(tuple,
-                               extremal_edges(dims, algorithm='bipartite')))
+        assert set(map(tuple, extremal_edges(dims, algorithm="generic"))) == set(
+            map(tuple, extremal_edges(dims, algorithm="bipartite"))
+        )
 
 
 @pytest.mark.parametrize(
@@ -95,7 +100,8 @@ def test_extremal_edges_implementations():
         ((2, 2, 3), 25),
         ((2, 2, 2), 4),
         ((2, 2, 2, 2), 12),
-    ])
+    ],
+)
 def test_extremal_edges_up_to_perms(dims, count):
     # count
     edges = extremal_edges(dims, include_perms=False)
@@ -109,14 +115,13 @@ def test_extremal_edges_up_to_perms(dims, count):
 def test_is_extremal_edge():
     # non-example of Klyachko
     dims = (2, 2, 3)
-    H = (2, -2, 1, -1, QQ('5/3'), QQ('2/3'), QQ('-7/3'))
+    H = (2, -2, 1, -1, QQ("5/3"), QQ("2/3"), QQ("-7/3"))
     assert not is_extremal_edge(dims, H)
 
 
 def test_is_extremal_edge_ieq():
     dims = (2, 2, 3, 12)
-    ieq = vector(
-        [0, 0, 0, 0, -2, 1, 1, 2, 2, 2, 2, -1, -1, -1, -1, -1, -1, -1, -1]), 0
+    ieq = vector([0, 0, 0, 0, -2, 1, 1, 2, 2, 2, 2, -1, -1, -1, -1, -1, -1, -1, -1]), 0
 
     # the first two asserts will fail since ieq is neither dominant nor primitive
     with pytest.raises(AssertionError):
@@ -124,20 +129,13 @@ def test_is_extremal_edge_ieq():
     with pytest.raises(AssertionError):
         assert not is_extremal_edge_ieq(dims, ieq, assert_dominant=False)
     assert is_extremal_edge_ieq(
-        dims, ieq, assert_dominant=False, assert_primitive=False)
+        dims, ieq, assert_dominant=False, assert_primitive=False
+    )
 
 
-@pytest.mark.parametrize("a, b", [
-    (2, 2),
-    (2, 3),
-    (3, 2),
-    (2, 4),
-    (4, 2),
-    (3, 3),
-    (3, 4),
-    (4, 3),
-    (4, 4),
-])
+@pytest.mark.parametrize(
+    "a, b", [(2, 2), (2, 3), (3, 2), (2, 4), (4, 2), (3, 3), (3, 4), (4, 3), (4, 4),]
+)
 def test_primitivity_lemma(a, b):
     """Test Lemma 6.3 in Vergne and Walter (2014)."""
     edges = extremal_edges((a, b), include_perms=False)
@@ -160,62 +158,74 @@ def P(*pi):
     return Permutation(list(pi))
 
 
-@pytest.mark.parametrize("n, length, perms", [
-    (3, 0, {P(1, 2, 3)}),
-    (3, 1, {P(2, 1, 3), P(1, 3, 2)}),
-    (3, 2, {P(2, 3, 1), P(3, 1, 2)}),
-    (3, 3, {P(3, 2, 1)}),
-    (4, 0, {P(1, 2, 3, 4)}),
-    (4, 1, {P(2, 1, 3, 4), P(1, 3, 2, 4),
-            P(1, 2, 4, 3)}),
-    (4, 2, {
-        P(2, 3, 1, 4),
-        P(2, 1, 4, 3),
-        P(1, 3, 4, 2),
-        P(3, 1, 2, 4),
-        P(1, 4, 2, 3)
-    }),
-    (4, 3, {
-        P(4, 1, 2, 3),
-        P(3, 1, 4, 2),
-        P(1, 4, 3, 2),
-        P(2, 3, 4, 1),
-        P(3, 2, 1, 4),
-        P(2, 4, 1, 3)
-    }),
-    (4, 4, {
-        P(3, 2, 4, 1),
-        P(4, 1, 3, 2),
-        P(4, 2, 1, 3),
-        P(3, 4, 1, 2),
-        P(2, 4, 3, 1)
-    }),
-    (4, 5, {P(3, 4, 2, 1), P(4, 2, 3, 1),
-            P(4, 3, 1, 2)}),
-    (4, 6, {P(4, 3, 2, 1)}),
-])
+@pytest.mark.parametrize(
+    "n, length, perms",
+    [
+        (3, 0, {P(1, 2, 3)}),
+        (3, 1, {P(2, 1, 3), P(1, 3, 2)}),
+        (3, 2, {P(2, 3, 1), P(3, 1, 2)}),
+        (3, 3, {P(3, 2, 1)}),
+        (4, 0, {P(1, 2, 3, 4)}),
+        (4, 1, {P(2, 1, 3, 4), P(1, 3, 2, 4), P(1, 2, 4, 3)}),
+        (
+            4,
+            2,
+            {P(2, 3, 1, 4), P(2, 1, 4, 3), P(1, 3, 4, 2), P(3, 1, 2, 4), P(1, 4, 2, 3)},
+        ),
+        (
+            4,
+            3,
+            {
+                P(4, 1, 2, 3),
+                P(3, 1, 4, 2),
+                P(1, 4, 3, 2),
+                P(2, 3, 4, 1),
+                P(3, 2, 1, 4),
+                P(2, 4, 1, 3),
+            },
+        ),
+        (
+            4,
+            4,
+            {P(3, 2, 4, 1), P(4, 1, 3, 2), P(4, 2, 1, 3), P(3, 4, 1, 2), P(2, 4, 3, 1)},
+        ),
+        (4, 5, {P(3, 4, 2, 1), P(4, 2, 3, 1), P(4, 3, 1, 2)}),
+        (4, 6, {P(4, 3, 2, 1)}),
+    ],
+)
 def test_perms_of_length(n, length, perms):
     assert set(perms_of_length(n, length=length)) == perms
 
 
-@pytest.mark.parametrize("dims, total, tuples", [
-    ((2, 2, 2), -1, set()),
-    ((2, 2, 2), 0, {(0, 0, 0)}),
-    ((2, 2, 2), 1, {(1, 0, 0), (0, 1, 0), (0, 0, 1)}),
-    ((2, 2, 2), 2, {(1, 1, 0), (1, 0, 1), (0, 1, 1)}),
-    ((2, 2, 2), 3, {(1, 1, 1)}),
-    ((2, 2, 2), 4, set()),
-    ((2, 2, 2, 2), -1, set()),
-    ((2, 2, 2, 2), 0, {(0, 0, 0, 0)}),
-    ((2, 2, 2, 2), 1, {(1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0),
-                       (0, 0, 0, 1)}),
-    ((2, 2, 2, 2), 2, {(1, 1, 0, 0), (1, 0, 1, 0), (1, 0, 0, 1), (0, 1, 1, 0),
-                       (0, 1, 0, 1), (0, 0, 1, 1)}),
-    ((2, 2, 2, 2), 3, {(1, 1, 1, 0), (1, 1, 0, 1), (1, 0, 1, 1),
-                       (0, 1, 1, 1)}),
-    ((2, 2, 2, 2), 4, {(1, 1, 1, 1)}),
-    ((2, 2, 2, 2), 5, set()),
-])
+@pytest.mark.parametrize(
+    "dims, total, tuples",
+    [
+        ((2, 2, 2), -1, set()),
+        ((2, 2, 2), 0, {(0, 0, 0)}),
+        ((2, 2, 2), 1, {(1, 0, 0), (0, 1, 0), (0, 0, 1)}),
+        ((2, 2, 2), 2, {(1, 1, 0), (1, 0, 1), (0, 1, 1)}),
+        ((2, 2, 2), 3, {(1, 1, 1)}),
+        ((2, 2, 2), 4, set()),
+        ((2, 2, 2, 2), -1, set()),
+        ((2, 2, 2, 2), 0, {(0, 0, 0, 0)}),
+        ((2, 2, 2, 2), 1, {(1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)}),
+        (
+            (2, 2, 2, 2),
+            2,
+            {
+                (1, 1, 0, 0),
+                (1, 0, 1, 0),
+                (1, 0, 0, 1),
+                (0, 1, 1, 0),
+                (0, 1, 0, 1),
+                (0, 0, 1, 1),
+            },
+        ),
+        ((2, 2, 2, 2), 3, {(1, 1, 1, 0), (1, 1, 0, 1), (1, 0, 1, 1), (0, 1, 1, 1)}),
+        ((2, 2, 2, 2), 4, {(1, 1, 1, 1)}),
+        ((2, 2, 2, 2), 5, set()),
+    ],
+)
 def test_length_tuples(dims, total, tuples):
     assert set(length_tuples(dims, total=total)) == tuples
 
@@ -225,10 +235,8 @@ def test_length_tuples(dims, total, tuples):
     [
         # regular element
         ([3, 2, 1], 0, {P(1, 2, 3)}, {P(1, 2, 3)}),
-        ([3, 2, 1], 1, {P(2, 1, 3), P(1, 3, 2)}, {P(2, 1, 3),
-                                                  P(1, 3, 2)}),
-        ([3, 2, 1], 2, {P(2, 3, 1), P(3, 1, 2)}, {P(2, 3, 1),
-                                                  P(3, 1, 2)}),
+        ([3, 2, 1], 1, {P(2, 1, 3), P(1, 3, 2)}, {P(2, 1, 3), P(1, 3, 2)}),
+        ([3, 2, 1], 2, {P(2, 3, 1), P(3, 1, 2)}, {P(2, 3, 1), P(3, 1, 2)}),
         ([3, 2, 1], 3, {P(3, 2, 1)}, {P(3, 2, 1)}),
         # one degeneracy
         ([2, 2, 1], 0, {P(1, 2, 3)}, set()),
@@ -244,7 +252,8 @@ def test_length_tuples(dims, total, tuples):
         ([1, 1, 1], 1, set(), set()),
         ([1, 1, 1], 2, set(), set()),
         ([1, 1, 1], 3, set(), {P(3, 2, 1)}),
-    ])
+    ],
+)
 def test_shuffles_S3(v, n, expected_shuffles, expected_antishuffles):
     assert set(shuffles(v, length=n)) == expected_shuffles
     assert set(antishuffles(v, antilength=3 - n)) == expected_antishuffles
@@ -258,16 +267,19 @@ def _card_coset(v):
     return factorial(len(v)) / prod([factorial(l) for l in blocks.values()])
 
 
-@pytest.mark.parametrize("v", [
-    (4, 3, 2, 1),
-    (4, 4, 2, 1),
-    (4, 4, 2, 2),
-    (4, 3, 3, 1),
-    (4, 3, 2, 2),
-    (4, 4, 4, 2),
-    (4, 3, 3, 3),
-    (4, 4, 4, 4),
-])
+@pytest.mark.parametrize(
+    "v",
+    [
+        (4, 3, 2, 1),
+        (4, 4, 2, 1),
+        (4, 4, 2, 2),
+        (4, 3, 3, 1),
+        (4, 3, 2, 2),
+        (4, 4, 4, 2),
+        (4, 3, 3, 3),
+        (4, 4, 4, 4),
+    ],
+)
 def test_shuffles_S4(v):
     d = len(v)
     len_max = d * (d - 1) // 2
@@ -301,12 +313,11 @@ def test_perm_action():
     def perm0(pi):
         return [i - 1 for i in pi]
 
-    H = ['X', 'Y', 'Z', 'W']
+    H = ["X", "Y", "Z", "W"]
     for pi in Permutations(4):
         for tau in Permutations(4):
             pi_tau = pi.left_action_product(tau)
-            assert perm_action(pi, perm_action(tau, H)) == perm_action(
-                pi_tau, H)
+            assert perm_action(pi, perm_action(tau, H)) == perm_action(pi_tau, H)
 
 
 def test_stabilizer_group():
@@ -336,7 +347,7 @@ def test_stabilizer_group():
         tuple("BAC"),
         tuple("BCA"),
         tuple("CAB"),
-        tuple("CBA")
+        tuple("CBA"),
     }
     assert stab.orbit({"XYX"}) == {tuple("YXX"), tuple("XYX"), tuple("XXY")}
     assert stab.orbit({"ZZZ"}) == {tuple("ZZZ")}

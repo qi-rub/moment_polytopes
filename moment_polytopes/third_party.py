@@ -1,31 +1,44 @@
 # coding: utf-8
 from __future__ import absolute_import, print_function
 from sage.all import vector, Permutations, prod
-from . import HRepr, weyl_module, StabilizerGroup, perm_action, external_tensor_product, qmp
+from . import (
+    HRepr,
+    weyl_module,
+    StabilizerGroup,
+    perm_action,
+    external_tensor_product,
+    qmp,
+)
 
 __all__ = [
-    'KLYACHKO_FERMI_SCENARIOS',
-    'klyachko_fermi_hrepr',
-    'KLYACHKO_QMP_SCENARIOS',
-    'KLYACHKO_GOOD_QMP_SCENARIOS',
-    'klyachko_qmp_hrepr',
-    '_klyachko_qmp_bare_ieqs',  # for unit testing
+    "KLYACHKO_FERMI_SCENARIOS",
+    "klyachko_fermi_hrepr",
+    "KLYACHKO_QMP_SCENARIOS",
+    "KLYACHKO_GOOD_QMP_SCENARIOS",
+    "klyachko_qmp_hrepr",
+    "_klyachko_qmp_bare_ieqs",  # for unit testing
 ]
 
 # these inequalities are from Altunbulak and Klyachko (2008)
 KLYACHKO_FERMI_DATA = {
-    (3, 6):
-    u"""λ 1 + λ 6 = 1
+    (
+        3,
+        6,
+    ): u"""λ 1 + λ 6 = 1
        λ 2 + λ 5 = 1
        λ 3 + λ 4 = 1
        λ 4 - λ 5 - λ 6 ≤ 0""",
-    (3, 7):
-    u"""λ 2 + λ 3 + λ 4 + λ 5 ≤ 2
+    (
+        3,
+        7,
+    ): u"""λ 2 + λ 3 + λ 4 + λ 5 ≤ 2
        λ 1 + λ 3 + λ 4 + λ 6 ≤ 2
        λ 1 + λ 2 + λ 4 + λ 7 ≤ 2
        λ 1 + λ 2 + λ 5 + λ 6 ≤ 2""",
-    (3, 8):
-    u"""λ 2 + λ 3 + λ 4 + λ 5 ≤ 2
+    (
+        3,
+        8,
+    ): u"""λ 2 + λ 3 + λ 4 + λ 5 ≤ 2
        λ 1 + λ 2 + λ 4 + λ 7 ≤ 2
        λ 1 + λ 3 + λ 4 + λ 6 ≤ 2
        λ 1 + λ 2 + λ 5 + λ 6 ≤ 2
@@ -56,8 +69,10 @@ KLYACHKO_FERMI_DATA = {
        −λ 1 + λ 3 + 2λ 4 − 3λ 5 − 2λ 6 − λ 7 + λ 8 ≤ 0
        2λ 1 + λ 2 − 3λ 3 − 2λ 4 − λ 5 − λ 6 + λ 8 ≤ 0
        λ 1 + 2λ 2 − 3λ 3 − λ 4 − 2λ 5 − λ 6 + λ 8 ≤ 0""",
-    (4, 8):
-    u"""λ 1 ≤ 1
+    (
+        4,
+        8,
+    ): u"""λ 1 ≤ 1
        λ 5 − λ 6 − λ 7 − λ 8 ≤ 0
        λ 1 − λ 2 − λ 7 − λ 8 ≤ 0
        λ 1 − λ 3 − λ 6 − λ 8 ≤ 0
@@ -81,8 +96,7 @@ KLYACHKO_FERMI_SCENARIOS = sorted(KLYACHKO_FERMI_DATA.keys())
 def _parse_fermi_ieq(d, s, split_at):
     """Parse a fermionic inequality in Klyachko's format."""
     H = [0] * d
-    s = s.rstrip(" ,.").replace(u"−", "-").replace(u"λ", " A").replace(
-        u"-A", "- A")
+    s = s.rstrip(" ,.").replace(u"−", "-").replace(u"λ", " A").replace(u"-A", "- A")
     lhs, rhs = map(lambda s: str(s).strip(), s.split(split_at))
     if lhs[0] not in ["+", "-"]:
         lhs = "+ " + lhs
@@ -116,12 +130,13 @@ def klyachko_fermi_hrepr(n, d, bare=False):
     eqns = []
     for line in KLYACHKO_FERMI_DATA[n, d].splitlines():
         line = line.strip()
-        if not line: continue
-        is_equation = '=' in line
+        if not line:
+            continue
+        is_equation = "=" in line
         if is_equation:
-            eqns.append(_parse_fermi_ieq(d, line, '='))
+            eqns.append(_parse_fermi_ieq(d, line, "="))
         else:
-            ieqs.append(_parse_fermi_ieq(d, line, u'≤'))
+            ieqs.append(_parse_fermi_ieq(d, line, u"≤"))
     hrepr = HRepr(ieqs=ieqs, eqns=eqns)
 
     # intersect with reduced Weyl chamber
@@ -134,8 +149,11 @@ def klyachko_fermi_hrepr(n, d, bare=False):
 
 # these inequalities are from Klyachko (2004)
 KLYACHKO_QMP_DATA = {
-    (3, 2, 6):
-    u"""µ 1 − µ 2 ≤ ν 1 + ν 2 + ν 3 − ν 4 − ν 5 − ν 6 .
+    (
+        3,
+        2,
+        6,
+    ): u"""µ 1 − µ 2 ≤ ν 1 + ν 2 + ν 3 − ν 4 − ν 5 − ν 6 .
     λ 1 + λ 2 − 2λ 3 ≤ ν 1 + ν 2 + ν 3 + ν 4 − 2ν 5 − 2ν 6 ,
     λ 2 + λ 3 − 2λ 1 ≤ ν 1 + ν 2 + ν 3 + ν 6 − 2ν 4 − 2ν 5 .
     2λ 1 − λ 2 − λ 3 ≤ 2ν 1 + 2ν 2 − ν 3 − ν 4 − ν 5 − ν 6 ,
@@ -176,8 +194,11 @@ KLYACHKO_QMP_DATA = {
     4λ 3 − 2λ 1 − 2λ 2 + 3µ 1 − 3µ 2 ≤ 7ν 2 + ν 1 + ν 3 + ν 5 − 5ν 4 − 5ν 6 ,
     4λ 2 − 2λ 1 − 2λ 3 + 3µ 2 − 3µ 1 ≤ 7ν 1 + ν 2 + ν 3 + ν 6 − 5ν 4 − 5ν 5 ,
     4λ 3 − 2λ 1 − 2λ 2 + 3µ 1 − 3µ 2 ≤ 7ν 1 + ν 2 + ν 3 + ν 6 − 5ν 4 − 5ν 5 .""",
-    (4, 2, 8):
-    u"""µ 1 − µ 2 ≤ ν 1 + ν 2 + ν 3 + ν 4 − ν 5 − ν 6 − ν 7 − ν 8 .
+    (
+        4,
+        2,
+        8,
+    ): u"""µ 1 − µ 2 ≤ ν 1 + ν 2 + ν 3 + ν 4 − ν 5 − ν 6 − ν 7 − ν 8 .
     λ 1 + λ 2 − λ 3 − λ 4 ≤ ν 1 + ν 2 + ν 3 + ν 4 − ν 5 − ν 6 − ν 7 − ν 8 ,
     λ 1 + λ 4 − λ 2 − λ 3 ≤ ν 1 + ν 2 + ν 4 + ν 5 − ν 3 − ν 6 − ν 7 − ν 8 ,
     λ 2 + λ 3 − λ 1 − λ 4 ≤ ν 1 + ν 2 + ν 3 + ν 6 − ν 4 − ν 5 − ν 7 − ν 8 ,
@@ -411,8 +432,12 @@ KLYACHKO_QMP_DATA = {
     3λ 4 + λ 3 − λ 1 − 3λ 2 + µ 2 − µ 1 ≤ 4ν 1 + 2ν 2 + 2ν 8 − 2ν 5 − 2ν 7 − 4ν 6 ,
     3λ 4 + λ 3 − λ 2 − 3λ 1 + µ 1 − µ 2 ≤ 4ν 1 + 2ν 2 + 2ν 8 − 2ν 5 − 2ν 7 − 4ν 6 ,
     3λ 4 + λ 3 − λ 2 − 3λ 1 + µ 1 − µ 2 ≤ 4ν 1 + 2ν 2 + 2ν 6 − 2ν 4 − 2ν 8 − 4ν 5 .""",
-    (2, 2, 3, 12):
-    u"""λ 1 − λ 2 ≤ ρ 1 + ρ 2 + ρ 3 + ρ 4 + ρ 5 + ρ 6 − ρ 7 − ρ 8 − ρ 9 − ρ 10 − ρ 11 − ρ 12 .
+    (
+        2,
+        2,
+        3,
+        12,
+    ): u"""λ 1 − λ 2 ≤ ρ 1 + ρ 2 + ρ 3 + ρ 4 + ρ 5 + ρ 6 − ρ 7 − ρ 8 − ρ 9 − ρ 10 − ρ 11 − ρ 12 .
     2ν 1 − ν 2 − ν 3 ≤ 2ρ 1 + 2ρ 2 + 2ρ 3 + 2ρ 4 − ρ 5 − ρ 6 − ρ 7 − ρ 8 − ρ 9 − ρ 10 − ρ 11 − ρ 12 .
     ν 1 + ν 2 − 2ν 3 ≤ ρ 1 + ρ 2 + ρ 3 + ρ 4 + ρ 5 + ρ 6 + ρ 7 + ρ 8 − 2ρ 9 − 2ρ 10 − 2ρ 11 − 2ρ 12 .
     λ 1 − λ 2 + µ 1 − µ 2 ≤ 2ρ 1 + 2ρ 2 + 2ρ 3 − 2ρ 10 − 2ρ 11 − 2ρ 12
@@ -644,8 +669,11 @@ KLYACHKO_QMP_DATA = {
     λ 2 − λ 1 − 3µ 2 + 3µ 1 + 2ν 3 − 2ν 1 ≤ 6ρ 2 + 4ρ 3 + 4ρ 4 + 2ρ 1 + 2ρ 5 − 2ρ 7 − 2ρ 9 − 4ρ 10 − 4ρ 11 − 6ρ 12 ,
     λ 2 − λ 1 − 3µ 2 + 3µ 1 + 2ν 3 − 2ν 1 ≤ 6ρ 1 + 4ρ 2 + 4ρ 3 + 2ρ 4 + 2ρ 5 − 2ρ 8 − 2ρ 10 − 4ρ 7 − 4ρ 11 − 6ρ 12 ,
     λ 2 − λ 1 − 3µ 2 + 3µ 1 + 2ν 3 − 2ν 1 ≤ 6ρ 3 + 4ρ 2 + 4ρ 4 + 2ρ 1 + 2ρ 5 − 2ρ 8 − 2ρ 9 − 4ρ 10 − 4ρ 11 − 6ρ 12 .""",
-    (3, 3, 9):
-    u"""2λ 1 − λ 2 − λ 3 ≤ 2ν 1 + 2ν 2 + 2ν 3 − ν 4 − ν 5 − ν 6 − ν 7 − ν 8 − ν 9 ,
+    (
+        3,
+        3,
+        9,
+    ): u"""2λ 1 − λ 2 − λ 3 ≤ 2ν 1 + 2ν 2 + 2ν 3 − ν 4 − ν 5 − ν 6 − ν 7 − ν 8 − ν 9 ,
     λ 1 + λ 2 − 2λ 3 ≤ ν 1 + ν 2 + ν 3 + ν 4 + ν 5 + ν 6 − 2ν 7 − 2ν 8 − 2ν 9 ,
     λ 1 + λ 2 − 2λ 3 + µ 1 + µ 2 − 2µ 3 ≤ 2ν 1 + 2ν 2 + 2ν 3 + 2ν 4 − ν 5 − ν 6 − ν 7 − ν 8 − 4ν 9 ,
     λ 1 + λ 2 − 2λ 3 + µ 1 + µ 3 − 2µ 2 ≤ 2ν 1 + 2ν 2 + 2ν 3 + 2ν 4 − ν 5 − ν 6 − ν 7 − ν 9 − 4ν 8 ,
@@ -842,8 +870,13 @@ KLYACHKO_QMP_DATA = {
     3λ 3 − 3λ 1 + 5µ 1 − µ 3 − 4µ 2 ≤ 8ν 2 + 5ν 3 + 2ν 1 + 2ν 5 − ν 4 − ν 6 − 4ν 7 − 4ν 9 − 7ν 8 ,
     3λ 3 − 3λ 1 + 5µ 1 − µ 3 − 4µ 2 ≤ 8ν 3 + 5ν 2 + 2ν 1 + 2ν 4 − ν 5 − ν 6 − 4ν 7 − 4ν 9 − 7ν 8 ,
     3λ 3 − 3λ 1 + 5µ 1 − µ 3 − 4µ 2 ≤ 8ν 1 + 5ν 2 + 2ν 3 + 2ν 4 − ν 5 − ν 9 − 4ν 6 − 4ν 8 − 7ν 7""",
-    (2, 2, 2, 2, 16):
-    u"""# QUBIT_COORDS 0 1 2 3
+    (
+        2,
+        2,
+        2,
+        2,
+        16,
+    ): u"""# QUBIT_COORDS 0 1 2 3
 
     2ρ ≤ τ 1 + τ 2 + τ 3 + τ 4 + τ 5 + τ 6 + τ 7 + τ 8 − τ 9 − τ 10 − τ 11 − τ 12 − τ 13 − τ 14 − τ 15 − τ 16 ,
     2ν + 2ρ ≤ 2τ 1 + 2τ 2 + 2τ 3 + 2τ 4 − 2τ 13 − 2τ 14 − 2τ 15 − 2τ 16 ,
@@ -908,7 +941,7 @@ KLYACHKO_GOOD_QMP_SCENARIOS = [
 
 def _parse_mixed_ieq(dims, s, qubit_coords=[]):
     """Parse a mixed state inequality for distinguishable particles in Klyachko's format."""
-    pmap = {'A': 0, 'B': 1, 'C': 2, 'D': 3, 'E': 4}
+    pmap = {"A": 0, "B": 1, "C": 2, "D": 3, "E": 4}
     v = [0] * sum(dims)
 
     def p(side, overall_sign):
@@ -927,14 +960,21 @@ def _parse_mixed_ieq(dims, s, qubit_coords=[]):
                 todo = todo[3:]
             else:
                 idx = int(todo[3])
-                v[sum(dims[:party]) + idx -
-                  1] = overall_factor * overall_sign * sign * coeff
+                v[sum(dims[:party]) + idx - 1] = (
+                    overall_factor * overall_sign * sign * coeff
+                )
                 todo = todo[4:]
         return v
 
-    s = s.rstrip(" ,.").replace(u"−", "-").replace(u"λ", " A").replace(
-        u"µ", " B").replace(u"ν", " C").replace(u"ρ", " D").replace(
-            u"τ", " E")
+    s = (
+        s.rstrip(" ,.")
+        .replace(u"−", "-")
+        .replace(u"λ", " A")
+        .replace(u"µ", " B")
+        .replace(u"ν", " C")
+        .replace(u"ρ", " D")
+        .replace(u"τ", " E")
+    )
     lhs, rhs = map(lambda s: str(s).strip(), s.split(u"≤"))
     p("+ " + lhs, -1)
     p("+ " + rhs, 1)
@@ -951,9 +991,10 @@ def _klyachko_qmp_bare_ieqs(dims):
     ieqs = []
     for line in KLYACHKO_QMP_DATA[dims].splitlines():
         line = line.strip()
-        if not line: continue
+        if not line:
+            continue
         # single qubit coordinate metadata?
-        _, sep, after = line.partition('# QUBIT_COORDS')
+        _, sep, after = line.partition("# QUBIT_COORDS")
         if sep:
             qubit_coords = map(int, after.split())
             continue
@@ -975,7 +1016,7 @@ def _find_qmp_scenario(dims):
             dims_permuted = perm_action(pi, dims)
             if all(x <= y for (x, y) in zip(dims_permuted, dims_klyachko)):
                 return pi, dims_permuted, dims_klyachko
-    raise Exception("Cannot obtain %s from Klyachko's scenarios." % (dims, ))
+    raise Exception("Cannot obtain %s from Klyachko's scenarios." % (dims,))
 
 
 def klyachko_qmp_hrepr(dims, bare=False, irred=True):
@@ -1010,7 +1051,7 @@ def klyachko_qmp_hrepr(dims, bare=False, irred=True):
     for H, z in bare_ieqs:
         # extract
         hs = [
-            tuple(H[sum(dims_klyachko[:i]):sum(dims_klyachko[:i + 1])])
+            tuple(H[sum(dims_klyachko[:i]) : sum(dims_klyachko[: i + 1])])
             for i in range(len(dims_klyachko))
         ]
 
@@ -1029,8 +1070,13 @@ def klyachko_qmp_hrepr(dims, bare=False, irred=True):
 
     # add positivity for all parties [[ more conceptually, we should ONLY add lambda_{AB,ab} >= 0 and get the other ones either implicitly (if dims_permuted == dims_klyachko) or from tracing out the Weyl chamber inequalities ]]
     for k in range(len(dims)):
-        H, z = (0, ) * sum(dims[:k]) + (0, ) * (dims[k] - 1) + (1, ) + (
-            0, ) * sum(dims[k + 1:]), 0
+        H, z = (
+            (0,) * sum(dims[:k])
+            + (0,) * (dims[k] - 1)
+            + (1,)
+            + (0,) * sum(dims[k + 1 :]),
+            0,
+        )
         ieqs.add((H, z))
 
     # intersect with reduced Weyl chamber
@@ -1050,8 +1096,7 @@ def higuchi_hrepr(num_qubits=3):
     # polygonal inequalities
     ieqs = []
     for k in range(num_qubits):
-        H, z = (-1, 0) * k + (1, 0) + (-1, 0) * (
-            num_qubits - k - 1), 2 - num_qubits
+        H, z = (-1, 0) * k + (1, 0) + (-1, 0) * (num_qubits - k - 1), 2 - num_qubits
         ieqs.append((H, z))
 
     # positivity
@@ -1114,9 +1159,11 @@ def franz_hrepr():
   """
 
     # convert normal vectors to our format and add in permutations
-    hss_wo_perms = [[
-        tuple([-int(x) for x in h.split()]) for h in line.split(';')
-    ] for line in franz_data.splitlines() if line.strip()]
+    hss_wo_perms = [
+        [tuple([-int(x) for x in h.split()]) for h in line.split(";")]
+        for line in franz_data.splitlines()
+        if line.strip()
+    ]
     hss = stab.orbit(hss_wo_perms)
     Hs = [sum(hs, ()) for hs in hss]
     ieqs = [(vector(H), 0) for H in Hs]

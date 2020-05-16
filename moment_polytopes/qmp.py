@@ -1,22 +1,32 @@
 from __future__ import absolute_import, print_function
 import logging, string
 from sage.all import QQ, lcm, gcd, vector, prod, cartesian_product
-from . import extremal_edges, StabilizerGroup, external_tensor_product, c_candidates, length_tuples, antishuffles, perm_action, ressayre_tester, HRepr
+from . import (
+    extremal_edges,
+    StabilizerGroup,
+    external_tensor_product,
+    c_candidates,
+    length_tuples,
+    antishuffles,
+    perm_action,
+    ressayre_tester,
+    HRepr,
+)
 from .disk_cache import disk_cache
 
 __all__ = [
-    'DEFAULT_SUBSYSTEM_LABELS',
-    'H_AB_dominant',
-    'H_ABC_dominant',
-    'H_dominant_admissible',
-    'H_candidates',
-    'H_ressayre',
-    'hrepr',
-    'vrepr',
-    'facet_normal_form',
-    'ieqs_wo_perms',
-    'vertices_wo_perms',
-    'pretty',
+    "DEFAULT_SUBSYSTEM_LABELS",
+    "H_AB_dominant",
+    "H_ABC_dominant",
+    "H_dominant_admissible",
+    "H_candidates",
+    "H_ressayre",
+    "hrepr",
+    "vrepr",
+    "facet_normal_form",
+    "ieqs_wo_perms",
+    "vertices_wo_perms",
+    "pretty",
 ]
 
 logger = logging.getLogger(__name__)
@@ -51,7 +61,7 @@ def H_ABC_dominant(a, b, c, include_perms=True):
     stab = StabilizerGroup(dims)
 
     # zero vectors
-    zero_A, zero_B, zero_C = [(0, ) * d for d in dims]
+    zero_A, zero_B, zero_C = [(0,) * d for d in dims]
 
     # fetch extremal edges
     H_ABs = H_AB_dominant(a, b, include_perms=False)
@@ -86,9 +96,10 @@ def H_dominant_admissible(dims, include_perms=True):
     :param include_perms: if ``True``, include permutations of the :math:`n` subsystems.
     :rtype: set of tuples :math:`((H_A,H_B,H_C,\dots),c)`.
     """
-    assert not include_perms, 'Not implemented yet.'
+    assert not include_perms, "Not implemented yet."
     assert list(dims) == sorted(
-        dims), 'Dimensions should be sorted increasingly: %s' % str(dims)
+        dims
+    ), "Dimensions should be sorted increasingly: %s" % str(dims)
 
     # HEURISTICS ONE: extremal edges, partial sums, z = 0
     if prod(dims[:-1]) == dims[-1]:
@@ -97,21 +108,21 @@ def H_dominant_admissible(dims, include_perms=True):
         for H in edges:
             # build chunks and extend by the vector of partial sums
             most = [
-                tuple(H[sum(dims[:i]):sum(dims[:i + 1])])
+                tuple(H[sum(dims[:i]) : sum(dims[: i + 1])])
                 for i in range(len(dims) - 1)
             ]
             last = tuple(
                 sorted(
-                    [-sum(entries) for entries in cartesian_product(most)],
-                    reverse=True))
+                    [-sum(entries) for entries in cartesian_product(most)], reverse=True
+                )
+            )
             candidates.add((tuple(most + [last]), 0))
 
         # do not forget to add the *dominant*, *traceless* version of lambda_{AB...,ab...} >= 0 as another constraint
-        #hs_positivity_dominant = [(0,) * dim for dim in dims[:-1]] + [(1,) + (0,) * (dims[-1] - 1)]
-        hs_positivity_dominant = [(0, ) * dim
-                                  for dim in dims[:-1]] + [(dims[-1] - 1, ) +
-                                                           (-1, ) *
-                                                           (dims[-1] - 1)]
+        # hs_positivity_dominant = [(0,) * dim for dim in dims[:-1]] + [(1,) + (0,) * (dims[-1] - 1)]
+        hs_positivity_dominant = [(0,) * dim for dim in dims[:-1]] + [
+            (dims[-1] - 1,) + (-1,) * (dims[-1] - 1)
+        ]
         candidates.add((tuple(hs_positivity_dominant), -1))
         return candidates
 
@@ -125,7 +136,7 @@ def H_dominant_admissible(dims, include_perms=True):
                 candidates.add((hs, z))
         return candidates
 
-    raise Exception("No suitable heuristics for %s." % (dims, ))
+    raise Exception("No suitable heuristics for %s." % (dims,))
 
 
 @disk_cache
@@ -136,7 +147,7 @@ def H_candidates(dims, include_perms=True):
     :param include_perms: if ``True``, include permutations of the :math:`n` subsystems.
     :rtype: set of tuples :math:`((H_A,H_B,H_C,\dots),c)`.
     """
-    assert not include_perms, 'Not implemented yet.'
+    assert not include_perms, "Not implemented yet."
     R = external_tensor_product(dims)
     stab = StabilizerGroup(dims)
     antilength_max = len(R.negative_roots)
@@ -145,14 +156,14 @@ def H_candidates(dims, include_perms=True):
     candidates = set()
     domads = H_dominant_admissible(dims, include_perms=False)
     for i, (hs_dominant, z) in enumerate(domads):
-        logger.debug('processing dominant admissible (%d/%d)', i + 1,
-                     len(domads))
+        logger.debug("processing dominant admissible (%d/%d)", i + 1, len(domads))
 
         # compute desired antilength
 
         H_dominant = vector(sum(hs_dominant, ()))
         antilength_desired = sum(
-            1 for omega in R.weights if omega.dot_product(H_dominant) < z)
+            1 for omega in R.weights if omega.dot_product(H_dominant) < z
+        )
         if antilength_desired > antilength_max:
             continue
 
@@ -167,7 +178,8 @@ def H_candidates(dims, include_perms=True):
         antishuffle_tuples = set()
         for antilength_tuple in antilength_tuples:
             for antishuffle_tuple in cartesian_product(
-                    map(antishuffles, hs_dominant, antilength_tuple)):
+                map(antishuffles, hs_dominant, antilength_tuple)
+            ):
                 antishuffle_tuples.add(hs_stab.normal_form(antishuffle_tuple))
 
         # act by each tuple of antishuffles, and store result (up to permutations of the subsystems)
@@ -188,7 +200,7 @@ def H_ressayre(dims, include_perms=True, **kwargs):
 
     All other arguments are forwarded to :func:`moment_polytopes.ressayre_tester`.
     """
-    assert not include_perms, 'Not implemented yet.'
+    assert not include_perms, "Not implemented yet."
     R = external_tensor_product(dims)
     T = ressayre_tester(R, **kwargs)
 
@@ -197,8 +209,7 @@ def H_ressayre(dims, include_perms=True, **kwargs):
     candidates = H_candidates(dims, include_perms=False)
 
     for i, (hs, z) in enumerate(candidates):
-        logger.debug('checking candidate inequality (%d/%d)', i + 1,
-                     len(candidates))
+        logger.debug("checking candidate inequality (%d/%d)", i + 1, len(candidates))
         H = sum(hs, ())
         if T.is_ressayre((H, z)):
             ieqs.add((hs, z))
@@ -255,7 +266,7 @@ def facet_normal_form(dims, ieq):
     """
     H, c = ieq
     assert sum(dims) == len(H)
-    hs = [H[sum(dims[:i]):sum(dims[:i + 1])] for i in range(len(dims))]
+    hs = [H[sum(dims[:i]) : sum(dims[: i + 1])] for i in range(len(dims))]
 
     # (1,...,1) with sum "a" corresponds to a shift of -1 on z (since z is on the right-hand side of the equations)
     subs = [QQ((-sum(h), d)) for (h, d) in zip(hs, dims)]
@@ -280,23 +291,20 @@ def ieqs_wo_perms(dims, ieqs):
     :param dims: the dimensions :math:`d_1,\dots,d_n`.
     :param ieqs: list of inequalities :math:`(H,c)`.
     """
-    assert sum(dims) == len(ieqs[0][0]), 'Total dimension mismatch.'
+    assert sum(dims) == len(ieqs[0][0]), "Total dimension mismatch."
     stab = StabilizerGroup(dims)
     result = set()
     for (H, z) in ieqs:
         # extract and verify that traceless
-        hs = [
-            tuple(H[sum(dims[:i]):sum(dims[:i + 1])])
-            for i in range(len(dims))
-        ]
-        assert all(sum(h) == 0 for h in hs), 'Not traceless: %s' % (hs, )
+        hs = [tuple(H[sum(dims[:i]) : sum(dims[: i + 1])]) for i in range(len(dims))]
+        assert all(sum(h) == 0 for h in hs), "Not traceless: %s" % (hs,)
 
         # bring into normal form, compress, and check that we have integers with gcd = 1
         hs_nf = stab.normal_form(hs)
         H_nf = sum(hs_nf, ())
-        assert all(QQ(int(x)) == x for x in H_nf), 'not integers'
+        assert all(QQ(int(x)) == x for x in H_nf), "not integers"
         f = gcd([x for x in H_nf] + [z])
-        assert f == 1, 'not simplified (%s)' % f
+        assert f == 1, "not simplified (%s)" % f
         result.add((H_nf, z))
     return result
 
@@ -307,15 +315,12 @@ def vertices_wo_perms(dims, vertices):
     :param dims: the dimensions :math:`d_1,\dots,d_n`.
     :param vertices: list of vertices.
     """
-    assert sum(dims) == len(vertices[0]), 'Total dimension mismatch.'
+    assert sum(dims) == len(vertices[0]), "Total dimension mismatch."
     stab = StabilizerGroup(dims)
     result = set()
     for V in vertices:
         # extract
-        vs = [
-            tuple(V[sum(dims[:i]):sum(dims[:i + 1])])
-            for i in range(len(dims))
-        ]
+        vs = [tuple(V[sum(dims[:i]) : sum(dims[: i + 1])]) for i in range(len(dims))]
 
         # bring into normal form and compress
         vs_nf = stab.normal_form(vs)
@@ -336,15 +341,19 @@ class PrettyPrinter(object):
     All other arguments are forwarded to :func:`moment_polytopes.ressayre_tester`.
     """
 
-    def __init__(self,
-                 dims,
-                 show_hrepr=True,
-                 show_vrepr=True,
-                 include_perms=False,
-                 subsystem_labels=None,
-                 **kwargs):
+    def __init__(
+        self,
+        dims,
+        show_hrepr=True,
+        show_vrepr=True,
+        include_perms=False,
+        subsystem_labels=None,
+        **kwargs
+    ):
         self.dims = dims
-        self.subsystem_labels = subsystem_labels if subsystem_labels else DEFAULT_SUBSYSTEM_LABELS
+        self.subsystem_labels = (
+            subsystem_labels if subsystem_labels else DEFAULT_SUBSYSTEM_LABELS
+        )
 
         # compute H-representation
         if show_hrepr:
@@ -357,8 +366,7 @@ class PrettyPrinter(object):
         # compute V-representation
         if show_vrepr:
             vertices = vrepr(dims, **kwargs).vertices
-            vertices = vertices if include_perms else vertices_wo_perms(
-                dims, vertices)
+            vertices = vertices if include_perms else vertices_wo_perms(dims, vertices)
             self.vertices = sorted(tuple(V) for V in vertices)
         else:
             self.vertices = None
@@ -368,64 +376,74 @@ class PrettyPrinter(object):
         from tabulate import tabulate as _tabulate
 
         # title
-        title = 'C(%s)' % ','.join(str(d) for d in self.dims)
-        lines = [title, '=' * len(title)]
+        title = "C(%s)" % ",".join(str(d) for d in self.dims)
+        lines = [title, "=" * len(title)]
 
         # facets
         if self.ieqs is not None:
-            headers = ['#'] + [
-                'H_%s' % s for (_, s) in zip(self.dims, self.subsystem_labels)
-            ] + ['z', 'Remarks']
+            headers = (
+                ["#"]
+                + ["H_%s" % s for (_, s) in zip(self.dims, self.subsystem_labels)]
+                + ["z", "Remarks"]
+            )
             lines += [
-                '', 'Facets', '------', '',
-                _tabulate(self._facets_table(), headers=headers)
+                "",
+                "Facets",
+                "------",
+                "",
+                _tabulate(self._facets_table(), headers=headers),
             ]
             lines += [
-                '',
-                'Facet format is (H_A,lambda_A) + ... + z >= 0. The last column states',
-                'whether the facet includes the origin (o) or the highest weight (*).'
+                "",
+                "Facet format is (H_A,lambda_A) + ... + z >= 0. The last column states",
+                "whether the facet includes the origin (o) or the highest weight (*).",
             ]
 
         # facets
         if self.vertices is not None:
-            headers = ['#'] + [
-                'V_%s' % s for (_, s) in zip(self.dims, self.subsystem_labels)
+            headers = ["#"] + [
+                "V_%s" % s for (_, s) in zip(self.dims, self.subsystem_labels)
             ]
             lines += [
-                '', 'Vertices', '--------', '',
-                _tabulate(self._vertices_table(), headers=headers)
+                "",
+                "Vertices",
+                "--------",
+                "",
+                _tabulate(self._vertices_table(), headers=headers),
             ]
 
-        lines += ['', 'All data is up to permutations of subsystems.']
-        return '\n'.join(lines)
+        lines += ["", "All data is up to permutations of subsystems."]
+        return "\n".join(lines)
 
     def _facets_table(self):
         facets = []
         for idx, (H, c) in enumerate(self.ieqs):
             hs = [
-                H[sum(self.dims[:i]):sum(self.dims[:i + 1])]
+                H[sum(self.dims[:i]) : sum(self.dims[: i + 1])]
                 for i in range(len(self.dims))
             ]
 
             # collect remarks
             assert all(sum(h) == 0 for h in hs)
             remarks = []
-            if c == 0: remarks.append('o')
-            if sum(h[0] for h in hs) == c: remarks.append('*')
+            if c == 0:
+                remarks.append("o")
+            if sum(h[0] for h in hs) == c:
+                remarks.append("*")
 
             # format
-            hs = ['(%s)' % ', '.join(map(str, h)) for h in hs]
-            facets.append([idx + 1] + hs + [-c, ', '.join(remarks)])
+            hs = ["(%s)" % ", ".join(map(str, h)) for h in hs]
+            facets.append([idx + 1] + hs + [-c, ", ".join(remarks)])
         return facets
 
     def _vertices_table(self):
         vertices = []
         for idx, V in enumerate(self.vertices):
             vs = [
-                V[sum(self.dims[:i]):sum(self.dims[:i + 1])]
+                V[sum(self.dims[:i]) : sum(self.dims[: i + 1])]
                 for i in range(len(self.dims))
             ]
-            vs = ['(%s)' % ', '.join(map(str, v)) for v in vs]
+            vs = ["(%s)" % ", ".join(map(str, v)) for v in vs]
             vertices.append([idx + 1] + vs)
         return vertices
 

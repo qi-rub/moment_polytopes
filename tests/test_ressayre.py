@@ -16,12 +16,10 @@ def test_three_three_nine(algorithm):
     T = ressayre_tester(R, algorithm=algorithm)
 
     # the last inequality of Klyachko
-    assert T.is_ressayre(((3, 0, -3, -5, 4, 1, 8, 5, 2, 2, -1, -4, -7, -4, -1),
-                          0))
+    assert T.is_ressayre(((3, 0, -3, -5, 4, 1, 8, 5, 2, 2, -1, -4, -7, -4, -1), 0))
 
     # another inequality by Klyachko (the one that M.V. checked)
-    assert T.is_ressayre(((-1, 0, 1, 0, -1, 1, 2, 1, 0, 1, 0, 0, -1, -1, -2),
-                          0))
+    assert T.is_ressayre(((-1, 0, 1, 0, -1, 1, 2, 1, 0, 1, 0, 0, -1, -1, -2), 0))
 
 
 def test_fermi_four_eight(algorithm):
@@ -60,10 +58,10 @@ def test_spin_orbit(algorithm, d):
     T = ressayre_tester(R, algorithm=algorithm)
 
     # special case of Eqn. (3.19) in my thesis
-    assert T.is_ressayre(((-2, 2, 0, 0) + (0, ) * (d - 4) + (-1, 1), -3))
+    assert T.is_ressayre(((-2, 2, 0, 0) + (0,) * (d - 4) + (-1, 1), -3))
 
     # some other inequalities found by Klyachko
-    assert T.is_ressayre(((0, -2, 2, 0) + (0, ) * (d - 4) + (-1, 1), -3))
-    assert T.is_ressayre(((-2, 0, 2, 0) + (0, ) * (d - 4) + (1, -1), -3))
-    assert T.is_ressayre(((-1, 1, 1, 0) + (0, ) * (d - 4) + (0, 0), -1))
-    assert T.is_ressayre(((-2, 1, 0, -1) + (0, ) * (d - 4) + (0, -1), -4))
+    assert T.is_ressayre(((0, -2, 2, 0) + (0,) * (d - 4) + (-1, 1), -3))
+    assert T.is_ressayre(((-2, 0, 2, 0) + (0,) * (d - 4) + (1, -1), -3))
+    assert T.is_ressayre(((-1, 1, 1, 0) + (0,) * (d - 4) + (0, 0), -1))
+    assert T.is_ressayre(((-2, 1, 0, -1) + (0,) * (d - 4) + (0, -1), -4))

@@ -15,8 +15,7 @@ def test_8_qubits(algorithm):
     C = ressayre_tester(R, algorithm=algorithm)
 
     for i in range(8):
-        assert C.is_ressayre(([-1, 0] * i + [1, 0] + [-1, 0] * (8 - 1 - i),
-                              2 - 8))
+        assert C.is_ressayre(([-1, 0] * i + [1, 0] + [-1, 0] * (8 - 1 - i), 2 - 8))
 
 
 def test_bravyi(algorithm):

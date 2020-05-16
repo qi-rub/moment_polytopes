@@ -13,3 +13,6 @@ docs:
 upload-docs:
 	git subtree push --prefix docs/_build/html origin gh-pages
 	#git push origin `git subtree split --prefix docs/_build/html master`:gh-pages --force
+
+pretty:
+	black moment_polytopes/*.py tests/*.py examples/*.py

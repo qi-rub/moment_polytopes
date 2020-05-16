@@ -37,8 +37,10 @@ def test_three_qubits(algorithm):
     # candidates for admissible (H, z)
     candidates = sorted(qmp.H_candidates((2, 2, 2), include_perms=False))
     assert candidates == [
-        (((-ONE_HALF, ONE_HALF), (-ONE_HALF, ONE_HALF), (ONE_HALF, -ONE_HALF)),
-         -ONE_HALF),
+        (
+            ((-ONE_HALF, ONE_HALF), (-ONE_HALF, ONE_HALF), (ONE_HALF, -ONE_HALF)),
+            -ONE_HALF,
+        ),
         (((-ONE_HALF, ONE_HALF), (0, 0), (0, 0)), -ONE_HALF),
         (((0, 0), (ONE_HALF, -ONE_HALF), (ONE_HALF, -ONE_HALF)), 0),
     ]
@@ -63,37 +65,30 @@ def test_H_AB_dominant_334_bug():
 
     # check that we get at least those that appear in the actual inequalities (make them dominant and primitive in order to compare)
     ieqs = third_party._klyachko_qmp_bare_ieqs((3, 3, 9))
-    H_As_expected = {tuple(H[:3])
-                     for (H, z) in ieqs} | {tuple(H[3:6])
-                                            for (H, z) in ieqs}
+    H_As_expected = {tuple(H[:3]) for (H, z) in ieqs} | {
+        tuple(H[3:6]) for (H, z) in ieqs
+    }
     H_As_expected = {tuple(sorted(H_A, reverse=True)) for H_A in H_As_expected}
     H_As_expected = {
         tuple(dual_root_primitive("A2", H_A))
-        for H_A in H_As_expected if H_A != (0, 0, 0)
+        for H_A in H_As_expected
+        if H_A != (0, 0, 0)
     }
     for H in H_As_expected:
         assert H in H_As_got
 
 
-@pytest.mark.parametrize("dims", [
-    (2, 2),
-    (2, 3),
-    (2, 4),
-    (3, 3),
-    (3, 4),
-    (4, 4),
-])
+@pytest.mark.parametrize("dims", [(2, 2), (2, 3), (2, 4), (3, 3), (3, 4), (4, 4),])
 def test_H_AB_dominant_are_extremal_edges(dims):
     for (H_A, H_B) in qmp.H_AB_dominant(*dims):
         H = tuple(H_A) + tuple(H_B)
         assert is_extremal_edge(dims, H)
 
 
-@pytest.mark.parametrize("a, b, c, count_wo_perms, count", [
-    (2, 2, 2, 3, 7),
-    (3, 3, 3, 17, 51),
-    (4, 4, 4, 600, 3027),
-])
+@pytest.mark.parametrize(
+    "a, b, c, count_wo_perms, count",
+    [(2, 2, 2, 3, 7), (3, 3, 3, 17, 51), (4, 4, 4, 600, 3027),],
+)
 def test_H_ABC_dominant_count(a, b, c, count_wo_perms, count):
     # excluding permutations
     candidates = qmp.H_ABC_dominant(a, b, c, include_perms=False)
@@ -104,16 +99,17 @@ def test_H_ABC_dominant_count(a, b, c, count_wo_perms, count):
     assert len(candidates) == count
 
 
-@pytest.mark.parametrize("dims, count_wo_perms, normal_vector_count_wo_perms",
-                         [
-                             ((2, 2, 2), 5, 3),
-                             ((3, 3, 3), 25, 17),
-                             ((4, 4, 4), 484, 342),
-                             ((2, 2, 4), 3, 3),
-                             ((2, 2, 3, 12), 26, 26),
-                         ])
-def test_H_dominant_admissible(dims, count_wo_perms,
-                               normal_vector_count_wo_perms):
+@pytest.mark.parametrize(
+    "dims, count_wo_perms, normal_vector_count_wo_perms",
+    [
+        ((2, 2, 2), 5, 3),
+        ((3, 3, 3), 25, 17),
+        ((4, 4, 4), 484, 342),
+        ((2, 2, 4), 3, 3),
+        ((2, 2, 3, 12), 26, 26),
+    ],
+)
+def test_H_dominant_admissible(dims, count_wo_perms, normal_vector_count_wo_perms):
     # candidates
     candidates = qmp.H_dominant_admissible(dims, include_perms=False)
     assert len(candidates) == count_wo_perms
@@ -123,25 +119,24 @@ def test_H_dominant_admissible(dims, count_wo_perms,
     assert len(normal_vectors) == normal_vector_count_wo_perms
 
 
-@pytest.mark.parametrize("dims, count_wo_perms", [
-    ((2, 2, 2), 3),
-    ((3, 3, 3), 41),
-    ((4, 4, 4), 5633),
-    ((2, 2, 4), 9),
-    ((2, 2, 3, 12), 25206),
-])
+@pytest.mark.parametrize(
+    "dims, count_wo_perms",
+    [
+        ((2, 2, 2), 3),
+        ((3, 3, 3), 41),
+        ((4, 4, 4), 5633),
+        ((2, 2, 4), 9),
+        ((2, 2, 3, 12), 25206),
+    ],
+)
 def test_H_candidates_count(dims, count_wo_perms):
     candidates = qmp.H_candidates(dims, include_perms=False)
     assert len(candidates) == count_wo_perms
 
 
-@pytest.mark.parametrize("dims", [
-    (2, 2, 2),
-    (2, 2, 4),
-    (3, 3, 3),
-    (4, 4, 4),
-    (2, 2, 3, 12),
-])
+@pytest.mark.parametrize(
+    "dims", [(2, 2, 2), (2, 2, 4), (3, 3, 3), (4, 4, 4), (2, 2, 3, 12),]
+)
 def test_no_duplicates(dims):
     stab = StabilizerGroup(dims)
 
@@ -161,17 +156,20 @@ def test_no_duplicates(dims):
         candidates.add((hs_nf, z))
 
 
-@pytest.mark.parametrize("dims", [
-    (2, 2, 2),
-    (3, 3, 3),
-    (4, 4, 4),
-    (2, 2, 4),
-    (2, 3, 6),
-    (2, 4, 8),
-    (3, 3, 9),
-    pytest.param((2, 2, 3, 12), marks=pytest.mark.slow),
-    pytest.param((2, 2, 2, 2, 16), marks=pytest.mark.slow),
-])
+@pytest.mark.parametrize(
+    "dims",
+    [
+        (2, 2, 2),
+        (3, 3, 3),
+        (4, 4, 4),
+        (2, 2, 4),
+        (2, 3, 6),
+        (2, 4, 8),
+        (3, 3, 9),
+        pytest.param((2, 2, 3, 12), marks=pytest.mark.slow),
+        pytest.param((2, 2, 2, 2, 16), marks=pytest.mark.slow),
+    ],
+)
 def test_H_candidates_traceless_primitive_extremal_edges(dims):
     candidates = qmp.H_candidates(dims, include_perms=False)
 
@@ -179,12 +177,12 @@ def test_H_candidates_traceless_primitive_extremal_edges(dims):
     if dims[-1] == prod(dims[:-1]):
         # positivity constraint (in normal form)
         stab = StabilizerGroup(dims)
-        hs_positivity = [(0, ) * d for d in dims[:-1]] + [(-1, ) *
-                                                          (dims[-1] - 1) +
-                                                          (dims[-1] - 1, )]
+        hs_positivity = [(0,) * d for d in dims[:-1]] + [
+            (-1,) * (dims[-1] - 1) + (dims[-1] - 1,)
+        ]
         hs_positivity = stab.normal_form(hs_positivity)
         H_positivity = (hs_positivity, -1)
-        assert H_positivity in candidates, 'Forgot positivity constraint?'
+        assert H_positivity in candidates, "Forgot positivity constraint?"
 
         # all other ones should be extremal edges
         for (hs, z) in candidates:
@@ -195,53 +193,59 @@ def test_H_candidates_traceless_primitive_extremal_edges(dims):
                     ieq,
                     assert_dominant=False,
                     assert_primitive=True,
-                    assert_traceless=True)
+                    assert_traceless=True,
+                )
     else:
         for (hs, z) in candidates:
             # check traceless
-            assert all(sum(h) == 0 for h in hs), 'Expect trace to be zero.'
+            assert all(sum(h) == 0 for h in hs), "Expect trace to be zero."
 
             # check dual root primitive
             diffs = [x - y for h in hs for (x, y) in zip(h, h[1:])]
             c = gcd(diffs)
             assert c in [
-                1, -1
-            ], 'Expect vector that is primitive in dual of root lattice.'
+                1,
+                -1,
+            ], "Expect vector that is primitive in dual of root lattice."
 
 
-@pytest.mark.parametrize("dims", [
-    (2, 2, 2),
-    (2, 2, 4),
-    (2, 3, 6),
-    (2, 4, 8),
-    (3, 3, 3),
-    pytest.param((3, 3, 9), marks=pytest.mark.slow),
-    pytest.param((4, 4, 4), marks=pytest.mark.slow),
-    pytest.param((2, 2, 3, 12), marks=pytest.mark.slow),
-    pytest.param((2, 2, 2, 2, 16), marks=pytest.mark.slow),
-])
+@pytest.mark.parametrize(
+    "dims",
+    [
+        (2, 2, 2),
+        (2, 2, 4),
+        (2, 3, 6),
+        (2, 4, 8),
+        (3, 3, 3),
+        pytest.param((3, 3, 9), marks=pytest.mark.slow),
+        pytest.param((4, 4, 4), marks=pytest.mark.slow),
+        pytest.param((2, 2, 3, 12), marks=pytest.mark.slow),
+        pytest.param((2, 2, 2, 2, 16), marks=pytest.mark.slow),
+    ],
+)
 def test_H_candidates_numerological(dims):
     # check that the "numerological condition" dim n_-(H < 0) == dim M(H < z) holds for all candidates (H, z)
     R = external_tensor_product(dims)
     for (hs, z) in qmp.H_candidates(dims, include_perms=False):
         H = vector(sum(hs, ()))
-        dim_n_neg = sum(
-            1 for alpha in R.negative_roots if alpha.dot_product(H) < 0)
+        dim_n_neg = sum(1 for alpha in R.negative_roots if alpha.dot_product(H) < 0)
         dim_M_neg = sum(1 for omega in R.weights if omega.dot_product(H) < z)
         assert dim_n_neg == dim_M_neg
 
 
-@pytest.mark.parametrize("dims, count_wo_perms", [
-    ((2, 2, 2), 3),
-    ((3, 3, 3), 25),
-    ((4, 4, 4), 323),
-    ((2, 2, 4), 9),
-    pytest.param((2, 2, 3, 12), 1330, marks=pytest.mark.slow),
-    pytest.param((2, 2, 2, 2, 16), 535, marks=pytest.mark.slow),
-])
+@pytest.mark.parametrize(
+    "dims, count_wo_perms",
+    [
+        ((2, 2, 2), 3),
+        ((3, 3, 3), 25),
+        ((4, 4, 4), 323),
+        ((2, 2, 4), 9),
+        pytest.param((2, 2, 3, 12), 1330, marks=pytest.mark.slow),
+        pytest.param((2, 2, 2, 2, 16), 535, marks=pytest.mark.slow),
+    ],
+)
 def test_H_ressayre(dims, count_wo_perms, algorithm):
-    ressayre_wo_perms = qmp.H_ressayre(
-        dims, algorithm=algorithm, include_perms=False)
+    ressayre_wo_perms = qmp.H_ressayre(dims, algorithm=algorithm, include_perms=False)
     assert len(ressayre_wo_perms) == count_wo_perms
 
 
@@ -263,7 +267,8 @@ def test_H_ressayre(dims, count_wo_perms, algorithm):
         pytest.param((2, 2, 3, 12), 599, 322, marks=pytest.mark.slow),
         # Klyachko:  805 + (1 + 1 + 1 + 1 + 15) + 1 = 825
         pytest.param((2, 2, 2, 2, 16), 825, 67, marks=pytest.mark.slow),
-    ])
+    ],
+)
 def test_qmp_hrepr(dims, num_facets, num_facets_wo_perms, algorithm):
     hrepr = qmp.hrepr(dims, algorithm=algorithm)
     assert len(hrepr.ieqs) == num_facets
@@ -283,36 +288,42 @@ def test_qmp_hrepr(dims, num_facets, num_facets_wo_perms, algorithm):
         pytest.param((3, 3, 9), 561, 297, marks=pytest.mark.slow),
         pytest.param((2, 2, 3, 12), 0, 0, marks=pytest.mark.slow),
         pytest.param((2, 2, 2, 2, 16), 0, 0, marks=pytest.mark.slow),
-    ])
+    ],
+)
 def test_qmp_vrepr(dims, num_vertices, num_vertices_wo_perms, algorithm):
     vrepr = qmp.vrepr(dims, algorithm=algorithm)
     assert not vrepr.rays and not vrepr.lines
     assert len(vrepr.vertices) == num_vertices
-    assert len(qmp.vertices_wo_perms(dims,
-                                     vrepr.vertices)) == num_vertices_wo_perms
+    assert len(qmp.vertices_wo_perms(dims, vrepr.vertices)) == num_vertices_wo_perms
 
 
-@pytest.mark.parametrize("dims, expected_fn", [
-    ((2, 2, 2), third_party.higuchi_hrepr),
-    ((2, 2, 4), third_party.bravyi_hrepr),
-    ((3, 3, 3), third_party.franz_hrepr),
-])
+@pytest.mark.parametrize(
+    "dims, expected_fn",
+    [
+        ((2, 2, 2), third_party.higuchi_hrepr),
+        ((2, 2, 4), third_party.bravyi_hrepr),
+        ((3, 3, 3), third_party.franz_hrepr),
+    ],
+)
 def test_basic_scenarios(dims, expected_fn, algorithm):
     got = qmp.hrepr(dims, algorithm=algorithm)
     expected = expected_fn()
     assert got.vrepr() == expected.vrepr()
 
 
-@pytest.mark.parametrize("dims", [
-    (2, 2, 2),
-    (3, 3, 3),
-    (2, 2, 4),
-    (2, 3, 6),
-    (2, 4, 8),
-    pytest.param((3, 3, 9), marks=pytest.mark.slow),
-    pytest.param((2, 2, 3, 12), marks=[pytest.mark.slow, pytest.mark.xfail]),
-    pytest.param((2, 2, 2, 2, 16), marks=pytest.mark.slow),
-])
+@pytest.mark.parametrize(
+    "dims",
+    [
+        (2, 2, 2),
+        (3, 3, 3),
+        (2, 2, 4),
+        (2, 3, 6),
+        (2, 4, 8),
+        pytest.param((3, 3, 9), marks=pytest.mark.slow),
+        pytest.param((2, 2, 3, 12), marks=[pytest.mark.slow, pytest.mark.xfail]),
+        pytest.param((2, 2, 2, 2, 16), marks=pytest.mark.slow),
+    ],
+)
 def test_vs_klyachko(dims, algorithm):
     # fetch irredundant H-representations
     us = qmp.hrepr(dims, algorithm=algorithm)
@@ -346,9 +357,10 @@ def test_vs_klyachko(dims, algorithm):
         pytest.param((2, 4, 8), marks=pytest.mark.slow),
         pytest.param((3, 3, 9), marks=pytest.mark.slow),
         pytest.param((2, 2, 2, 2, 16), marks=pytest.mark.slow),
-    ])
+    ],
+)
 def test_compare_against_sage(dims, algorithm):
-    if algorithm and algorithm != 'sage':
+    if algorithm and algorithm != "sage":
         ieqs = qmp.H_ressayre(dims, algorithm=algorithm, include_perms=False)
         ieqs_ref = qmp.H_ressayre(dims, include_perms=False)
         assert ieqs == ieqs_ref
@@ -356,7 +368,10 @@ def test_compare_against_sage(dims, algorithm):
 
 def test_pretty_three_qubits(algorithm):
     p = qmp.pretty((2, 2, 2), algorithm=algorithm)
-    assert repr(p).strip() == str(p).strip() == """
+    assert (
+        repr(p).strip()
+        == str(p).strip()
+        == """
 C(2,2,2)
 ========
 
@@ -382,3 +397,4 @@ Vertices
 
 All data is up to permutations of subsystems.
 """.strip()
+    )

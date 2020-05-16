@@ -1,16 +1,26 @@
 from __future__ import absolute_import, print_function
 import logging
 from collections import defaultdict
-from sage.all import vector, matrix, ceil, log, random_vector, ZZ, QQ, PolynomialRing, mathematica
+from sage.all import (
+    vector,
+    matrix,
+    ceil,
+    log,
+    random_vector,
+    ZZ,
+    QQ,
+    PolynomialRing,
+    mathematica,
+)
 from .utils import dim_affine_hull
 
 __all__ = [
-    'DEFAULT_FAILURE_PROBABILITY',
-    'RessayreTester',
-    'ressayre_tester',
-    'is_ressayre',
-    'is_admissible',
-    'c_candidates',
+    "DEFAULT_FAILURE_PROBABILITY",
+    "RessayreTester",
+    "ressayre_tester",
+    "is_ressayre",
+    "is_admissible",
+    "c_candidates",
 ]
 
 logger = logging.getLogger(__name__)
@@ -55,25 +65,26 @@ class RessayreTester(object):
 
         # weight blocks mismatch?
         if sorted(n_neg.keys()) != sorted(M_neg.keys()):
-            logger.debug("H-weights do not match: %r != %r", n_neg.keys(),
-                         M_neg.keys())
+            logger.debug("H-weights do not match: %r != %r", n_neg.keys(), M_neg.keys())
             return False
         for weight in n_neg:
             if len(n_neg[weight]) != len(M_neg[weight]):
-                logger.debug("H-weight %r multiplicity mismatch: %d != %d",
-                             weight, len(n_neg[weight]), len(M_neg[weight]))
+                logger.debug(
+                    "H-weight %r multiplicity mismatch: %d != %d",
+                    weight,
+                    len(n_neg[weight]),
+                    len(M_neg[weight]),
+                )
                 return False
 
         # determine M(H = c)
-        M_null = [
-            j for j, omega in enumerate(R.weights) if omega.dot_product(H) == c
-        ]
+        M_null = [j for j, omega in enumerate(R.weights) if omega.dot_product(H) == c]
         if not M_null:
             logger.debug("H-weight space %d is empty", c)
             return False
 
         # proceed block by block...
-        logger.debug('need to compute %d determinants...', len(n_neg))
+        logger.debug("need to compute %d determinants...", len(n_neg))
         for weight, n_neg_block in n_neg.iteritems():
             # only nonzero blocks without mismatches should appear
             M_neg_block = M_neg[weight]
@@ -83,26 +94,28 @@ class RessayreTester(object):
             P_neg = matrix([R.weight_vector(j) for j in M_neg_block])
             Ts = {
                 j: matrix(
-                    [
-                        P_neg * R.negative_root_action(i, j)
-                        for i in n_neg_block
-                    ],
-                    sparse=True)
+                    [P_neg * R.negative_root_action(i, j) for i in n_neg_block],
+                    sparse=True,
+                )
                 for j in M_null
             }
 
             # compute determinant
             logger.debug(
-                'processing H-weight block %d -> %d: size %dx%d with %d variables',
-                weight, weight + c, len(n_neg_block), len(n_neg_block),
-                len(M_null))
+                "processing H-weight block %d -> %d: size %dx%d with %d variables",
+                weight,
+                weight + c,
+                len(n_neg_block),
+                len(n_neg_block),
+                len(M_null),
+            )
 
             # compute determinant of polynomial matrix
             det = self.det(Ts, len(n_neg_block))
-            logger.debug('... det() returned %s', det)
+            logger.debug("... det() returned %s", det)
             if not det:
                 return False
-        logger.debug('all %d determinants nonzero', len(n_neg))
+        logger.debug("all %d determinants nonzero", len(n_neg))
         return True
 
     def det(self, Ts, d):
@@ -127,7 +140,11 @@ class ProbabilisticRessayreTester(RessayreTester):
         super(ProbabilisticRessayreTester, self).__init__(R)
 
         #: The failure probability.
-        self.failure_probability = failure_probability if failure_probability is not None else DEFAULT_FAILURE_PROBABILITY
+        self.failure_probability = (
+            failure_probability
+            if failure_probability is not None
+            else DEFAULT_FAILURE_PROBABILITY
+        )
 
     def det(self, Ts, d):
         # the determinant polynomial is of degree d. therefore, the Schwartz-Zippel lemma asserts that by choosing a random
@@ -137,8 +154,10 @@ class ProbabilisticRessayreTester(RessayreTester):
         N = 16
         num_repetitions = ceil(-log(self.failure_probability) / log(N))
         logger.debug(
-            '%d repetitions to achieve desired failure probability %r',
-            num_repetitions, self.failure_probability)
+            "%d repetitions to achieve desired failure probability %r",
+            num_repetitions,
+            self.failure_probability,
+        )
 
         for _ in range(num_repetitions):
             # draw random base point zs in M(H - c = 0)
@@ -149,7 +168,7 @@ class ProbabilisticRessayreTester(RessayreTester):
 
             # return if non-zero (otherwise keep trying)
             det = T.determinant()
-            assert det in QQ, 'Assuming that integer determinants are computed exactly.'
+            assert det in QQ, "Assuming that integer determinants are computed exactly."
             if det:
                 return det
         return 0
@@ -188,11 +207,11 @@ class CompositeRessayreTester(RessayreTester):
     """
 
     def __init__(self, testers):
-        assert len(testers) > 0, 'Need to specify at least one tester.'
+        assert len(testers) > 0, "Need to specify at least one tester."
         R = testers[0].representation
         assert all(
-            T.representation is R for T in
-            testers), 'All testers should work on the same representation.'
+            T.representation is R for T in testers
+        ), "All testers should work on the same representation."
         super(CompositeRessayreTester, self).__init__(R)
 
         #: The delegate testers.
@@ -225,17 +244,17 @@ def ressayre_tester(R, algorithm=None, failure_probability=None):
     """
     # default algorithm
     if algorithm is None:
-        algorithm = 'sage'
+        algorithm = "sage"
 
     # first use probabilistic algorithm
     T = ProbabilisticRessayreTester(R, failure_probability)
-    if algorithm == 'probabilistic':
+    if algorithm == "probabilistic":
         return T
 
     # create RessayreTester instance
-    if algorithm == 'sage':
+    if algorithm == "sage":
         return CompositeRessayreTester([T, SageRessayreTester(R)])
-    elif algorithm == 'mathematica':
+    elif algorithm == "mathematica":
         return CompositeRessayreTester([T, MathematicaRessayreTester(R)])
     raise NotImplementedError('Unknown algorithm "%s".' % algorithm)
 
@@ -268,14 +287,17 @@ def is_admissible(R, ieq):
 
     # impossible?
     if len(weights) < R.dimension_affine_hull_weights:
-        logger.debug('not enough weights on the hyperplane')
+        logger.debug("not enough weights on the hyperplane")
         return False
 
     # check if affine hull has the correct dimension
     dim = dim_affine_hull(weights)
-    assert dim < R.dimension_affine_hull_weights, 'Absurd'
-    logger.debug('dimension of affine hull is %d, supposed to be %d', dim,
-                 R.dimension_affine_hull_weights - 1)
+    assert dim < R.dimension_affine_hull_weights, "Absurd"
+    logger.debug(
+        "dimension of affine hull is %d, supposed to be %d",
+        dim,
+        R.dimension_affine_hull_weights - 1,
+    )
     return dim == R.dimension_affine_hull_weights - 1
 
 

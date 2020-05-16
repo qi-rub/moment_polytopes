@@ -2,7 +2,7 @@ from __future__ import absolute_import, print_function
 import os, subprocess, tempfile, errno, logging
 from sage.all import vector, QQ, Polyhedron
 
-__all__ = ['HRepr', 'VRepr', 'LrsError']
+__all__ = ["HRepr", "VRepr", "LrsError"]
 
 logger = logging.getLogger(__name__)
 
@@ -11,8 +11,9 @@ class LrsError(Exception):
     """An error that occurred while invoking ``lrslib``."""
 
     def __init__(self, cmd, message):
-        super(Exception,
-              self).__init__('Error while invoking "%s": %s' % (cmd, message))
+        super(Exception, self).__init__(
+            'Error while invoking "%s": %s' % (cmd, message)
+        )
         #: Command that was invoked.
         self.cmd = cmd
 
@@ -27,22 +28,24 @@ def _call_lrs(cmd, stdin):
 
     # generate temporary paths
     def temp_path(name):
-        return os.path.join(tempfile.gettempdir(),
-                            'justamoment-lrs-%s-%s.txt' % (os.getpid(), name))
+        return os.path.join(
+            tempfile.gettempdir(), "justamoment-lrs-%s-%s.txt" % (os.getpid(), name)
+        )
 
-    path_stdin = temp_path('stdin')
-    path_stdout = temp_path('stdout')
-    path_stderr = temp_path('stderr')
-    open(path_stdin, 'w').write(stdin)
+    path_stdin = temp_path("stdin")
+    path_stdout = temp_path("stdout")
+    path_stderr = temp_path("stderr")
+    open(path_stdin, "w").write(stdin)
 
     # run lrs command
     logger.debug('Running "%s" (%s)', cmd, path_stdin)
     try:
         p = subprocess.Popen(
             cmd,
-            stdin=open(path_stdin, 'r'),
-            stdout=open(path_stdout, 'w'),
-            stderr=open(path_stderr, 'w'))
+            stdin=open(path_stdin, "r"),
+            stdout=open(path_stdout, "w"),
+            stderr=open(path_stderr, "w"),
+        )
     except OSError as e:
         if e.errno == errno.ENOENT:
             raise LrsError(cmd, "Not found.")
@@ -50,8 +53,8 @@ def _call_lrs(cmd, stdin):
             raise
     p.wait()
     logger.debug('"%s" done (%s)', cmd, path_stdout)
-    stdout = open(path_stdout, 'r').read().strip()
-    stderr = open(path_stderr, 'r').read().strip()
+    stdout = open(path_stdout, "r").read().strip()
+    stderr = open(path_stderr, "r").read().strip()
     if stderr:
         raise LrsError(cmd, stderr)
 
@@ -100,7 +103,7 @@ class HRepr(object):
         # determine ambient dimension
         if not (ambient_dim or (ieqs or eqns)):
             raise ValueError(
-                'Need to specify ambient dimension if ieqs and eqns are empty.'
+                "Need to specify ambient dimension if ieqs and eqns are empty."
             )
         if not ambient_dim:
             H, _ = next(iter(self.ieqs if self.ieqs else self.eqns))
@@ -114,8 +117,10 @@ class HRepr(object):
         assert all(len(H) == ambient_dim for (H, _) in self.eqns)
 
     def __str__(self):
-        return '<HRepr object at 0x%016X in dimension %d defined by %d inequalities and %d equations>' % (
-            id(self), self.ambient_dim, len(self.ieqs), len(self.eqns))
+        return (
+            "<HRepr object at 0x%016X in dimension %d defined by %d inequalities and %d equations>"
+            % (id(self), self.ambient_dim, len(self.ieqs), len(self.eqns))
+        )
 
     def __eq__(self, rhs):
         """Compare H-representations.
@@ -123,7 +128,11 @@ class HRepr(object):
         *Warning:* Equal polyhedra can have different H-representation!
 
         :rtype: bool"""
-        return self.ambient_dim == rhs.ambient_dim and self.ieqs == rhs.ieqs and self.eqns == rhs.eqns
+        return (
+            self.ambient_dim == rhs.ambient_dim
+            and self.ieqs == rhs.ieqs
+            and self.eqns == rhs.eqns
+        )
 
     def __contains__(self, pt):
         """Check if given point ``pt`` is contained in the polyhedron.
@@ -131,8 +140,9 @@ class HRepr(object):
         :rtype: bool
         """
         pt = vector(pt)
-        return all(pt.dot_product(H) >= c for (H, c) in self.ieqs) \
-            and all(pt.dot_product(H) == c for (H, c) in self.eqns)
+        return all(pt.dot_product(H) >= c for (H, c) in self.ieqs) and all(
+            pt.dot_product(H) == c for (H, c) in self.eqns
+        )
 
     def vrepr(self):
         """Convert to V-representation.
@@ -140,7 +150,7 @@ class HRepr(object):
         This potentially expensive operation is implemented by calling the ``lrs`` tool from ``lrslib``.
 
         :rtype: :class:`VRepr`"""
-        stdout = _call_lrs('lrs', self._to_lrs())
+        stdout = _call_lrs("lrs", self._to_lrs())
         return VRepr._from_lrs(stdout)
 
     def irred(self):
@@ -151,7 +161,7 @@ class HRepr(object):
         This potentially expensive operation is implemented by calling the ``redund`` tool from ``lrslib``.
 
         :rtype: :class:`HRepr`"""
-        stdout = _call_lrs('redund', self._to_lrs())
+        stdout = _call_lrs("redund", self._to_lrs())
         return HRepr._from_lrs(stdout)
 
     def vertices(self):
@@ -165,7 +175,7 @@ class HRepr(object):
         """
         vrepr = self.vrepr()
         if len(vrepr.rays) > 0 or len(vrepr.lines) > 0:
-            raise ValueError, 'Polyhedron has extremal rays.'
+            raise ValueError, "Polyhedron has extremal rays."
         return vrepr.vertices
 
     def __and__(self, rhs):
@@ -178,20 +188,20 @@ class HRepr(object):
         return HRepr(
             ieqs=self.ieqs + rhs.ieqs,
             eqns=self.eqns + rhs.eqns,
-            ambient_dim=self.ambient_dim)
+            ambient_dim=self.ambient_dim,
+        )
 
     def map(self, f, ambient_dim=None):
         return HRepr(
-            ieqs=map(f, self.ieqs),
-            eqns=map(f, self.eqns),
-            ambient_dim=ambient_dim)
+            ieqs=map(f, self.ieqs), eqns=map(f, self.eqns), ambient_dim=ambient_dim
+        )
 
     def to_sage(self):
         """Convert to Sage :class:`sage.Polyhedron` object.
 
         :rtype: :class:`sage.Polyhedron`"""
         if self.eqns or self.ieqs:
-            logger.debug('Converting HRepr to Sage Polyhedron')
+            logger.debug("Converting HRepr to Sage Polyhedron")
 
             def convert((H, c)):
                 return [-c] + list(H)
@@ -207,28 +217,21 @@ class HRepr(object):
         """Convert H-representation to ``lrs`` format.
 
         :rtype: string"""
-        lines = ['my_polytope']
-        lines += ['H-representation']
+        lines = ["my_polytope"]
+        lines += ["H-representation"]
         if self.eqns:
             lines += [
-                'linearity %d %s' %
-                (len(self.eqns),
-                 ' '.join(map(str, range(1,
-                                         len(self.eqns) + 1))))
+                "linearity %d %s"
+                % (len(self.eqns), " ".join(map(str, range(1, len(self.eqns) + 1))))
             ]
-        lines += ['begin']
+        lines += ["begin"]
         lines += [
-            '%d %d rational' % (len(self.eqns) + len(self.ieqs),
-                                1 + self.ambient_dim)
+            "%d %d rational" % (len(self.eqns) + len(self.ieqs), 1 + self.ambient_dim)
         ]
-        lines += [
-            str(-c) + ' ' + ' '.join(map(str, H)) for (H, c) in self.eqns
-        ]
-        lines += [
-            str(-c) + ' ' + ' '.join(map(str, H)) for (H, c) in self.ieqs
-        ]
-        lines.append('end')
-        return '\n'.join(lines)
+        lines += [str(-c) + " " + " ".join(map(str, H)) for (H, c) in self.eqns]
+        lines += [str(-c) + " " + " ".join(map(str, H)) for (H, c) in self.ieqs]
+        lines.append("end")
+        return "\n".join(lines)
 
     @staticmethod
     def from_sage(p):
@@ -250,21 +253,21 @@ class HRepr(object):
         """Construct H-representation from `lrs` output."""
         # split into lines and ignore comments
         lines = [
-            line.strip() for line in s.splitlines()
-            if line.strip() and (
-                line.startswith('*****') or not line.startswith('*'))
+            line.strip()
+            for line in s.splitlines()
+            if line.strip() and (line.startswith("*****") or not line.startswith("*"))
         ]
 
         # parse header
         name = lines.pop(0)
         type = lines.pop(0)
-        assert name == 'my_polytope'
-        assert type == 'H-representation'
+        assert name == "my_polytope"
+        assert type == "H-representation"
 
         # linearity?
-        if lines[0].startswith('linearity'):
+        if lines[0].startswith("linearity"):
             lin = lines.pop(0).split()
-            assert lin[0] == 'linearity'
+            assert lin[0] == "linearity"
             lin = map(int, lin[1:])
             assert len(lin) == lin[0] + 1
             lin = lin[1:]
@@ -272,15 +275,16 @@ class HRepr(object):
             lin = []
 
         # (number of inequalities or *****) and dimension
-        assert lines.pop(0) == 'begin'
+        assert lines.pop(0) == "begin"
         rat = lines.pop(0).split()
-        assert rat[2] == 'rational'
-        #rat = map(int, rat[:2])
+        assert rat[2] == "rational"
+        # rat = map(int, rat[:2])
 
         ieqs = []
         eqns = []
         for i, line in enumerate(lines):
-            if line == 'end': break
+            if line == "end":
+                break
             line = map(QQ, line.split())
             c = -line[0]
             H = vector(line[1:])
@@ -321,13 +325,16 @@ class VRepr(object):
         # determine ambient dimension
         if not (ambient_dim or (vertices or rays or lines)):
             raise ValueError(
-                'Need to specify ambient dimension if vertices, rays, and lines are empty.'
+                "Need to specify ambient dimension if vertices, rays, and lines are empty."
             )
         if not ambient_dim:
             V = next(
                 iter(
-                    self.vertices if self.vertices else (
-                        self.rays if self.rays else self.lines)))
+                    self.vertices
+                    if self.vertices
+                    else (self.rays if self.rays else self.lines)
+                )
+            )
             ambient_dim = len(V)
         #: The ambient dimension.
         self.ambient_dim = ambient_dim
@@ -338,9 +345,16 @@ class VRepr(object):
         assert all(len(V) == ambient_dim for V in self.lines)
 
     def __str__(self):
-        return '<VRepr object at 0x%016X in dimension %d defined by %d vertices, %d rays and %d lines>' % (
-            id(self), self.ambient_dim, len(self.vertices), len(self.rays),
-            len(self.lines))
+        return (
+            "<VRepr object at 0x%016X in dimension %d defined by %d vertices, %d rays and %d lines>"
+            % (
+                id(self),
+                self.ambient_dim,
+                len(self.vertices),
+                len(self.rays),
+                len(self.lines),
+            )
+        )
 
     def __eq__(self, rhs):
         """Compare V-representations.
@@ -348,7 +362,11 @@ class VRepr(object):
         *Warning:* Equal polyhedra can have different V-representation!
 
         :rtype: bool"""
-        return self.vertices == rhs.vertices and self.rays == rhs.rays and self.lines == rhs.lines
+        return (
+            self.vertices == rhs.vertices
+            and self.rays == rhs.rays
+            and self.lines == rhs.lines
+        )
 
     def hrepr(self):
         """Convert to H-representation.
@@ -356,45 +374,46 @@ class VRepr(object):
         This potentially expensive operation is implemented by calling the ``lrs`` tool from ``lrslib``.
 
         :rtype: :class:`HRepr`"""
-        stdout = _call_lrs('lrs', self._to_lrs())
+        stdout = _call_lrs("lrs", self._to_lrs())
         return HRepr._from_lrs(stdout)
 
     def to_sage(self):
         """Convert to Sage :class:`sage.Polyhedron` object.
 
         :rtype: :class:`sage.Polyhedron`"""
-        logger.debug('Converting VRepr to Sage Polyhedron')
+        logger.debug("Converting VRepr to Sage Polyhedron")
 
         return Polyhedron(
             vertices=self.vertices,
             rays=self.rays,
             lines=self.lines,
-            ambient_dim=self.ambient_dim)
+            ambient_dim=self.ambient_dim,
+        )
 
     def _to_lrs(self):
         """Convert V-representation to ``lrs`` format.
 
         :rtype: string"""
-        lines = ['my_polytope']
-        lines += ['V-representation']
+        lines = ["my_polytope"]
+        lines += ["V-representation"]
         if self.lines:
             lines += [
-                'linearity %d %s' %
-                (len(self.lines),
-                 ' '.join(map(str, range(1,
-                                         len(self.lines) + 1))))
+                "linearity %d %s"
+                % (len(self.lines), " ".join(map(str, range(1, len(self.lines) + 1))))
             ]
-        lines += ['begin']
+        lines += ["begin"]
         lines += [
-            '%d %d rational' %
-            (len(self.lines) + len(self.rays) + len(self.vertices),
-             1 + self.ambient_dim)
+            "%d %d rational"
+            % (
+                len(self.lines) + len(self.rays) + len(self.vertices),
+                1 + self.ambient_dim,
+            )
         ]
-        lines += ['0 ' + ' '.join(map(str, V)) for V in self.lines]
-        lines += ['0 ' + ' '.join(map(str, V)) for V in self.rays]
-        lines += ['1 ' + ' '.join(map(str, V)) for V in self.vertices]
-        lines.append('end')
-        return '\n'.join(lines)
+        lines += ["0 " + " ".join(map(str, V)) for V in self.lines]
+        lines += ["0 " + " ".join(map(str, V)) for V in self.rays]
+        lines += ["1 " + " ".join(map(str, V)) for V in self.vertices]
+        lines.append("end")
+        return "\n".join(lines)
 
     @staticmethod
     def from_sage(p):
@@ -409,21 +428,21 @@ class VRepr(object):
     def _from_lrs(s):
         """Construct V-representation from `lrs` output."""
         lines = [
-            line.strip() for line in s.splitlines()
-            if line.strip() and (
-                line.startswith('*****') or not line.startswith('*'))
+            line.strip()
+            for line in s.splitlines()
+            if line.strip() and (line.startswith("*****") or not line.startswith("*"))
         ]
 
         # parse header
         name = lines.pop(0)
         type = lines.pop(0)
-        assert name == 'my_polytope'
-        assert type == 'V-representation'
+        assert name == "my_polytope"
+        assert type == "V-representation"
 
         # extremal rays?
-        if lines[0].startswith('linearity'):
+        if lines[0].startswith("linearity"):
             lin = lines.pop(0).split()
-            assert lin[0] == 'linearity'
+            assert lin[0] == "linearity"
             lin = map(int, lin[1:])
             assert len(lin) == lin[0] + 1
             lin = lin[1:]
@@ -431,16 +450,17 @@ class VRepr(object):
             lin = []
 
         # (number of entries or *****) and dimension
-        assert lines.pop(0) == 'begin'
+        assert lines.pop(0) == "begin"
         rat = lines.pop(0).split()
-        assert rat[2] == 'rational'
-        #rat = map(int, rat[:2])
+        assert rat[2] == "rational"
+        # rat = map(int, rat[:2])
 
         lins = []
         rays = []
         vertices = []
         for i, line in enumerate(lines):
-            if line == 'end': break
+            if line == "end":
+                break
             line = line.split()
 
             # parse line
@@ -456,5 +476,5 @@ class VRepr(object):
             elif type == 1:
                 vertices.append(line)
             else:
-                assert type in (0, 1), 'Unknown type: %d' % type
+                assert type in (0, 1), "Unknown type: %d" % type
         return VRepr(vertices=vertices, rays=rays, lines=lins)

@@ -1,15 +1,33 @@
 from __future__ import absolute_import, print_function
-from sage.all import Integer, vector, gcd, ZZ, QQ, RootSystem, Partition, SemistandardTableaux, matrix, copy, Tableau, cartesian_product, GelfandTsetlinPatterns, GelfandTsetlinPattern, prod, factorial, diagonal_matrix
+from sage.all import (
+    Integer,
+    vector,
+    gcd,
+    ZZ,
+    QQ,
+    RootSystem,
+    Partition,
+    SemistandardTableaux,
+    matrix,
+    copy,
+    Tableau,
+    cartesian_product,
+    GelfandTsetlinPatterns,
+    GelfandTsetlinPattern,
+    prod,
+    factorial,
+    diagonal_matrix,
+)
 from . import HRepr
 from .utils import dim_affine_hull
 
 __all__ = [
-    'Representation',
-    'weyl_module',
-    'external_tensor_product',
-    'is_dual_root_primitive',
-    'dual_root_primitive',
-    'positive_weyl_chamber_hrepr',
+    "Representation",
+    "weyl_module",
+    "external_tensor_product",
+    "is_dual_root_primitive",
+    "dual_root_primitive",
+    "positive_weyl_chamber_hrepr",
 ]
 
 
@@ -115,11 +133,10 @@ class WeylModule(Representation):
 
         # normalize highest weight
         highest_weight = list(highest_weight)
-        assert len(
-            highest_weight) <= d, 'Highest weight has more than %s parts.' % d
-        assert len(
-            highest_weight
-        ) == d or highest_weight[-1] >= 0, 'Cannot pad highest weight by zero.'
+        assert len(highest_weight) <= d, "Highest weight has more than %s parts." % d
+        assert (
+            len(highest_weight) == d or highest_weight[-1] >= 0
+        ), "Cannot pad highest weight by zero."
         highest_weight = highest_weight + [0] * (d - len(highest_weight))
         highest_weight = vector(highest_weight)
 
@@ -143,14 +160,9 @@ class WeylModule(Representation):
 
         # implement properties of base class
         self.ambient_dim = d
-        self.root_system = RootSystem(['A', d - 1])
+        self.root_system = RootSystem(["A", d - 1])
         ambient_space = self.root_system.ambient_space()
-        self._simple_roots = [
-            vector(ZZ, d, {
-                i: 1,
-                i + 1: -1
-            }) for i in range(d - 1)
-        ]
+        self._simple_roots = [vector(ZZ, d, {i: 1, i + 1: -1}) for i in range(d - 1)]
         self.negative_roots = map(vector, ambient_space.negative_roots())
         self.weights = [vector(p.weight()) for p in self.patterns]
         self.reduced_eqns = [(vector([1] * d), sum(self.highest_weight))]
@@ -167,13 +179,27 @@ class WeylModule(Representation):
 
             ns = prod(
                 prod(
-                    QQ((factorial(l(k, i) - l(k - 1, j)),
-                        factorial(l(k - 1, i) - l(k - 1, j))))
-                    for i in range(1, k) for j in range(i, k)) * prod(
-                        QQ((factorial(l(k, i) - l(k, j) - 1),
-                            factorial(l(k - 1, i) - l(k, j) - 1)))
-                        for i in range(1, k + 1) for j in range(i + 1, k + 1))
-                for k in range(2, self.d + 1))
+                    QQ(
+                        (
+                            factorial(l(k, i) - l(k - 1, j)),
+                            factorial(l(k - 1, i) - l(k - 1, j)),
+                        )
+                    )
+                    for i in range(1, k)
+                    for j in range(i, k)
+                )
+                * prod(
+                    QQ(
+                        (
+                            factorial(l(k, i) - l(k, j) - 1),
+                            factorial(l(k - 1, i) - l(k, j) - 1),
+                        )
+                    )
+                    for i in range(1, k + 1)
+                    for j in range(i + 1, k + 1)
+                )
+                for k in range(2, self.d + 1)
+            )
             self._norm_squares.append(ns)
 
         # precompute action of negative simple roots in the (unnormalized) Gelfand-Tsetlin basis
@@ -199,8 +225,7 @@ class WeylModule(Representation):
 
                     # compute prefactor
                     numer = prod([l(k, i) - l(k - 1, j) for j in range(1, k)])
-                    denom = prod(
-                        [l(k, i) - l(k, j) for j in range(1, k + 1) if j != i])
+                    denom = prod([l(k, i) - l(k, j) for j in range(1, k + 1) if j != i])
                     assert (row, col) not in d
                     d[(row, col)] = QQ(numer) / QQ(denom)
 
@@ -208,7 +233,7 @@ class WeylModule(Representation):
             self._negative_simple_root_actions.append(m)
 
     def __repr__(self):
-        return 'WeylModule(%d, %r)' % (self.d, self.highest_weight)
+        return "WeylModule(%d, %r)" % (self.d, self.highest_weight)
 
     def negative_root_action(self, idx_negative_root, idx_weight_vector=None):
         # write alpha as sum of negative simple roots such that all partial sums are again negative roots
@@ -225,8 +250,10 @@ class WeylModule(Representation):
         def X(alpha):
             return matrix(
                 self.d,
-                self.d, {(list(alpha).index(1), list(alpha).index(-1)): 1},
-                sparse=True)
+                self.d,
+                {(list(alpha).index(1), list(alpha).index(-1)): 1},
+                sparse=True,
+            )
 
         m = X(-self._simple_roots[decomposition[0]])
         for i in decomposition[1:]:
@@ -289,7 +316,7 @@ weyl_module = WeylModule
 def _embed_vector(v, k, dims):
     """Inject vector into k-th summand of direct sum."""
     before = sum(dims[:k])
-    after = sum(dims[k + 1:])
+    after = sum(dims[k + 1 :])
     return vector([0] * before + list(v) + [0] * after)
 
 
@@ -321,8 +348,7 @@ class ExternalTensorProduct(Representation):
         self._negative_root_table = []
         for k, R in enumerate(Rs):
             for i, alpha in enumerate(R.negative_roots):
-                self.negative_roots.append(
-                    _embed_vector(alpha, k, ambient_dims))
+                self.negative_roots.append(_embed_vector(alpha, k, ambient_dims))
                 self._negative_root_table.append((k, i))
 
         # collect weights and build reverse look-up table
@@ -331,18 +357,18 @@ class ExternalTensorProduct(Representation):
             for ws in cartesian_product([R.weights for R in Rs])
         ]
         self._weight_table = [
-            tuple(js)
-            for js in cartesian_product([range(len(R.weights)) for R in Rs])
+            tuple(js) for js in cartesian_product([range(len(R.weights)) for R in Rs])
         ]
 
         # equations satisfied by weights
         self.reduced_eqns = []
         for k, R in enumerate(Rs):
-            self.reduced_eqns += [(_embed_vector(H, k, ambient_dims), c)
-                                  for (H, c) in R.reduced_eqns]
+            self.reduced_eqns += [
+                (_embed_vector(H, k, ambient_dims), c) for (H, c) in R.reduced_eqns
+            ]
 
     def __repr__(self):
-        return 'ExternalTensorProduct(%r)' % self.factors
+        return "ExternalTensorProduct(%r)" % self.factors
 
     def negative_root_action(self, idx_negative_root, idx_weight_vector=None):
         # entire matrix requested? (XXX: slow - use tensor product instead of this hack)
@@ -363,7 +389,7 @@ class ExternalTensorProduct(Representation):
         # build result
         w = vector(QQ, self.dimension)
         for jj in range(self.factors[k].dimension):
-            idx = self._weight_table.index(js[:k] + (jj, ) + js[k + 1:])
+            idx = self._weight_table.index(js[:k] + (jj,) + js[k + 1 :])
             w[idx] += v[jj]
         return w
 
@@ -382,21 +408,20 @@ def positive_weyl_chamber_hrepr(root_system):
     simple_roots = map(vector, ambient_space.simple_roots())
     return HRepr(
         ieqs=[(alpha, 0) for alpha in simple_roots],
-        ambient_dim=ambient_space.dimension())
+        ambient_dim=ambient_space.dimension(),
+    )
 
 
 def _dual_root_primitive_gcd(root_system, H):
     """Return greatest common divisor of coefficients of H with respect to dual roots."""
     # get ambient space
     ambient_space = RootSystem(root_system).ambient_space()
-    assert len(H) == ambient_space.dimension(), 'Dimension mismatch'
+    assert len(H) == ambient_space.dimension(), "Dimension mismatch"
 
     # compute coefficients
     H = vector(H)
-    cs = [
-        vector(alpha).dot_product(H) for alpha in ambient_space.simple_roots()
-    ]
-    assert all(c in ZZ for c in cs), 'Vector is not in the dual root lattice.'
+    cs = [vector(alpha).dot_product(H) for alpha in ambient_space.simple_roots()]
+    assert all(c in ZZ for c in cs), "Vector is not in the dual root lattice."
 
     # divide by gcd
     return gcd(cs)

@@ -15,19 +15,18 @@ def test_fermi_3_6():
             ((0, -1, 0, 0, -1, 0), -1),
             ((0, 0, -1, -1, 0, 0), -1),
         ],
-        ieqs=[
-            ((0, 0, 0, -1, 1, 1), 0),
-        ])
+        ieqs=[((0, 0, 0, -1, 1, 1), 0),],
+    )
     assert bare_hrepr == bare_hrepr_expected
 
     # check complete inequalities
     hrepr = third_party.klyachko_fermi_hrepr(3, 6).irred()
-    assert len(
-        hrepr.eqns
-    ) == 3  # three Borland--Dennis equations (that together imply the trace equation!)
-    assert len(
-        hrepr.ieqs
-    ) == 1 + 3  # Borland-Dennis facet plus three Weyl chamber inequalities
+    assert (
+        len(hrepr.eqns) == 3
+    )  # three Borland--Dennis equations (that together imply the trace equation!)
+    assert (
+        len(hrepr.ieqs) == 1 + 3
+    )  # Borland-Dennis facet plus three Weyl chamber inequalities
 
     # ...and vertices
     vertices = {tuple(v[:3]) for v in hrepr.vertices()}
@@ -67,10 +66,10 @@ def test_qmp_333():
         pytest.param((4, 2, 8), marks=pytest.mark.slow),
         pytest.param((3, 3, 9), marks=pytest.mark.slow),
         # there is a mistake in Klyachko's table:
-        pytest.param(
-            (2, 2, 3, 12), marks=[pytest.mark.slow, pytest.mark.xfail]),
+        pytest.param((2, 2, 3, 12), marks=[pytest.mark.slow, pytest.mark.xfail]),
         pytest.param((2, 2, 2, 2, 16), marks=pytest.mark.slow),
-    ])
+    ],
+)
 def test_klyachko_qmp_hrepr_bare(algorithm, dims):
     # retrieve inequalities according to Klyachko (w/o Weyl chamber and permutations)
     bare_hrepr = third_party.klyachko_qmp_hrepr(dims, bare=True, irred=False)
@@ -79,18 +78,20 @@ def test_klyachko_qmp_hrepr_bare(algorithm, dims):
     R = external_tensor_product(dims)
     T = ressayre_tester(R, algorithm=algorithm)
     for i, ieq in enumerate(bare_hrepr.ieqs):
-        logger.debug("testing inequality %d/%d...", i + 1, len(
-            bare_hrepr.ieqs))
+        logger.debug("testing inequality %d/%d...", i + 1, len(bare_hrepr.ieqs))
         assert T.is_ressayre(ieq)
 
 
-@pytest.mark.parametrize("dims", [
-    (3, 2, 6),
-    pytest.param((4, 2, 8), marks=pytest.mark.slow),
-    pytest.param((3, 3, 9), marks=pytest.mark.slow),
-    pytest.param((2, 2, 3, 12), marks=pytest.mark.slow),
-    pytest.param((2, 2, 2, 2, 16), marks=pytest.mark.slow),
-])
+@pytest.mark.parametrize(
+    "dims",
+    [
+        (3, 2, 6),
+        pytest.param((4, 2, 8), marks=pytest.mark.slow),
+        pytest.param((3, 3, 9), marks=pytest.mark.slow),
+        pytest.param((2, 2, 3, 12), marks=pytest.mark.slow),
+        pytest.param((2, 2, 2, 2, 16), marks=pytest.mark.slow),
+    ],
+)
 def test_klyachko_qmp_hrepr_positivity_bug(dims):
     # retrieve QMP polytope according to Klyachko
     hrepr = third_party.klyachko_qmp_hrepr(dims, irred=False)
@@ -127,55 +128,80 @@ def test_klyachko_qmp_22312_wrong():
     def proj((H, c)):
         return list(H[:2]) + list(H[3:8]), c
 
-    bravyi_correct = third_party.klyachko_qmp_hrepr([3, 2,
-                                                     6]).map(proj).irred()
+    bravyi_correct = third_party.klyachko_qmp_hrepr([3, 2, 6]).map(proj).irred()
 
     # attempt to get the same by loading the inequalities for 2x2x3x12 and slicing with ... x {1}
     dims = (2, 2, 3, 12)
     ieqs = third_party._klyachko_qmp_bare_ieqs(dims)
     ieqs += [(list(H[2:4]) + list(H[:2]) + list(H[4:]), c) for (H, c) in ieqs]
-    hrepr = HRepr(ieqs=ieqs) & external_tensor_product(
-        dims).reduced_positive_weyl_chamber_hrepr
+    hrepr = (
+        HRepr(ieqs=ieqs)
+        & external_tensor_product(dims).reduced_positive_weyl_chamber_hrepr
+    )
 
     def proj((H, c)):
-        return H[:2 + 2 + 3], c - H[7]
+        return H[: 2 + 2 + 3], c - H[7]
 
-    #bravyi_wrong = klyachko_qmp_hrepr(dims).map(proj).irred()
+    # bravyi_wrong = klyachko_qmp_hrepr(dims).map(proj).irred()
     bravyi_wrong = hrepr.map(proj).irred()
     assert bravyi_correct.vertices() != bravyi_wrong.vertices()
 
     # slicing with lambda_C = (0.6, 0.3, 0.1) makes this very apparent!
-    slice = HRepr(eqns=[
-        ((0, 0, 0, 0, 1, 0, 0), QQ("6/10")),
-        ((0, 0, 0, 0, 0, 1, 0), QQ("3/10")),
-        ((0, 0, 0, 0, 0, 0, 1), QQ("1/10")),
-    ])
+    slice = HRepr(
+        eqns=[
+            ((0, 0, 0, 0, 1, 0, 0), QQ("6/10")),
+            ((0, 0, 0, 0, 0, 1, 0), QQ("3/10")),
+            ((0, 0, 0, 0, 0, 0, 1), QQ("1/10")),
+        ]
+    )
     bravyi_slice_correct = (bravyi_correct & slice).irred()
     bravyi_slice_wrong = (bravyi_wrong & slice).irred()
 
     vertices_correct = {(v[0], v[2]) for v in bravyi_slice_correct.vertices()}
     vertices_wrong = {(v[0], v[2]) for v in bravyi_slice_wrong.vertices()}
-    vertices_expected = {(QQ(str(x)), QQ(str(y)))
-                         for (x, y) in [
-                             ("8/10", "5/10"),
-                             ("5/10", "5/10"),
-                             ("5/10", "8/10"),
-                             ("9/10", "6/10"),
-                             ("9/10", "7/10"),
-                             ("6/10", "9/10"),
-                             ("7/10", "9/10"),
-                         ]}
+    vertices_expected = {
+        (QQ(str(x)), QQ(str(y)))
+        for (x, y) in [
+            ("8/10", "5/10"),
+            ("5/10", "5/10"),
+            ("5/10", "8/10"),
+            ("9/10", "6/10"),
+            ("9/10", "7/10"),
+            ("6/10", "9/10"),
+            ("7/10", "9/10"),
+        ]
+    }
     assert vertices_correct == vertices_expected
     assert vertices_wrong != vertices_expected
 
     # let's make it painfully clear
     # - klyachko claims that his inequalities hold if lambda_{A,1} >= lambda_{B,1}
     # - this is certainly true for the following test spectrum
-    wrong_spec = map(QQ, [
-        "95/100", "5/100", "65/100", "35/100", "6/10", "3/10", "1/10", 1, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0
-    ])
-    wrong_spec_223 = wrong_spec[:2 + 2 + 3]
+    wrong_spec = map(
+        QQ,
+        [
+            "95/100",
+            "5/100",
+            "65/100",
+            "35/100",
+            "6/10",
+            "3/10",
+            "1/10",
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+        ],
+    )
+    wrong_spec_223 = wrong_spec[: 2 + 2 + 3]
 
     # - check that this spectrum satisfies all of Klyachko's inequalities
     for (H, c) in third_party._klyachko_qmp_bare_ieqs(dims):
@@ -199,12 +225,12 @@ def test_klyachko_qmp_hrepr_22312_conjecture(algorithm):
 
     ieqs = third_party._klyachko_qmp_bare_ieqs(dims)
     for i, ieq in enumerate(ieqs):
-        logger.debug("testing inequality %d/%d...", i + 1, len(ieqs))\
-
+        logger.debug("testing inequality %d/%d...", i + 1, len(ieqs))
         # check that admissibility is just the same as being an extremal edge (in the situation of Klyachko)
         ok = is_admissible(R, ieq)
         assert ok == is_extremal_edge_ieq(
-            dims, ieq, assert_dominant=False, assert_primitive=False)
+            dims, ieq, assert_dominant=False, assert_primitive=False
+        )
 
         # check that we can prove all inequalities where the edge is in fact extremal
         if ok:
