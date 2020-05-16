@@ -4,24 +4,17 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Installation &#8212; moment_polytopes</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Quantum Marginal Problems" href="qmp.html" />
@@ -29,50 +22,53 @@
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
+  
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
-  </head>
-  <body>
+  </head><body>
   
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <div class="section" id="installation">
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
 <p>This package requires <a class="reference external" href="http://www.sagemath.org">SageMath</a> 7.5 or higher. It can be installed as follows:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>sage -i lrslib
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sage -i lrslib
 sage -pip install git+git://github.com/catch22/moment_polytopes
 </pre></div>
 </div>
-<p>To test your installation, download the <a class="reference download internal" href="_downloads/three_qubits.py" download=""><code class="xref download docutils literal"><span class="pre">three_qubits.py</span></code></a> example and run it as follows:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>sage three_qubits.py
+<p>To test your installation, download the <a class="reference download internal" download="" href="_downloads/5a691829acbe779275da2755c5c67ffc/three_qubits.py"><code class="xref download docutils literal notranslate"><span class="pre">three_qubits.py</span></code></a> example and run it as follows:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sage three_qubits.py
 </pre></div>
 </div>
 <div class="section" id="troubleshooting">
 <h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h2>
 <p>If on the second line you get an error message saying that “pip is configured with locations that require TLS/SSL, however the ssl module in Python is not available”, please run the following and retry:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>sage -i openssl
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sage -i openssl
 sage -f python2
 </pre></div>
 </div>
 </div>
 <div class="section" id="mathematica-integration">
 <h2>Mathematica Integration<a class="headerlink" href="#mathematica-integration" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference external" href="https://www.wolfram.com/mathematica/">Wolfram Mathematica</a> contains some clever heuristics for evaluating determinants of polynomial matrices, and we provide the <code class="docutils literal"><span class="pre">mathematica</span></code> algorithm in <code class="xref py py-func docutils literal"><span class="pre">moment_polytopes.ressayre_tester()</span></code> etc. to leverage its functionality.</p>
-<p>To use it, Mathematica needs to be installed and the <code class="docutils literal"><span class="pre">math</span></code> executable has to be available in the current <code class="docutils literal"><span class="pre">PATH</span></code>. Run <code class="docutils literal"><span class="pre">print</span> <span class="pre">mathematica._install_hints()</span></code> at the <code class="docutils literal"><span class="pre">sage</span></code> prompt for further information on how to set up SageMath’s Mathematica integration.</p>
+<p><a class="reference external" href="https://www.wolfram.com/mathematica/">Wolfram Mathematica</a> contains some clever heuristics for evaluating determinants of polynomial matrices, and we provide the <code class="docutils literal notranslate"><span class="pre">mathematica</span></code> algorithm in <code class="xref py py-func docutils literal notranslate"><span class="pre">moment_polytopes.ressayre_tester()</span></code> etc. to leverage its functionality.</p>
+<p>To use it, Mathematica needs to be installed and the <code class="docutils literal notranslate"><span class="pre">math</span></code> executable has to be available in the current <code class="docutils literal notranslate"><span class="pre">PATH</span></code>. Run <code class="docutils literal notranslate"><span class="pre">print</span> <span class="pre">mathematica._install_hints()</span></code> at the <code class="docutils literal notranslate"><span class="pre">sage</span></code> prompt for further information on how to set up SageMath’s Mathematica integration.</p>
 </div>
 </div>
 
 
           </div>
+          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
+  <h3><a href="index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Installation</a><ul>
 <li><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
@@ -91,12 +87,14 @@ sage -f python2
 </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -104,7 +102,7 @@ sage -f python2
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &copy;2014-2018 Michael Walter.
+      &copy;2014-2020 Michael Walter.
       
     </div>
 

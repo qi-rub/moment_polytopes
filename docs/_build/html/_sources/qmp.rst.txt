@@ -11,7 +11,7 @@ subject. Mathematically, these are given by the Kronecker polytopes
 of some :math:`\times_i GL(d_i)` on
 :math:`\bigotimes_i \mathbb C^{d_i}`.
 
-.. code:: python
+.. code:: ipython2
 
     #import logging
     #reload(logging)
@@ -22,7 +22,7 @@ of some :math:`\times_i GL(d_i)` on
 :math:`C(4,4,4)`
 ----------------
 
-.. code:: python
+.. code:: ipython2
 
     qmp.pretty((4, 4, 4), algorithm='mathematica')
 
@@ -171,14 +171,14 @@ of some :math:`\times_i GL(d_i)` on
 :math:`C(2,2,3,12)`
 -------------------
 
-.. code:: python
+.. code:: ipython2
 
     #qmp.pretty((2, 2, 3, 12), algorithm='mathematica', show_vrepr=False)
 
 Further Examples
 ----------------
 
-.. code:: python
+.. code:: ipython2
 
     qmp.pretty((2, 2, 2))
 
@@ -214,7 +214,7 @@ Further Examples
 
 
 
-.. code:: python
+.. code:: ipython2
 
     qmp.pretty((2, 2, 4))
 
@@ -262,7 +262,7 @@ Further Examples
 
 
 
-.. code:: python
+.. code:: ipython2
 
     qmp.pretty((2, 2, 2, 8))
 
@@ -344,11 +344,11 @@ Further Examples
 
 
 
-.. code:: python
+.. code:: ipython2
 
     #qmp.pretty((2, 2, 2, 2, 16), algorithm='mathematica', show_vrepr=False)
 
-.. code:: python
+.. code:: ipython2
 
     qmp.pretty((3, 3, 9), algorithm='mathematica', show_vrepr=False)
 
@@ -581,7 +581,7 @@ Further Examples
 
 
 
-.. code:: python
+.. code:: ipython2
 
     qmp.pretty((2, 3, 6))
 
@@ -718,7 +718,7 @@ Further Examples
 
 
 
-.. code:: python
+.. code:: ipython2
 
     qmp.pretty((2, 4, 8), algorithm='mathematica', show_vrepr=False)
 
