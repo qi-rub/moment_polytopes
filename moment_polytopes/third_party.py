@@ -24,21 +24,21 @@ KLYACHKO_FERMI_DATA = {
     (
         3,
         6,
-    ): u"""λ 1 + λ 6 = 1
+    ): """λ 1 + λ 6 = 1
        λ 2 + λ 5 = 1
        λ 3 + λ 4 = 1
        λ 4 - λ 5 - λ 6 ≤ 0""",
     (
         3,
         7,
-    ): u"""λ 2 + λ 3 + λ 4 + λ 5 ≤ 2
+    ): """λ 2 + λ 3 + λ 4 + λ 5 ≤ 2
        λ 1 + λ 3 + λ 4 + λ 6 ≤ 2
        λ 1 + λ 2 + λ 4 + λ 7 ≤ 2
        λ 1 + λ 2 + λ 5 + λ 6 ≤ 2""",
     (
         3,
         8,
-    ): u"""λ 2 + λ 3 + λ 4 + λ 5 ≤ 2
+    ): """λ 2 + λ 3 + λ 4 + λ 5 ≤ 2
        λ 1 + λ 2 + λ 4 + λ 7 ≤ 2
        λ 1 + λ 3 + λ 4 + λ 6 ≤ 2
        λ 1 + λ 2 + λ 5 + λ 6 ≤ 2
@@ -72,7 +72,7 @@ KLYACHKO_FERMI_DATA = {
     (
         4,
         8,
-    ): u"""λ 1 ≤ 1
+    ): """λ 1 ≤ 1
        λ 5 − λ 6 − λ 7 − λ 8 ≤ 0
        λ 1 − λ 2 − λ 7 − λ 8 ≤ 0
        λ 1 − λ 3 − λ 6 − λ 8 ≤ 0
@@ -96,7 +96,7 @@ KLYACHKO_FERMI_SCENARIOS = sorted(KLYACHKO_FERMI_DATA.keys())
 def _parse_fermi_ieq(d, s, split_at):
     """Parse a fermionic inequality in Klyachko's format."""
     H = [0] * d
-    s = s.rstrip(" ,.").replace(u"−", "-").replace(u"λ", " A").replace(u"-A", "- A")
+    s = s.rstrip(" ,.").replace("−", "-").replace("λ", " A").replace("-A", "- A")
     lhs, rhs = map(lambda s: str(s).strip(), s.split(split_at))
     if lhs[0] not in ["+", "-"]:
         lhs = "+ " + lhs
@@ -136,7 +136,7 @@ def klyachko_fermi_hrepr(n, d, bare=False):
         if is_equation:
             eqns.append(_parse_fermi_ieq(d, line, "="))
         else:
-            ieqs.append(_parse_fermi_ieq(d, line, u"≤"))
+            ieqs.append(_parse_fermi_ieq(d, line, "≤"))
     hrepr = HRepr(ieqs=ieqs, eqns=eqns)
 
     # intersect with reduced Weyl chamber
@@ -153,7 +153,7 @@ KLYACHKO_QMP_DATA = {
         3,
         2,
         6,
-    ): u"""µ 1 − µ 2 ≤ ν 1 + ν 2 + ν 3 − ν 4 − ν 5 − ν 6 .
+    ): """µ 1 − µ 2 ≤ ν 1 + ν 2 + ν 3 − ν 4 − ν 5 − ν 6 .
     λ 1 + λ 2 − 2λ 3 ≤ ν 1 + ν 2 + ν 3 + ν 4 − 2ν 5 − 2ν 6 ,
     λ 2 + λ 3 − 2λ 1 ≤ ν 1 + ν 2 + ν 3 + ν 6 − 2ν 4 − 2ν 5 .
     2λ 1 − λ 2 − λ 3 ≤ 2ν 1 + 2ν 2 − ν 3 − ν 4 − ν 5 − ν 6 ,
@@ -198,7 +198,7 @@ KLYACHKO_QMP_DATA = {
         4,
         2,
         8,
-    ): u"""µ 1 − µ 2 ≤ ν 1 + ν 2 + ν 3 + ν 4 − ν 5 − ν 6 − ν 7 − ν 8 .
+    ): """µ 1 − µ 2 ≤ ν 1 + ν 2 + ν 3 + ν 4 − ν 5 − ν 6 − ν 7 − ν 8 .
     λ 1 + λ 2 − λ 3 − λ 4 ≤ ν 1 + ν 2 + ν 3 + ν 4 − ν 5 − ν 6 − ν 7 − ν 8 ,
     λ 1 + λ 4 − λ 2 − λ 3 ≤ ν 1 + ν 2 + ν 4 + ν 5 − ν 3 − ν 6 − ν 7 − ν 8 ,
     λ 2 + λ 3 − λ 1 − λ 4 ≤ ν 1 + ν 2 + ν 3 + ν 6 − ν 4 − ν 5 − ν 7 − ν 8 ,
@@ -437,7 +437,7 @@ KLYACHKO_QMP_DATA = {
         2,
         3,
         12,
-    ): u"""λ 1 − λ 2 ≤ ρ 1 + ρ 2 + ρ 3 + ρ 4 + ρ 5 + ρ 6 − ρ 7 − ρ 8 − ρ 9 − ρ 10 − ρ 11 − ρ 12 .
+    ): """λ 1 − λ 2 ≤ ρ 1 + ρ 2 + ρ 3 + ρ 4 + ρ 5 + ρ 6 − ρ 7 − ρ 8 − ρ 9 − ρ 10 − ρ 11 − ρ 12 .
     2ν 1 − ν 2 − ν 3 ≤ 2ρ 1 + 2ρ 2 + 2ρ 3 + 2ρ 4 − ρ 5 − ρ 6 − ρ 7 − ρ 8 − ρ 9 − ρ 10 − ρ 11 − ρ 12 .
     ν 1 + ν 2 − 2ν 3 ≤ ρ 1 + ρ 2 + ρ 3 + ρ 4 + ρ 5 + ρ 6 + ρ 7 + ρ 8 − 2ρ 9 − 2ρ 10 − 2ρ 11 − 2ρ 12 .
     λ 1 − λ 2 + µ 1 − µ 2 ≤ 2ρ 1 + 2ρ 2 + 2ρ 3 − 2ρ 10 − 2ρ 11 − 2ρ 12
@@ -673,7 +673,7 @@ KLYACHKO_QMP_DATA = {
         3,
         3,
         9,
-    ): u"""2λ 1 − λ 2 − λ 3 ≤ 2ν 1 + 2ν 2 + 2ν 3 − ν 4 − ν 5 − ν 6 − ν 7 − ν 8 − ν 9 ,
+    ): """2λ 1 − λ 2 − λ 3 ≤ 2ν 1 + 2ν 2 + 2ν 3 − ν 4 − ν 5 − ν 6 − ν 7 − ν 8 − ν 9 ,
     λ 1 + λ 2 − 2λ 3 ≤ ν 1 + ν 2 + ν 3 + ν 4 + ν 5 + ν 6 − 2ν 7 − 2ν 8 − 2ν 9 ,
     λ 1 + λ 2 − 2λ 3 + µ 1 + µ 2 − 2µ 3 ≤ 2ν 1 + 2ν 2 + 2ν 3 + 2ν 4 − ν 5 − ν 6 − ν 7 − ν 8 − 4ν 9 ,
     λ 1 + λ 2 − 2λ 3 + µ 1 + µ 3 − 2µ 2 ≤ 2ν 1 + 2ν 2 + 2ν 3 + 2ν 4 − ν 5 − ν 6 − ν 7 − ν 9 − 4ν 8 ,
@@ -876,7 +876,7 @@ KLYACHKO_QMP_DATA = {
         2,
         2,
         16,
-    ): u"""# QUBIT_COORDS 0 1 2 3
+    ): """# QUBIT_COORDS 0 1 2 3
 
     2ρ ≤ τ 1 + τ 2 + τ 3 + τ 4 + τ 5 + τ 6 + τ 7 + τ 8 − τ 9 − τ 10 − τ 11 − τ 12 − τ 13 − τ 14 − τ 15 − τ 16 ,
     2ν + 2ρ ≤ 2τ 1 + 2τ 2 + 2τ 3 + 2τ 4 − 2τ 13 − 2τ 14 − 2τ 15 − 2τ 16 ,
@@ -968,14 +968,14 @@ def _parse_mixed_ieq(dims, s, qubit_coords=[]):
 
     s = (
         s.rstrip(" ,.")
-        .replace(u"−", "-")
-        .replace(u"λ", " A")
-        .replace(u"µ", " B")
-        .replace(u"ν", " C")
-        .replace(u"ρ", " D")
-        .replace(u"τ", " E")
+        .replace("−", "-")
+        .replace("λ", " A")
+        .replace("µ", " B")
+        .replace("ν", " C")
+        .replace("ρ", " D")
+        .replace("τ", " E")
     )
-    lhs, rhs = map(lambda s: str(s).strip(), s.split(u"≤"))
+    lhs, rhs = map(lambda s: str(s).strip(), s.split("≤"))
     p("+ " + lhs, -1)
     p("+ " + rhs, 1)
     return (vector(v), 0)
@@ -996,7 +996,7 @@ def _klyachko_qmp_bare_ieqs(dims):
         # single qubit coordinate metadata?
         _, sep, after = line.partition("# QUBIT_COORDS")
         if sep:
-            qubit_coords = map(int, after.split())
+            qubit_coords = list(map(int, after.split()))
             continue
 
         # parse ieq
@@ -1112,7 +1112,7 @@ def higuchi_hrepr(num_qubits=3):
 
 
 def bravyi_hrepr():
-    """Return moment polytope for :math:`\mathbb C^2 \otimes \mathbb C^2 \otimes \mathbb C^4` computed by `Bravyi (2004) <https://arxiv.org/abs/quant-ph/0301014>`_.
+    r"""Return moment polytope for :math:`\mathbb C^2 \otimes \mathbb C^2 \otimes \mathbb C^4` computed by `Bravyi (2004) <https://arxiv.org/abs/quant-ph/0301014>`_.
 
     :rtype: :class:`moment_polytopes.HRepr`
     """
@@ -1137,11 +1137,10 @@ def bravyi_hrepr():
 
 
 def franz_hrepr():
-    """Return moment polytope for :math:`\mathbb C^3 \otimes \mathbb C^3 \otimes \mathbb C^3` computed by `Franz (2002) <http://www.emis.de/journals/JLT/vol.12_no.2/16.html>`_.
+    r"""Return moment polytope for :math:`\mathbb C^3 \otimes \mathbb C^3 \otimes \mathbb C^3` computed by `Franz (2002) <http://www.emis.de/journals/JLT/vol.12_no.2/16.html>`_.
 
     :rtype: :class:`moment_polytopes.HRepr`
     """
-    """Return H-representation of the Franz polytope for 3x3x3."""
     dims = [3, 3, 3]
     stab = StabilizerGroup(dims)
 

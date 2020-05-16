@@ -163,12 +163,12 @@ class WeylModule(Representation):
         self.root_system = RootSystem(["A", d - 1])
         ambient_space = self.root_system.ambient_space()
         self._simple_roots = [vector(ZZ, d, {i: 1, i + 1: -1}) for i in range(d - 1)]
-        self.negative_roots = map(vector, ambient_space.negative_roots())
+        self.negative_roots = list(map(vector, ambient_space.negative_roots()))
         self.weights = [vector(p.weight()) for p in self.patterns]
         self.reduced_eqns = [(vector([1] * d), sum(self.highest_weight))]
 
         # make each pattern a list of lists (since GelfandTsetlinPattern do not compare well)
-        self.patterns = [map(list, p) for p in self.patterns]
+        self.patterns = [list(map(list, p)) for p in self.patterns]
 
         # compute norm square of (unnormalized) Gelfand-Tsetlin basis vectors
         self._norm_squares = []

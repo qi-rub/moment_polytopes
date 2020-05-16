@@ -91,7 +91,8 @@ class HRepr(object):
 
     def __init__(self, ieqs=[], eqns=[], ambient_dim=None):
         # convert H to sage vectors/scalars, and sort lexicographically
-        def convert((H, c)):
+        def convert(Hc):
+            H, c = Hc
             return (vector(QQ, H), QQ(c))
 
         #: The inequalities.
@@ -175,7 +176,7 @@ class HRepr(object):
         """
         vrepr = self.vrepr()
         if len(vrepr.rays) > 0 or len(vrepr.lines) > 0:
-            raise ValueError, "Polyhedron has extremal rays."
+            raise ValueError("Polyhedron has extremal rays.")
         return vrepr.vertices
 
     def __and__(self, rhs):
@@ -203,7 +204,8 @@ class HRepr(object):
         if self.eqns or self.ieqs:
             logger.debug("Converting HRepr to Sage Polyhedron")
 
-            def convert((H, c)):
+            def convert(Hc):
+                H, c = Hc
                 return [-c] + list(H)
 
             ieqs = map(convert, self.ieqs)
@@ -268,7 +270,7 @@ class HRepr(object):
         if lines[0].startswith("linearity"):
             lin = lines.pop(0).split()
             assert lin[0] == "linearity"
-            lin = map(int, lin[1:])
+            lin = list(map(int, lin[1:]))
             assert len(lin) == lin[0] + 1
             lin = lin[1:]
         else:
@@ -285,7 +287,7 @@ class HRepr(object):
         for i, line in enumerate(lines):
             if line == "end":
                 break
-            line = map(QQ, line.split())
+            line = list(map(QQ, line.split()))
             c = -line[0]
             H = vector(line[1:])
             if (i + 1) in lin:
@@ -443,7 +445,7 @@ class VRepr(object):
         if lines[0].startswith("linearity"):
             lin = lines.pop(0).split()
             assert lin[0] == "linearity"
-            lin = map(int, lin[1:])
+            lin = list(map(int, lin[1:]))
             assert len(lin) == lin[0] + 1
             lin = lin[1:]
         else:

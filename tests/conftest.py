@@ -21,6 +21,7 @@ def pytest_addoption(parser):
 
 
 def pytest_configure(config):
+    config.addinivalue_line("markers", "slow: mark test as slow to run")
     if config.getoption("--disable-disk-cache"):
         print("Disk cache disabled")
         moment_polytopes.disk_cache.DISABLED = True

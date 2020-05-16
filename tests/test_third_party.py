@@ -125,7 +125,8 @@ def test_klyachko_vs_bravyi():
 
 def test_klyachko_qmp_22312_wrong():
     # load the inequalities for 3x2x6 and slice with 2x2x3 to get the Bravyi inequalities for mixed states of rank <= 3
-    def proj((H, c)):
+    def proj(Hc):
+        H, c = Hc
         return list(H[:2]) + list(H[3:8]), c
 
     bravyi_correct = third_party.klyachko_qmp_hrepr([3, 2, 6]).map(proj).irred()
@@ -139,7 +140,8 @@ def test_klyachko_qmp_22312_wrong():
         & external_tensor_product(dims).reduced_positive_weyl_chamber_hrepr
     )
 
-    def proj((H, c)):
+    def proj(Hc):
+        H, c = Hc
         return H[: 2 + 2 + 3], c - H[7]
 
     # bravyi_wrong = klyachko_qmp_hrepr(dims).map(proj).irred()
@@ -201,6 +203,7 @@ def test_klyachko_qmp_22312_wrong():
             0,
         ],
     )
+    wrong_spec = list(wrong_spec)
     wrong_spec_223 = wrong_spec[: 2 + 2 + 3]
 
     # - check that this spectrum satisfies all of Klyachko's inequalities

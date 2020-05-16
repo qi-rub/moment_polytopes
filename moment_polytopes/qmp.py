@@ -141,7 +141,7 @@ def H_dominant_admissible(dims, include_perms=True):
 
 @disk_cache
 def H_candidates(dims, include_perms=True):
-    """Return candidates for Ressayre elements (all conditions except determinant condition).
+    r"""Return candidates for Ressayre elements (all conditions except determinant condition).
 
     :param dims: dimensions :math:`d_1,\dots,d_n` of the tensor factors.
     :param include_perms: if ``True``, include permutations of the :math:`n` subsystems.
@@ -178,7 +178,7 @@ def H_candidates(dims, include_perms=True):
         antishuffle_tuples = set()
         for antilength_tuple in antilength_tuples:
             for antishuffle_tuple in cartesian_product(
-                map(antishuffles, hs_dominant, antilength_tuple)
+                list(map(antishuffles, hs_dominant, antilength_tuple))
             ):
                 antishuffle_tuples.add(hs_stab.normal_form(antishuffle_tuple))
 
@@ -193,7 +193,7 @@ def H_candidates(dims, include_perms=True):
 
 @disk_cache
 def H_ressayre(dims, include_perms=True, **kwargs):
-    """Return all Ressayre elements for representation of :math:`\times_i GL(d_i)` on :math:`\bigotimes_i \mathbb C^{d_i}`.
+    r"""Return all Ressayre elements for representation of :math:`\times_i GL(d_i)` on :math:`\bigotimes_i \mathbb C^{d_i}`.
 
     :param dims: dimensions :math:`d_1,\dots,d_n` of the tensor factors.
     :param include_perms: if ``True``, include permutations of the :math:`n` subsystems.
@@ -286,7 +286,7 @@ def facet_normal_form(dims, ieq):
 
 
 def ieqs_wo_perms(dims, ieqs):
-    """Returns list of inequalities up to permutations of subsystems.
+    r"""Returns list of inequalities up to permutations of subsystems.
 
     :param dims: the dimensions :math:`d_1,\dots,d_n`.
     :param ieqs: list of inequalities :math:`(H,c)`.
@@ -310,7 +310,7 @@ def ieqs_wo_perms(dims, ieqs):
 
 
 def vertices_wo_perms(dims, vertices):
-    """Returns list of vertices up to permutations of subsystems.
+    r"""Returns list of vertices up to permutations of subsystems.
 
     :param dims: the dimensions :math:`d_1,\dots,d_n`.
     :param vertices: list of vertices.
@@ -330,7 +330,7 @@ def vertices_wo_perms(dims, vertices):
 
 
 class PrettyPrinter(object):
-    """Pretty-print moment polytope for pure-state quantum marginal problem.
+    r"""Pretty-print moment polytope for pure-state quantum marginal problem.
 
     :param dims: dimensions :math:`d_1,\dots,d_n` of the tensor factors.
     :param show_hrepr: show H-representation.
@@ -348,7 +348,7 @@ class PrettyPrinter(object):
         show_vrepr=True,
         include_perms=False,
         subsystem_labels=None,
-        **kwargs
+        **kwargs,
     ):
         self.dims = dims
         self.subsystem_labels = (

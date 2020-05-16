@@ -61,7 +61,7 @@ def test_overflow_expectations():
     import numpy as np
 
     N = factorial(171)
-    assert isinstance(N, long)
+    # assert isinstance(N, long)
 
     with pytest.raises(OverflowError):
         np.array([N], dtype=np.int)

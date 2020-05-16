@@ -17,10 +17,9 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-import ast, re
-import datetime
+import ast, re, sys, datetime, os.path
 
-# sys.path.insert(0, os.path.abspath('.'))
+sys.path.insert(0, os.path.abspath(".."))
 
 # -- General configuration ------------------------------------------------
 
@@ -32,37 +31,37 @@ import datetime
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    'sphinx.ext.autodoc',
-    'sphinx.ext.intersphinx',
-    'sphinx.ext.mathjax',
-    'sphinx.ext.githubpages',
+    "sphinx.ext.autodoc",
+    "sphinx.ext.intersphinx",
+    "sphinx.ext.mathjax",
+    "sphinx.ext.githubpages",
 ]
 
 # Add any paths that contain templates here, relative to this directory.
-templates_path = ['_templates']
+templates_path = ["_templates"]
 
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
 #
 # source_suffix = ['.rst', '.md']
-source_suffix = '.rst'
+source_suffix = ".rst"
 
 # The master toctree document.
-master_doc = 'index'
+master_doc = "index"
 
 # General information about the project.
-project = 'moment_polytopes'
-copyright = '2014-%d Michael Walter' % datetime.datetime.utcnow().year
-author = 'Michael Walter'
+project = "moment_polytopes"
+copyright = "2014-%d Michael Walter" % datetime.datetime.utcnow().year
+author = "Michael Walter"
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
 # built documents.
 #
 # determine version (adapted from mitsuhiko)
-VERSION_RE = re.compile(r'__version__\s+=\s+(.*)')
-with open('../moment_polytopes/__init__.py', 'rb') as f:
-    version = VERSION_RE.search(f.read().decode('utf-8')).group(1)
+VERSION_RE = re.compile(r"__version__\s+=\s+(.*)")
+with open("../moment_polytopes/__init__.py", "rb") as f:
+    version = VERSION_RE.search(f.read().decode("utf-8")).group(1)
     version = str(ast.literal_eval(version))
 
 # The full version, including alpha/beta/rc tags.
@@ -78,50 +77,50 @@ language = None
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This patterns also effect to html_static_path and html_extra_path
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', '**.ipynb_checkpoints']
+exclude_patterns = ["_build", "Thumbs.db", ".DS_Store", "**.ipynb_checkpoints"]
 
 # The name of the Pygments (syntax highlighting) style to use.
-pygments_style = 'sphinx'
+pygments_style = "sphinx"
 
 # If true, `todo` and `todoList` produce output, else they produce nothing.
 todo_include_todos = False
 
 # -- Options for HTML output ----------------------------------------------
 
-html_title = 'moment_polytopes'
+html_title = "moment_polytopes"
 html_show_sourcelink = False
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'alabaster'
+html_theme = "alabaster"
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
 #
 html_theme_options = {
-    'github_user': 'catch22',
-    'github_repo': 'moment_polytopes',
+    "github_user": "catch22",
+    "github_repo": "moment_polytopes",
     # 'github_button': 'true',
-    'github_banner': 'true',
-    'show_powered_by': 'false',
-    'font_size': '14px',
+    "github_banner": "true",
+    "show_powered_by": "false",
+    "font_size": "14px",
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['_static']
+html_static_path = ["_static"]
 
 html_sidebars = {
-    'index': ['about.html', 'searchbox.html'],
-    '**': ['localtoc.html', 'relations.html', 'searchbox.html']
+    "index": ["about.html", "searchbox.html"],
+    "**": ["localtoc.html", "relations.html", "searchbox.html"],
 }
 # -- Options for HTMLHelp output ------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'moment_polytopesdoc'
+htmlhelp_basename = "moment_polytopesdoc"
 
 # -- Options for LaTeX output ---------------------------------------------
 
@@ -129,15 +128,12 @@ latex_elements = {
     # The paper size ('letterpaper' or 'a4paper').
     #
     # 'papersize': 'letterpaper',
-
     # The font size ('10pt', '11pt' or '12pt').
     #
     # 'pointsize': '10pt',
-
     # Additional stuff for the LaTeX preamble.
     #
     # 'preamble': '',
-
     # Latex figure (float) alignment
     #
     # 'figure_align': 'htbp',
@@ -147,16 +143,22 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'moment_polytopes.tex', 'moment\\_polytopes documentation',
-     'Michael Walter', 'manual'),
+    (
+        master_doc,
+        "moment_polytopes.tex",
+        "moment\\_polytopes documentation",
+        "Michael Walter",
+        "manual",
+    ),
 ]
 
 # -- Options for manual page output ---------------------------------------
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
-man_pages = [(master_doc, 'moment_polytopes', 'moment_polytopes documentation',
-              [author], 1)]
+man_pages = [
+    (master_doc, "moment_polytopes", "moment_polytopes documentation", [author], 1)
+]
 
 # -- Options for Texinfo output -------------------------------------------
 
@@ -169,4 +171,4 @@ man_pages = [(master_doc, 'moment_polytopes', 'moment_polytopes documentation',
 # ]
 
 # Example configuration for intersphinx: refer to the Python standard library.
-intersphinx_mapping = {'https://docs.python.org/': None}
+intersphinx_mapping = {"https://docs.python.org/": None}

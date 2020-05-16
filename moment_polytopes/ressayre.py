@@ -85,7 +85,7 @@ class RessayreTester(object):
 
         # proceed block by block...
         logger.debug("need to compute %d determinants...", len(n_neg))
-        for weight, n_neg_block in n_neg.iteritems():
+        for weight, n_neg_block in n_neg.items():
             # only nonzero blocks without mismatches should appear
             M_neg_block = M_neg[weight]
             assert len(M_neg_block) == len(n_neg_block) > 0
@@ -164,7 +164,7 @@ class ProbabilisticRessayreTester(RessayreTester):
             zs = random_vector(ZZ, self.representation.dimension, N * d)
 
             # build tangent map n_-(H < 0 | weight) ----> M(H - c < 0 | weight) at that point
-            T = sum(T * zs[j] for (j, T) in Ts.iteritems())
+            T = sum(T * zs[j] for (j, T) in Ts.items())
 
             # return if non-zero (otherwise keep trying)
             det = T.determinant()
@@ -178,12 +178,12 @@ class SageRessayreTester(RessayreTester):
     def __init__(self, R):
         super(SageRessayreTester, self).__init__(R)
 
-        PR = PolynomialRing(ZZ, len(R.weights), b"z")
+        PR = PolynomialRing(ZZ, len(R.weights), "z")
         self.zs = PR.gens()
         """Polynomial variables for each weight vector."""
 
     def det(self, Ts, d):
-        T = sum(T * self.zs[j] for (j, T) in Ts.iteritems())
+        T = sum(T * self.zs[j] for (j, T) in Ts.items())
         return T.determinant()
 
 
@@ -191,12 +191,12 @@ class MathematicaRessayreTester(RessayreTester):
     def __init__(self, R):
         super(MathematicaRessayreTester, self).__init__(R)
 
-        PR = PolynomialRing(ZZ, len(R.weights), b"z")
+        PR = PolynomialRing(ZZ, len(R.weights), "z")
         self.zs = PR.gens()
         """Polynomial variables for each weight vector."""
 
     def det(self, Ts, d):
-        T = sum(T * self.zs[j] for (j, T) in Ts.iteritems())
+        T = sum(T * self.zs[j] for (j, T) in Ts.items())
         return mathematica(T).Det().sage()
 
 
@@ -318,7 +318,7 @@ def c_candidates(R, H):
 
     # test all possible values of c
     cs = set()
-    for c, weights in weights_by_c.iteritems():
+    for c, weights in weights_by_c.items():
         # impossible?
         if len(weights) < R.dimension_affine_hull_weights:
             continue

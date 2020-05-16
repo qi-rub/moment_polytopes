@@ -1,6 +1,6 @@
 from __future__ import absolute_import, print_function
 import logging, os.path
-import cPickle as pickle
+import pickle
 from functools import wraps
 from . import __name__ as package_name
 from . import __version__ as package_version

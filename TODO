@@ -1,3 +1,4 @@
+- get rid of "from __future__ import ..."
 - generate remaining inequalities and compare with below (maybe probabilistic only)
 - distribute the disk_cache?
 - determinant might be faster when using QQ?

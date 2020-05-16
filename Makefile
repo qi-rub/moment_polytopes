@@ -6,7 +6,7 @@ test:
 	SAGE_PATH=. sage -python -m pytest $(TEST_FLAGS)
 
 docs:
-	SAGE_PATH=. sage -ipython nbconvert examples/qmp.ipynb --to rst
+	SAGE_PATH=. sage -jupyter nbconvert examples/qmp.ipynb --to rst
 	mv examples/qmp.rst docs/qmp.rst
 	SAGE_PATH=. make -C docs html
 

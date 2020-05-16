@@ -37,7 +37,7 @@ logger = logging.getLogger(__name__)
 
 @disk_cache
 def rect_tableaux(a, b):
-    """Return all rectangular standard Young tableaux of shape :math:`a \\times b`.
+    r"""Return all rectangular standard Young tableaux of shape :math:`a \times b`.
 
     :param a: number of rows
     :param b: number of columns
@@ -45,11 +45,11 @@ def rect_tableaux(a, b):
     """
     from sage.all import StandardTableaux
 
-    return map(list, StandardTableaux([b] * a))
+    return list(map(list, StandardTableaux([b] * a)))
 
 
 def cubicle(T):
-    """Return Sage :class:`sage.Polyhedron` representing the cubicle that corresponds to the given rectangular tableaux T (if any).
+    r"""Return Sage :class:`sage.Polyhedron` representing the cubicle that corresponds to the given rectangular tableaux T (if any).
     This is the maximal-dimensional polytope defined by
 
     .. math::
@@ -106,7 +106,7 @@ def cubicle(T):
 
 @disk_cache
 def cubicle_tableaux(a, b):
-    """Return list of tableaux corresponding to cubicles for :math:`a \\times b`.
+    r"""Return list of tableaux corresponding to cubicles for :math:`a \times b`.
 
     :param a: number of rows
     :param b: number of columns
@@ -128,12 +128,12 @@ def is_dominant(v):
 def is_extremal_edge(
     dims, V, assert_dominant=True, assert_primitive=True, assert_traceless=True
 ):
-    """Determine whether given vector is an extremal edge. That is, verify whether :math:`V=(H_1,\dots,H_n)` is
+    r"""Determine whether given vector is an extremal edge. That is, verify whether :math:`V=(H_1,\dots,H_n)` is
 
     - dominant
     - primitive
     - traceless
-    - admissible for the system :math:`C(d_1,\dots,d_n)` of restricted roots for :math:`SU(d_1) \\times \dots \\times SU(d_n) \\to SU(\prod_i d_i)`
+    - admissible for the system :math:`C(d_1,\dots,d_n)` of restricted roots for :math:`SU(d_1) \times \dots \times SU(d_n) \to SU(\prod_i d_i)`
 
     :param dims: dimensions :math:`d_1,\dots,d_n` of local unitary group.
     :param V: vector of length :math:`\sum_i d_i` to test.
@@ -162,7 +162,7 @@ def is_extremal_edge(
 
     # build dictionary storing all indices with same sum of components
     indices_by_sum = defaultdict(list)
-    for indices in cartesian_product(map(range, dims)):
+    for indices in cartesian_product(list(map(range, dims))):
         s = sum(v[i] for (v, i) in zip(vs, indices))
         indices_by_sum[s].append(indices)
 
@@ -197,7 +197,7 @@ def is_extremal_edge(
 def is_extremal_edge_ieq(
     dims, ieq, assert_dominant=True, assert_primitive=True, assert_traceless=True
 ):
-    """Check whether given inequality corresponds to an extremal edge (see :func:`is_extremal_edge`).
+    r"""Check whether given inequality corresponds to an extremal edge (see :func:`is_extremal_edge`).
 
     :param dims: dimensions :math:`d_1,\dots,d_n` of local unitary group.
     :param ieq: inequality :math:`(H,c)` to test. We require that :math:`c=0`.
@@ -230,11 +230,11 @@ def is_extremal_edge_ieq(
 
 @disk_cache
 def _extremal_edges_bipartite(a, b, include_perms=True):
-    """Returns extremal edges for :math:`a \\times b`, i.e., the finite list of all vectors :math:`(H_A, H_B)` that are
+    r"""Returns extremal edges for :math:`a \times b`, i.e., the finite list of all vectors :math:`(H_A, H_B)` that are
 
     - dominant
     - primitive
-    - admissible for the system :math:`C(a, b)` of restricted roots for :math:`SU(a) \\times SU(b) \\to SU(ab)`
+    - admissible for the system :math:`C(a, b)` of restricted roots for :math:`SU(a) \times SU(b) \to SU(ab)`
     """
     # collect extremal edges
     edges = set()
@@ -258,7 +258,7 @@ def _extremal_edges_bipartite(a, b, include_perms=True):
 
     # make edges primitive in dual root lattice
     root_system = [["A", a - 1], ["A", b - 1]]
-    return map(lambda e: dual_root_primitive(root_system, e), edges)
+    return list(map(lambda e: dual_root_primitive(root_system, e), edges))
 
 
 @disk_cache
@@ -279,7 +279,7 @@ def _extremal_edges_generic(dims, include_perms=True):
         return vector(sum(map(e, indices, dims), []))
 
     # compute all restricted roots (up to sign)
-    basis = map(tuple, cartesian_product(map(range, dims)))
+    basis = map(tuple, cartesian_product(list(map(range, dims))))
     restricted_roots = []
     for i, j in Subsets(basis, 2):
         alpha = tuple(omega(i) - omega(j))
@@ -335,11 +335,11 @@ def _extremal_edges_generic(dims, include_perms=True):
     # post-process edges
     # make edges primitive in dual root lattice
     root_system = [["A", d - 1] for d in dims]
-    return map(lambda r: dual_root_primitive(root_system, r), rays)
+    return list(map(lambda r: dual_root_primitive(root_system, r), rays))
 
 
 def extremal_edges(dims, include_perms=True, algorithm=None):
-    """Returns extremal edges for ``dims`` (see :func:`is_extremal_edge`).
+    r"""Returns extremal edges for ``dims`` (see :func:`is_extremal_edge`).
 
     :param dims: dimensions :math:`d_1,\dots,d_n` of local unitary group.
     :param algorithm: ``None``, ``'bipartite'``, or ``'generic'``.
@@ -381,7 +381,7 @@ def perms_of_length(n, length):
                 x = S[i]
                 gen(S[0:i] + S[i + 1 :], l - n + (i + 1), [x] + suffix)
 
-    gen(S=range(1, n + 1), l=length)
+    gen(S=list(range(1, n + 1)), l=length)
     return result
 
 
@@ -396,7 +396,7 @@ def length_tuples(dims, total):
     :rtype: generator of tuples of integers
     """
     # compute maximal lengths
-    max_lengths = [d * (d - 1) / 2 for d in dims]
+    max_lengths = [d * (d - 1) // 2 for d in dims]
     ranges = [range(0, min(m + 1, total + 1)) for m in max_lengths[:-1]]
     for most in cartesian_product(ranges):
         last = total - sum(most)
@@ -405,7 +405,7 @@ def length_tuples(dims, total):
 
 
 def is_shuffle(pi, v):
-    """Check if the permutation ``pi`` is a shuffle with respect to the dominant element ``v``, i.e.,
+    r"""Check if the permutation ``pi`` is a shuffle with respect to the dominant element ``v``, i.e.,
 
     .. math::
 
@@ -420,7 +420,7 @@ def is_shuffle(pi, v):
 
 
 def is_antishuffle(pi, v):
-    """Check if the permutation ``pi`` is an antishuffle with respect to the dominant element ``v``, i.e.,
+    r"""Check if the permutation ``pi`` is an antishuffle with respect to the dominant element ``v``, i.e.,
 
     .. math::
 
@@ -463,7 +463,7 @@ def shuffles(v, length):
 
                 gen(S[0:i] + S[i + 1 :], l - n + (i + 1), [x] + suffix)
 
-    gen(S=range(1, len(v) + 1), l=length)
+    gen(S=list(range(1, len(v) + 1)), l=length)
     return result
 
 
@@ -498,7 +498,7 @@ def perm_action(pi, v):
     """
     # make zero-based
     pi = [x - 1 for x in pi]
-    assert len(pi) == len(v) and sorted(pi) == range(len(v))
+    assert len(pi) == len(v) and sorted(pi) == list(range(len(v)))
 
     # permute components
     d = len(pi)
@@ -522,7 +522,7 @@ class StabilizerGroup(object):
         self.blocks = defaultdict(list)
         for k, d in enumerate(v):
             self.blocks[d].append(k)
-        self.blocks = self.blocks.values()
+        self.blocks = list(self.blocks.values())
 
     def normal_form(self, hs):
         """Returns the unique normal form of a vector ``hs`` in its orbit under the stabilizer group.
@@ -546,7 +546,7 @@ class StabilizerGroup(object):
         :rtype: set of tuples
         """
         # generate all permutations of indices
-        blocks_perms = cartesian_product(map(Permutations, self.blocks))
+        blocks_perms = cartesian_product(list(map(Permutations, self.blocks)))
 
         # apply all permutations
         hs_perm = [None] * len(self.v)

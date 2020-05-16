@@ -42,7 +42,7 @@ def test_GL3_fundamental():
     R = weyl_module(3, [1])
 
     # weights
-    assert R.weights == map(vector, [[1, 0, 0], [0, 1, 0], [0, 0, 1],])
+    assert R.weights == list(map(vector, [[1, 0, 0], [0, 1, 0], [0, 0, 1],]))
 
     # affine hull of weights
     assert R.dimension_affine_hull_weights == 2
@@ -57,7 +57,7 @@ def test_GL3_fundamental():
 
     # negative root action
     V = vector
-    assert R.negative_roots == map(vector, [[-1, 1, 0], [-1, 0, 1], [0, -1, 1],])
+    assert R.negative_roots == list(map(vector, [[-1, 1, 0], [-1, 0, 1], [0, -1, 1],]))
     assert R.negative_root_action(0) == matrix([[0, 0, 0], [1, 0, 0], [0, 0, 0],])
     assert R.negative_root_action(1) == matrix(
         [[0, 0, 0], [0, 0, 0], [QQ("1/2"), 0, 0],]
@@ -156,9 +156,9 @@ def test_GL5_adjoint():
     assert R.dimension == (5 - 1) * (5 + 1)
 
     # check weights
-    got = map(tuple, R.weights)
-    expected = [(0, 0, 0, 0, 0)] * (5 - 1) + map(
-        tuple, R.positive_roots + R.negative_roots
+    got = list(map(tuple, R.weights))
+    expected = [(0, 0, 0, 0, 0)] * (5 - 1) + list(
+        map(tuple, R.positive_roots + R.negative_roots)
     )
     assert sorted(got) == sorted(expected)
 
