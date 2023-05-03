@@ -100,7 +100,7 @@ html_theme = "alabaster"
 # documentation.
 #
 html_theme_options = {
-    "github_user": "catch22",
+    "github_user": "amsqi",
     "github_repo": "moment_polytopes",
     # 'github_button': 'true',
     "github_banner": "true",
