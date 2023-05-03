@@ -78,7 +78,17 @@ def test_H_AB_dominant_334_bug():
         assert H in H_As_got
 
 
-@pytest.mark.parametrize("dims", [(2, 2), (2, 3), (2, 4), (3, 3), (3, 4), (4, 4),])
+@pytest.mark.parametrize(
+    "dims",
+    [
+        (2, 2),
+        (2, 3),
+        (2, 4),
+        (3, 3),
+        (3, 4),
+        (4, 4),
+    ],
+)
 def test_H_AB_dominant_are_extremal_edges(dims):
     for (H_A, H_B) in qmp.H_AB_dominant(*dims):
         H = tuple(H_A) + tuple(H_B)
@@ -87,7 +97,11 @@ def test_H_AB_dominant_are_extremal_edges(dims):
 
 @pytest.mark.parametrize(
     "a, b, c, count_wo_perms, count",
-    [(2, 2, 2, 3, 7), (3, 3, 3, 17, 51), (4, 4, 4, 600, 3027),],
+    [
+        (2, 2, 2, 3, 7),
+        (3, 3, 3, 17, 51),
+        (4, 4, 4, 600, 3027),
+    ],
 )
 def test_H_ABC_dominant_count(a, b, c, count_wo_perms, count):
     # excluding permutations
@@ -135,7 +149,14 @@ def test_H_candidates_count(dims, count_wo_perms):
 
 
 @pytest.mark.parametrize(
-    "dims", [(2, 2, 2), (2, 2, 4), (3, 3, 3), (4, 4, 4), (2, 2, 3, 12),]
+    "dims",
+    [
+        (2, 2, 2),
+        (2, 2, 4),
+        (3, 3, 3),
+        (4, 4, 4),
+        (2, 2, 3, 12),
+    ],
 )
 def test_no_duplicates(dims):
     stab = StabilizerGroup(dims)

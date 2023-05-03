@@ -6,7 +6,14 @@ import pytest
 
 def test_hrepr_irred():
     # unit square as an irredundant set of inequalities
-    unit_square = HRepr(ieqs=[((1, 0), 0), ((0, 1), 0), ((-1, 0), -1), ((0, -1), -1),])
+    unit_square = HRepr(
+        ieqs=[
+            ((1, 0), 0),
+            ((0, 1), 0),
+            ((-1, 0), -1),
+            ((0, -1), -1),
+        ]
+    )
     assert unit_square == unit_square.irred()
     assert (0, 0) in unit_square
     assert (-1, 0) not in unit_square
@@ -19,7 +26,12 @@ def test_hrepr_irred():
 
 @pytest.mark.xfail
 def test_irred_linearities():
-    line = HRepr(ieqs=[((1, -1), 0), ((-1, 1), 0),])
+    line = HRepr(
+        ieqs=[
+            ((1, -1), 0),
+            ((-1, 1), 0),
+        ]
+    )
 
     # irred does *NOT* convert the two inequalities into a linearity :-(
     line_irred = line.irred()
@@ -31,27 +43,56 @@ def test_irred_linearities():
 
 def test_hrepr_vrepr():
     # triangle
-    triangle_hrepr = HRepr(ieqs=[((1, 0), 0), ((0, 1), 0), ((-1, -1), -1),])
-    triangle_vrepr = VRepr(vertices=[(0, 0), (1, 0), (0, 1),])
+    triangle_hrepr = HRepr(
+        ieqs=[
+            ((1, 0), 0),
+            ((0, 1), 0),
+            ((-1, -1), -1),
+        ]
+    )
+    triangle_vrepr = VRepr(
+        vertices=[
+            (0, 0),
+            (1, 0),
+            (0, 1),
+        ]
+    )
     assert triangle_hrepr.vrepr() == triangle_vrepr
     assert triangle_vrepr.hrepr() == triangle_hrepr
 
 
 def test_hrepr_sage():
-    triangle_hrepr = HRepr(ieqs=[((1, 0), 0), ((0, 1), 0), ((-1, -1), -1),])
+    triangle_hrepr = HRepr(
+        ieqs=[
+            ((1, 0), 0),
+            ((0, 1), 0),
+            ((-1, -1), -1),
+        ]
+    )
 
     assert HRepr.from_sage(triangle_hrepr.to_sage()) == triangle_hrepr
 
 
 def test_vrepr_sage():
-    triangle_vrepr = VRepr(vertices=[(0, 0), (1, 0), (0, 1),])
+    triangle_vrepr = VRepr(
+        vertices=[
+            (0, 0),
+            (1, 0),
+            (0, 1),
+        ]
+    )
 
     assert VRepr.from_sage(triangle_vrepr.to_sage()) == triangle_vrepr
 
 
 def test_hrepr_vertices():
     # fail if there are extremal rays
-    quadrant = HRepr(ieqs=[((1, 0), 0), ((0, 1), 0),])
+    quadrant = HRepr(
+        ieqs=[
+            ((1, 0), 0),
+            ((0, 1), 0),
+        ]
+    )
     with pytest.raises(ValueError):
         quadrant.vertices()
 

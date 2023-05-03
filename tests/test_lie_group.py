@@ -22,7 +22,11 @@ def test_GL4_positive_weyl_chamber():
     # positive Weyl chamber
     pwc_hrepr_irred = positive_weyl_chamber_hrepr("A3").irred()
     pwc_hrepr_expected = HRepr(
-        ieqs=[((1, -1, 0, 0), 0), ((0, 1, -1, 0), 0), ((0, 0, 1, -1), 0),]
+        ieqs=[
+            ((1, -1, 0, 0), 0),
+            ((0, 1, -1, 0), 0),
+            ((0, 0, 1, -1), 0),
+        ]
     )
     assert pwc_hrepr_irred == pwc_hrepr_expected
 
@@ -42,7 +46,16 @@ def test_GL3_fundamental():
     R = weyl_module(3, [1])
 
     # weights
-    assert R.weights == list(map(vector, [[1, 0, 0], [0, 1, 0], [0, 0, 1],]))
+    assert R.weights == list(
+        map(
+            vector,
+            [
+                [1, 0, 0],
+                [0, 1, 0],
+                [0, 0, 1],
+            ],
+        )
+    )
 
     # affine hull of weights
     assert R.dimension_affine_hull_weights == 2
@@ -57,13 +70,36 @@ def test_GL3_fundamental():
 
     # negative root action
     V = vector
-    assert R.negative_roots == list(map(vector, [[-1, 1, 0], [-1, 0, 1], [0, -1, 1],]))
-    assert R.negative_root_action(0) == matrix([[0, 0, 0], [1, 0, 0], [0, 0, 0],])
+    assert R.negative_roots == list(
+        map(
+            vector,
+            [
+                [-1, 1, 0],
+                [-1, 0, 1],
+                [0, -1, 1],
+            ],
+        )
+    )
+    assert R.negative_root_action(0) == matrix(
+        [
+            [0, 0, 0],
+            [1, 0, 0],
+            [0, 0, 0],
+        ]
+    )
     assert R.negative_root_action(1) == matrix(
-        [[0, 0, 0], [0, 0, 0], [QQ("1/2"), 0, 0],]
+        [
+            [0, 0, 0],
+            [0, 0, 0],
+            [QQ("1/2"), 0, 0],
+        ]
     )
     assert R.negative_root_action(2) == matrix(
-        [[0, 0, 0], [0, 0, 0], [0, QQ("1/2"), 0],]
+        [
+            [0, 0, 0],
+            [0, 0, 0],
+            [0, QQ("1/2"), 0],
+        ]
     )
 
 
@@ -80,7 +116,7 @@ def test_GL12_weyl_module_21():
 
     # norms squared
     assert R.tableau_norm_squared([[1, 1], [2]]) == 1
-    assert R.tableau_norm_squared([[1, 1], [8]]) == 720 ** 2
+    assert R.tableau_norm_squared([[1, 1], [8]]) == 720**2
     assert R.tableau_norm_squared([[1, 2], [2]]) == 1
 
     # check eqns. (3.21) in my thesis -- NB: we are using zero-based indexing here!
@@ -170,7 +206,7 @@ def test_GL5_adjoint():
 
     # norms squared
     assert R.tableau_norm_squared([[1, 1], [2], [4], [5]]) == 1
-    assert R.tableau_norm_squared([[1, 4], [2], [4], [5]]) == 8 ** 2
+    assert R.tableau_norm_squared([[1, 4], [2], [4], [5]]) == 8**2
 
     assert R.tableau_norm_squared([[1, 1], [2], [3], [5]]) == 1
     assert R.tableau_norm_squared([[1, 2], [3], [4], [5]]) == 2  # !

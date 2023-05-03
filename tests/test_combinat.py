@@ -48,7 +48,13 @@ def test_cubicle_tableaux_counts(a, b, count):
     assert len(cubicle_tableaux(a, b)) == count
 
 
-@pytest.mark.parametrize("v, dominant", [((3, 2, 4), False), ((4, 3, 2), True),])
+@pytest.mark.parametrize(
+    "v, dominant",
+    [
+        ((3, 2, 4), False),
+        ((4, 3, 2), True),
+    ],
+)
 def test_is_dominant(v, dominant):
     assert is_dominant(v) == dominant
 
@@ -134,7 +140,18 @@ def test_is_extremal_edge_ieq():
 
 
 @pytest.mark.parametrize(
-    "a, b", [(2, 2), (2, 3), (3, 2), (2, 4), (4, 2), (3, 3), (3, 4), (4, 3), (4, 4),]
+    "a, b",
+    [
+        (2, 2),
+        (2, 3),
+        (3, 2),
+        (2, 4),
+        (4, 2),
+        (3, 3),
+        (3, 4),
+        (4, 3),
+        (4, 4),
+    ],
 )
 def test_primitivity_lemma(a, b):
     """Test Lemma 6.3 in Vergne and Walter (2014)."""
