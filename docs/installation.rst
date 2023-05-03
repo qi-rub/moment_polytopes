@@ -1,7 +1,7 @@
 Installation
 ============
 
-This package requires `SageMath <http://www.sagemath.org>`_ 7.5 or higher. It can be installed as follows:
+This package requires `SageMath <http://www.sagemath.org>`_ 9.8 or higher. It can be installed as follows:
 
 .. code-block:: bash
 
