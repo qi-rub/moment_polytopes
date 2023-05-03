@@ -49,11 +49,11 @@
 <span class="c1"># compute three-qubit moment polytope in H-representation</span>
 <span class="n">three_qubits</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 <span class="n">hrepr</span> <span class="o">=</span> <span class="n">moment_polytopes</span><span class="o">.</span><span class="n">qmp</span><span class="o">.</span><span class="n">hrepr</span><span class="p">(</span><span class="n">three_qubits</span><span class="p">)</span>
-<span class="nb">print</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> facets&quot;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">hrepr</span><span class="o">.</span><span class="n">ieqs</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">hrepr</span><span class="o">.</span><span class="n">ieqs</span><span class="p">)</span><span class="si">}</span><span class="s2"> facets&quot;</span><span class="p">)</span>
 
 <span class="c1"># convert to V-representation</span>
 <span class="n">vrepr</span> <span class="o">=</span> <span class="n">hrepr</span><span class="o">.</span><span class="n">vrepr</span><span class="p">()</span>
-<span class="nb">print</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> vertices&quot;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">vrepr</span><span class="o">.</span><span class="n">vertices</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">vrepr</span><span class="o">.</span><span class="n">vertices</span><span class="p">)</span><span class="si">}</span><span class="s2"> vertices&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>You can install the latest version of this package as follows:</p>
