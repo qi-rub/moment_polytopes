@@ -55,8 +55,15 @@ def _call_lrs(cmd, stdin):
     logger.debug('"%s" done (%s)', cmd, path_stdout)
     stdout = open(path_stdout, "r").read().strip()
     stderr = open(path_stderr, "r").read().strip()
+
+    # parse errors (ignoring warnings)
+    stderr = [
+        line
+        for line in stderr.splitlines()
+        if "overflow possible: restarting with GMP arithmetic" not in line
+    ]
     if stderr:
-        raise LrsError(cmd, stderr)
+        raise LrsError(cmd, "\n".join(stderr))
 
     # cleanup if no error occurred
     os.unlink(path_stdin)
@@ -262,8 +269,13 @@ class HRepr(object):
 
         # parse header
         name = lines.pop(0)
-        type = lines.pop(0)
         assert name == "my_polytope"
+
+        type = lines.pop(0)
+        if type == "my_polytope":
+            # when lrs restarts with GMP arithmetic, the polytope name will be outputted a second time
+            # TODO: catch this in a better way
+            type = lines.pop(0)
         assert type == "H-representation"
 
         # linearity?
