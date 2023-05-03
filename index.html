@@ -1,20 +1,20 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
     <title>moment_polytopes &#8212; moment_polytopes</title>
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Installation" href="installation.html" />
@@ -34,11 +34,11 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="welcome">
-<h1>Welcome!<a class="headerlink" href="#welcome" title="Permalink to this headline">¶</a></h1>
+  <section id="welcome">
+<h1>Welcome!<a class="headerlink" href="#welcome" title="Permalink to this heading">¶</a></h1>
 <p>This is a <a class="reference external" href="http://www.sagemath.org">SageMath</a> package for computing moment polytopes associated with finite-dimensional representations of compact and connected Lie groups, based on the algorithm proposed by <a class="reference external" href="https://arxiv.org/abs/1410.8144">Vergne and Walter (2014)</a> (see also <a class="reference external" href="https://arxiv.org/abs/1410.6820">Walter (2014)</a> for further detail).</p>
-<div class="section" id="introduction">
-<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">¶</a></h2>
 <p>The following code solves the one-body quantum marginal problem for three qubits:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">moment_polytopes</span>
 <span class="kn">import</span> <span class="nn">logging</span>
@@ -49,24 +49,24 @@
 <span class="c1"># compute three-qubit moment polytope in H-representation</span>
 <span class="n">three_qubits</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 <span class="n">hrepr</span> <span class="o">=</span> <span class="n">moment_polytopes</span><span class="o">.</span><span class="n">qmp</span><span class="o">.</span><span class="n">hrepr</span><span class="p">(</span><span class="n">three_qubits</span><span class="p">)</span>
-<span class="k">print</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> facets&quot;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">hrepr</span><span class="o">.</span><span class="n">ieqs</span><span class="p">)</span>
+<span class="nb">print</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> facets&quot;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">hrepr</span><span class="o">.</span><span class="n">ieqs</span><span class="p">)</span>
 
 <span class="c1"># convert to V-representation</span>
 <span class="n">vrepr</span> <span class="o">=</span> <span class="n">hrepr</span><span class="o">.</span><span class="n">vrepr</span><span class="p">()</span>
-<span class="k">print</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> vertices&quot;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">vrepr</span><span class="o">.</span><span class="n">vertices</span><span class="p">)</span>
+<span class="nb">print</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> vertices&quot;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">vrepr</span><span class="o">.</span><span class="n">vertices</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>You can install the latest version of this package as follows:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sage -i lrslib
-sage -pip install git+git://github.com/catch22/moment_polytopes --upgrade
+sage -pip install git+git://github.com/amsqi/moment_polytopes --upgrade
 </pre></div>
 </div>
-<p>Now download the <a class="reference download internal" download="" href="_downloads/5a691829acbe779275da2755c5c67ffc/three_qubits.py"><code class="xref download docutils literal notranslate"><span class="pre">three_qubits.py</span></code></a> example and run it via <code class="docutils literal notranslate"><span class="pre">sage</span> <span class="pre">three_qubits.py</span></code>.
+<p>Now download the <a class="reference download internal" download="" href="_downloads/cb397092a9b4e031ce8c9a1581140987/three_qubits.py"><code class="xref download docutils literal notranslate"><span class="pre">three_qubits.py</span></code></a> example and run it via <code class="docutils literal notranslate"><span class="pre">sage</span> <span class="pre">three_qubits.py</span></code>.
 See <a class="reference internal" href="installation.html"><span class="doc">Installation</span></a> for further detail and troubleshooting.</p>
 <p>We have used this package to compute moment polytopes associated with various <a class="reference internal" href="qmp.html"><span class="doc">Quantum Marginal Problems</span></a>.</p>
-</div>
-<div class="section" id="documentation">
-<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this heading">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
@@ -98,26 +98,26 @@ See <a class="reference internal" href="installation.html"><span class="doc">Ins
 <li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
 </ul>
 </div>
-</div>
-<div class="section" id="citation">
-<h2>Citation<a class="headerlink" href="#citation" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="citation">
+<h2>Citation<a class="headerlink" href="#citation" title="Permalink to this heading">¶</a></h2>
 <p>If you use this software, please consider citing our article:</p>
-<div class="highlight-bibtex notranslate"><div class="highlight"><pre><span></span><span class="nc">@article</span><span class="p">{</span><span class="nl">moment_polytopes</span><span class="p">,</span>
-  <span class="na">author</span>  <span class="p">=</span> <span class="s">{Vergne, M. and Walter, M.}</span><span class="p">,</span>
-  <span class="na">title</span>   <span class="p">=</span> <span class="s">{Inequalities for moment cones of finite-dimensional representations}</span><span class="p">,</span>
-  <span class="na">journal</span> <span class="p">=</span> <span class="s">{Journal of Symplectic Geometry}</span><span class="p">,</span>
-  <span class="na">year</span>    <span class="p">=</span> <span class="s">{2017}</span><span class="p">,</span>
-  <span class="na">volume</span>  <span class="p">=</span> <span class="s">{15}</span><span class="p">,</span>
-  <span class="na">number</span>  <span class="p">=</span> <span class="s">{4}</span><span class="p">,</span>
-  <span class="na">pages</span>   <span class="p">=</span> <span class="s">{1209--1250}</span><span class="p">,</span>
-  <span class="na">eprint</span>  <span class="p">=</span> <span class="s">{1410.8144}</span><span class="p">,</span>
-  <span class="na">doi</span>     <span class="p">=</span> <span class="s">{10.4310/JSG.2017.v15.n4.a8}</span><span class="p">,</span>
-  <span class="na">note</span>    <span class="p">=</span> <span class="s">{Software available at \url{https://catch22.github.io/moment_polytopes/}.}</span><span class="p">,</span>
-<span class="p">}</span>
+<div class="highlight-bibtex notranslate"><div class="highlight"><pre><span></span><span class="nc">@article</span><span class="p">{</span><span class="nl">moment_polytopes</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="na">author</span><span class="w">  </span><span class="p">=</span><span class="w"> </span><span class="s">{Vergne, M. and Walter, M.}</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="na">title</span><span class="w">   </span><span class="p">=</span><span class="w"> </span><span class="s">{Inequalities for moment cones of finite-dimensional representations}</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="na">journal</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{Journal of Symplectic Geometry}</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="na">year</span><span class="w">    </span><span class="p">=</span><span class="w"> </span><span class="s">{2017}</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="na">volume</span><span class="w">  </span><span class="p">=</span><span class="w"> </span><span class="s">{15}</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="na">number</span><span class="w">  </span><span class="p">=</span><span class="w"> </span><span class="s">{4}</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="na">pages</span><span class="w">   </span><span class="p">=</span><span class="w"> </span><span class="s">{1209--1250}</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="na">eprint</span><span class="w">  </span><span class="p">=</span><span class="w"> </span><span class="s">{1410.8144}</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="na">doi</span><span class="w">     </span><span class="p">=</span><span class="w"> </span><span class="s">{10.4310/JSG.2017.v15.n4.a8}</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="na">note</span><span class="w">    </span><span class="p">=</span><span class="w"> </span><span class="s">{Software available at \url{https://amsqi.github.io/moment_polytopes/}.}</span><span class="p">,</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
           </div>
@@ -130,34 +130,32 @@ See <a class="reference internal" href="installation.html"><span class="doc">Ins
 
 <h3>Useful Links</h3>
 <ul>
-  <li><a href="https://catch22.github.io/moment_polytopes">The Website</a></li>
+  <li><a href="https://amsqi.github.io/moment_polytopes">The Website</a></li>
   <li><a href="https://arxiv.org/abs/1410.8144">The Paper</a></li>
-  <li><a href="https://github.com/catch22/moment_polytopes">GitHub</a></li>
-  <li><a href="https://github.com/catch22/moment_polytopes/issues">Issue Tracker</a></li>
+  <li><a href="https://github.com/amsqi/moment_polytopes">GitHub</a></li>
+  <li><a href="https://github.com/amsqi/moment_polytopes/issues">Issue Tracker</a></li>
 </ul>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &copy;2014-2020 Michael Walter.
+      &copy;2014-2023 Michael Walter.
       
     </div>
 
     
-    <a href="https://github.com/catch22/moment_polytopes" class="github">
+    <a href="https://github.com/amsqi/moment_polytopes" class="github">
         <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
     </a>
     
