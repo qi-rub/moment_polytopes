@@ -72,7 +72,7 @@ with open("../moment_polytopes/__init__.py", "rb") as f:
 #
 # This is also used if you do content translation via gettext catalogs.
 # Usually you set "language" from the command line for these cases.
-language = None
+language = "en"
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
@@ -100,7 +100,7 @@ html_theme = "alabaster"
 # documentation.
 #
 html_theme_options = {
-    "github_user": "amsqi",
+    "github_user": "qi-rub",
     "github_repo": "moment_polytopes",
     # 'github_button': 'true',
     "github_banner": "true",
@@ -111,7 +111,7 @@ html_theme_options = {
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ["_static"]
+# html_static_path = ["_static"]
 
 html_sidebars = {
     "index": ["about.html", "searchbox.html"],

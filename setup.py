@@ -19,7 +19,7 @@ setup(
     long_description=long_description,
     author="Michael Walter",
     author_email="michael.walter@gmail.com",
-    url="https://amsqi.github.io/moment_polytopes/",
+    url="https://qi-rub.github.io/moment_polytopes/",
     license="MIT",
     classifiers=[
         "License :: OSI Approved :: MIT License",
