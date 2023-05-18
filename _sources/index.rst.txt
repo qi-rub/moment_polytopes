@@ -19,7 +19,7 @@ You can install the latest version of this package as follows:
 .. code-block:: bash
 
   sage -i lrslib
-  sage -pip install git+git://github.com/amsqi/moment_polytopes --upgrade
+  sage -pip install git+git://github.com/qi-rub/moment_polytopes --upgrade
 
 Now download the :download:`three_qubits.py <../examples/three_qubits.py>` example and run it via ``sage three_qubits.py``.
 See :doc:`installation` for further detail and troubleshooting.
@@ -57,5 +57,5 @@ If you use this software, please consider citing our article:
     pages   = {1209--1250},
     eprint  = {1410.8144},
     doi     = {10.4310/JSG.2017.v15.n4.a8},
-    note    = {Software available at \url{https://amsqi.github.io/moment_polytopes/}.},
+    note    = {Software available at \url{https://qi-rub.github.io/moment_polytopes/}.},
   }
