@@ -32,7 +32,6 @@ setup(
     install_requires=["tabulate"],
     extras_require={
         "dev": [
-            "bibtex-pygments-lexer",
             "pytest>=3.3",
             "Sphinx",
         ]
