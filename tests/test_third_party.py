@@ -209,7 +209,7 @@ def test_klyachko_qmp_22312_wrong():
     wrong_spec_223 = wrong_spec[: 2 + 2 + 3]
 
     # - check that this spectrum satisfies all of Klyachko's inequalities
-    for (H, c) in third_party._klyachko_qmp_bare_ieqs(dims):
+    for H, c in third_party._klyachko_qmp_bare_ieqs(dims):
         assert H.dot_product(vector(wrong_spec)) >= c
 
     # - likewise does its truncation to a 2x2x3 spectrum

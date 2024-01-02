@@ -554,8 +554,8 @@ class StabilizerGroup(object):
         for blocks_perm in blocks_perms:
             for hs in hs_iterable:
                 # permute according to (idx1 -> idx2) in each block
-                for (idx1, idx2) in zip(self.blocks, blocks_perm):
-                    for (i, j) in zip(idx1, idx2):
+                for idx1, idx2 in zip(self.blocks, blocks_perm):
+                    for i, j in zip(idx1, idx2):
                         hs_perm[j] = hs[i]
                 orbit.add(tuple(hs_perm))
         return orbit

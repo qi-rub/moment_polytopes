@@ -71,7 +71,7 @@ def H_ABC_dominant(a, b, c, include_perms=True):
 
     # add candidates with (H_A, H_B) != 0
     candidates = set()
-    for (H_A, H_B) in H_ABs:
+    for H_A, H_B in H_ABs:
         for H_C in H_Cs:
             if (H_A, H_C) in H_ACs and (H_B, H_C) in H_BCs:
                 candidates.add(stab.normal_form((H_A, H_B, H_C)))
@@ -231,7 +231,7 @@ def hrepr(dims, irred=True, **kwargs):
     stab = StabilizerGroup(dims)
     R = external_tensor_product(dims)
     ieqs_flat = []
-    for (hs, z) in H_ressayre(dims, include_perms=False, **kwargs):
+    for hs, z in H_ressayre(dims, include_perms=False, **kwargs):
         for hs_permuted in stab.orbit([hs]):
             H_permuted = sum(hs_permuted, ())
             ieqs_flat.append((H_permuted, z))
@@ -271,7 +271,7 @@ def facet_normal_form(dims, ieq):
     # (1,...,1) with sum "a" corresponds to a shift of -1 on z (since z is on the right-hand side of the equations)
     subs = [QQ((-sum(h), d)) for (h, d) in zip(hs, dims)]
     H = []
-    for (h, s, d) in zip(hs, subs, dims):
+    for h, s, d in zip(hs, subs, dims):
         H += list(vector(h) + vector([s] * d))
     H = vector(H)
     c += sum(subs)
@@ -294,7 +294,7 @@ def ieqs_wo_perms(dims, ieqs):
     assert sum(dims) == len(ieqs[0][0]), "Total dimension mismatch."
     stab = StabilizerGroup(dims)
     result = set()
-    for (H, z) in ieqs:
+    for H, z in ieqs:
         # extract and verify that traceless
         hs = [tuple(H[sum(dims[:i]) : sum(dims[: i + 1])]) for i in range(len(dims))]
         assert all(sum(h) == 0 for h in hs), "Not traceless: %s" % (hs,)

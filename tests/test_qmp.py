@@ -90,7 +90,7 @@ def test_H_AB_dominant_334_bug():
     ],
 )
 def test_H_AB_dominant_are_extremal_edges(dims):
-    for (H_A, H_B) in qmp.H_AB_dominant(*dims):
+    for H_A, H_B in qmp.H_AB_dominant(*dims):
         H = tuple(H_A) + tuple(H_B)
         assert is_extremal_edge(dims, H)
 
@@ -171,7 +171,7 @@ def test_no_duplicates(dims):
 
     # check that there are no duplicates in the set of (H_A, H_B, H_C, z) candidates
     candidates = set()
-    for (hs, z) in qmp.H_candidates(dims, include_perms=False):
+    for hs, z in qmp.H_candidates(dims, include_perms=False):
         hs_nf = stab.normal_form(hs)
         assert (hs_nf, z) not in candidates
         candidates.add((hs_nf, z))
@@ -206,7 +206,7 @@ def test_H_candidates_traceless_primitive_extremal_edges(dims):
         assert H_positivity in candidates, "Forgot positivity constraint?"
 
         # all other ones should be extremal edges
-        for (hs, z) in candidates:
+        for hs, z in candidates:
             if (hs, z) != H_positivity:
                 ieq = (sum(hs, ()), z)
                 assert is_extremal_edge_ieq(
@@ -217,7 +217,7 @@ def test_H_candidates_traceless_primitive_extremal_edges(dims):
                     assert_traceless=True,
                 )
     else:
-        for (hs, z) in candidates:
+        for hs, z in candidates:
             # check traceless
             assert all(sum(h) == 0 for h in hs), "Expect trace to be zero."
 
@@ -247,7 +247,7 @@ def test_H_candidates_traceless_primitive_extremal_edges(dims):
 def test_H_candidates_numerological(dims):
     # check that the "numerological condition" dim n_-(H < 0) == dim M(H < z) holds for all candidates (H, z)
     R = external_tensor_product(dims)
-    for (hs, z) in qmp.H_candidates(dims, include_perms=False):
+    for hs, z in qmp.H_candidates(dims, include_perms=False):
         H = vector(sum(hs, ()))
         dim_n_neg = sum(1 for alpha in R.negative_roots if alpha.dot_product(H) < 0)
         dim_M_neg = sum(1 for omega in R.weights if omega.dot_product(H) < z)
