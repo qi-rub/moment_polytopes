@@ -105,7 +105,7 @@ def test_overflow_expectations():
     # assert isinstance(N, long)
 
     with pytest.raises(OverflowError):
-        np.array([N], dtype=np.int)
+        np.array([N], dtype=int)
 
     assert np.array([N]).dtype == object
 
